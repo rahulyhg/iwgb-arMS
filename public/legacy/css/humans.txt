@@ -1,0 +1,22 @@
+/* TEAM */
+Chef: Guy McClenahan
+Site: guymac.eu
+Twitter: @guym4c
+From: Brighton, UK
+
+Copy: Emiliano Mellino
+Twitter: @mellino
+From: London, UK
+
+Help: Jim Benfield
+Twitter: @jimblano
+From: London, UK
+
+/* THANKS */
+
+/* SITE */
+Last update: 2018/08/12
+Language: English
+Doctype: HTML5
+IDE: Sublime Text
+Components: Slim PHP, Twig, Sass, jQuery, FontAwesome

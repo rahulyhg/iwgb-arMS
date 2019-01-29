@@ -1,0 +1,14 @@
+{% if not justBlogs %}
+	{% include 'arms-blogselectoption.html.twig' with {
+		'name': 	optgroup,
+		'display': 	'All ' ~ optgroup,
+		'select':	select
+	} only %}
+{% endif %}
+{% for option in options %}
+	{% include 'arms-blogselectoption.html.twig' with {
+		'name': 	option.name,
+		'display':	option.friendly_name,
+		'select':	select
+	} only %}
+{% endfor %}

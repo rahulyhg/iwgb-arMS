@@ -1,0 +1,14 @@
+{% extends 'arms-page.html.twig' %}
+
+{% block content %}
+	<form method="post" enctype="multipart/form-data" action="/arms/verify/">
+		{% include 'csrf-fields.html.twig' %}
+		<input type="hidden" name="key" value="{{ key }}">
+		<p>The verify link you have been given is only valid once, and only valid for the email associated with your future account.</p>
+		<p>Your account email:</p>
+		<input name="email" type="email" placeholder="email">
+		<p>Your new password:</p>
+		<input name="pass" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" type="password">
+		<input type="submit" value="Verify">
+	</form>
+{% endblock %}

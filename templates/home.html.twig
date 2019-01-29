@@ -1,0 +1,92 @@
+{% extends 'page.html.twig' %}
+
+{% block head %}
+	<title>IWGB</title>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" crossorigin>
+	<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js" crossorigin></script>
+{% endblock %}
+
+{% block hero %}
+	<div class="hero">
+		<div class="top">
+			<p class="caption">IWGB brings landmark case to extend rights of workers in the &lsquo;gig economy&rsquo;</p>
+			<div id="gallery-dots"></div>
+		</div>
+		<div class="bottom">
+			<div class="bottom-text">
+				<div class="logo">
+					<img src="/img/iwgb-color-transparent-circle.png">
+					<div class="logotype">
+						<img src="/img/iwgb-white-wordmark.png">
+						<h2>Independent Workers Union of Great Britain</h2>
+					</div>
+				</div>
+				<p>Putting workers first</p>
+			</div>
+			<a id="scroll-to-content"><i class="fas fa-arrow-down"></i></a>
+		</div>
+	</div>
+	<a id="joinfab" href="/join"></a>
+{% endblock %}
+
+{% block pad %}
+	<div id="content" class="content content-pad">
+		{% include 'storygrid.html.twig' %}
+	</div>
+	<div id="intro">
+		{% for element in dynamicContent.elements %}
+			{% include 'page-element.html.twig' with element only %}
+		{% endfor %}
+	</div>
+	<div class="content content-pad">
+		{% include 'branches.html.twig' with {
+			'title': 'Branches of the IWGB'
+		} %}
+	</div>
+	<div id="map"></div>
+	<div class="contact">
+		<h1>Get in touch</h1>
+		<p>Follow our social accounts for the latest updates.</p>
+		<p class="social">
+			<span><a href="//facebook.com/IWGBunion" target="_blank"><i class="fab fa-2x fa-facebook-f"></i><span>/IWGBunion</span></a></span>
+			<span><a href="//twitter.com/IWGBunion" target="_blank"><i class="fab fa-2x fa-twitter"></i><span>@IWGBunion</span></a></span>
+			<span><a href="//www.youtube.com/channel/UCYkcXSdgs8xDeTxLfU1rNtg" target="_blank"><i class="fab fa-2x fa-youtube"></i><span>IWGB</span></a></span>
+		</p>
+		<a href="//goo.gl/maps/TCHPxCMqTUn" target="_blank">
+			<p>
+				Independent Workers Union of Great Britain<br>
+				12-20 Baron St<br>
+				Angel<br>
+				London<br>
+				N1 9LL
+			</p>
+		</a>
+		<p><a href="tel:+442034907530" class="tel">0357 0943 020</a></p>
+	</div>
+{% endblock %}
+
+{% block footer %}
+	{% include 'footer.html.twig' with {
+		'map': true
+	} %}
+{% endblock %}
+
+{% block scripts %}
+	<script src="/public/legacy/js/slideshow.js"></script>
+	<script src="/public/legacy/js/story.js"></script>
+	<script>
+		$(document).ready(function() {
+			var coords = [51.532710, -0.109039];
+			var map = L.map('map', {
+				zoomControl: false,
+				scrollWheelZoom: false,
+				doubleClickZoom: false,
+			}).setView(coords, 14);
+			L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZ3V5bTRjIiwiYSI6ImNqM2Fpcml3NjAwNjczM3FrbjltMXkzbXMifQ.U-vGBUwZjmjfWu8pV8punw', {
+		    	maxZoom: 18,
+			}).addTo(map);
+			var marker = L.marker(coords).addTo(map);
+		});
+	</script>
+	<script id="dsq-count-scr" src="//iwgb.disqus.com/count.js" async></script>
+{% endblock %}

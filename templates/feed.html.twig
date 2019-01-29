@@ -1,0 +1,8 @@
+{% extends 'page.html.twig' %}
+{% block head %}
+	<title>{{ blogmeta.friendly_name }} &middot; IWGB</title>
+{% endblock %}
+{% block page %}
+	<h1 class="story-header">{{ blogmeta.friendly_name }}</h1>
+	{% include 'storygrid.html.twig' %}
+{% endblock %}

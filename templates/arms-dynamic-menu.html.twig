@@ -1,0 +1,8 @@
+{% extends 'arms-page.html.twig' %}
+
+{% block content %}
+	<p>Here you can define the layout and content of various dynamic pages that go beyond text and images and use custom elements (such as the homepage). Choose a page to view and edit it.</p>
+	{% for page in pages %}
+		<p><a href="/arms/dynamic/{{ page.name }}">{{ page.name }}</a></p>
+	{% endfor %}
+{% endblock %}

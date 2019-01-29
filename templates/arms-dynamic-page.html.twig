@@ -1,0 +1,53 @@
+{% extends 'arms-page.html.twig' %}
+
+{% block head %}
+	{{ parent() }}
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+	<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+{% endblock %}
+
+{% block content %}
+	<script>
+		function decodeGetString(s) {
+			s = decodeURIComponent(s);
+		    s = s.replace(/%%N%%/g, "\n");
+			s = s.replace(/\+/g, ' ');
+		    return s;
+		}
+	</script>
+	<form action="/arms/dynamic/{{ page }}" method="post" enctype="multipart/form-data">
+		{% include 'csrf-fields.html.twig' %}
+		{% for element in dynamic.elements %}
+			<div id="{{ element.type }}{{ loop.index0 }}-parent" class="dynamic-element">
+				<div>
+					<a href="#" id="{{ element.type }}{{ loop.index0 }}-click">
+						<h2>{{ loop.index0 }}: {{ element.type }}</h2>
+					</a>
+					<a href="#" id="{{ element.type }}{{ loop.index0 }}-delete">Delete</a>
+				</div>
+				<input type="hidden" name="{{ element.type }}{{ loop.index0 }}[type]" value="{{ element.type }}">
+				<div id="{{ element.type }}{{ loop.index0 }}-form" class="closed">
+					{% include 'arms-dynamic-field-list.html.twig' with {
+						dynamic : element,
+						static 	: static[element.type].fields,
+						parent	: element.type ~ loop.index0
+					} only %}
+				</div>
+				<script>
+					$('#{{ element.type }}{{ loop.index0 }}-click').click(function() {
+						$('#{{ element.type }}{{ loop.index0 }}-form').slideToggle('slow');
+					});
+					$('#{{ element.type }}{{ loop.index0 }}-delete').click(function() {
+						$('#{{ element.type }}{{ loop.index0 }}-parent').slideToggle('slow', function() {
+								$(this).remove();
+						});
+					});
+					$(document).ready(function() {
+						$('#{{ element.type }}{{ loop.index0 }}-form').slideToggle('slow');
+					})
+				</script>
+			</div>
+		{% endfor %}
+		<input type="submit" class="button" value="Save">
+	</form>
+{% endblock %}

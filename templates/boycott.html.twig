@@ -1,0 +1,61 @@
+{% extends 'page.html.twig' %}
+
+{% block head %}
+	{{ parent() }}
+	<meta property="og:title" content="Academics, students and politicians boycott University of London">
+	<meta name="twitter:title" content="Academics, students and politicians boycott University of London">
+	<meta property="og:url" content="https://iwgb.org.uk/post/boycottsenatehouse">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="og:type" content="website">
+	<meta property="og:image" content="https://iwgb.org.uk/img/bucket/5c0e1fadbc497.jpg">
+	<meta name="twitter:image" content="https://iwgb.org.uk/img/bucket/5c0e1fadbc497.jpg">
+	<meta name="twitter:site" content="@boycottUoL">
+	<meta name="twitter:description" content="The IWGB is the UK's leading trade union for gig economy and outsourced workers.">
+	<meta name="og:description" content="The IWGB is the UK's leading trade union for gig economy and outsourced workers.">
+{% endblock %}
+
+{% block pad %}
+
+	{# {% autoescape false %} {{ dump(supporters) }} {% endautoescape %} #}
+	<div id="intro">
+		<div class="boycott-hero">
+			<h1 class="boycott-logo">
+				<span class="boycott-logo__line">boycott</span>
+				<span class="boycott-logo__line">senate house</span>
+			</h1>
+		</div>
+		<div class="pledge content-pad">
+			<h2>I pledge to not attend or organise any events at the University of London central administration (including Senate House, Stewart House, the Warburg Institute, the Institute of Historical Research, the Institute of Advanced Legal Studies and Student Central) until all outsourced workers (including cleaners, receptionists, security officers, catering staff, porters, audiovisual workers, gardeners and maintenance workers) are made direct employees of the University of London on equal terms and conditions with other directly employed staff.</h2>
+		</div>
+		<div class="buttonArray">
+			<a id="boycott-why" href="/page/hidden/why-support-the-boycott" class="buttonArray__button">Why boycott</a>
+			<a href="//iwgb.typeform.com/to/EBnlWo?sl=n" target="_blank" rel="noreferrer" class="buttonArray__button">Join the boycott</a>
+			<a id="boycott-promote" target="_blank" rel="noreferrer" href="//clicktotweet.com/{{ random(data.tweets) }}" class="buttonArray__button">Promote the boycott</a>
+		</div>
+		<div class="slab-box light">
+			<div class="action-prompt">
+				<div class="text-container">
+					<h1>Supporters</h1>
+				</div>
+			</div>
+			<div class="detail-slabs">
+				{% for category, icon in categories %}
+					<div class="detail-slab">
+						<i class="fas fa-{{ icon }} fa-2x"></i>
+						<h2>{{ category|capitalize }}</h2>
+						{% for supporter in supporters[category] %}
+							<p><strong>{{ supporter.name }}</strong>
+								{% if supporter.desc is defined %}
+									<br>
+									<span class="desc">{{ supporter.desc }}
+								{% endif %}
+							</p>
+						{% endfor %}
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+

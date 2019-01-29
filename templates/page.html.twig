@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+	<head>
+		{% block head %}
+			<title>{{ pagetitle }} &middot; IWGB</title>
+		{% endblock %}
+		{% include 'head.html.twig' %}
+		{% block meta %}
+
+		{% endblock %}
+	</head>
+	<body>
+		<div id="wrap">
+			{% block hero %} {% endblock %}
+			{% include 'nav.html.twig' %}
+			{% block pad %}
+				<div class="content-pad">
+					{% block page %} {% endblock %}
+				</div>
+			{% endblock %}
+		</div>
+		{% block footer %}
+			{% include 'footer.html.twig' %}
+		{% endblock %}
+		{% include 'scripts.html.twig' %}
+		{% block scripts %} {% endblock %}
+	</body>
+</html>

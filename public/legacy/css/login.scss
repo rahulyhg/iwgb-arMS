@@ -1,0 +1,82 @@
+body {
+	background: #ccc url(/img/fist.png) repeat;
+	/*icon by Christopher T. Howlett */
+	background-size: 4%;
+	margin: 0;
+	font-family: "Fira Sans", Verdana, sans-serif;
+}
+
+.body-container {
+	background-color: rgba(255, 255, 255, 0.7);
+	/*opacity: 0.7;*/
+	height: 100%;
+	min-height: 100vh;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	padding: 0 20vw;
+	width: 60vw;
+}
+
+h1 {
+	font-family: "Sedgwick Ave", cursive;
+
+	span {
+		font-size: 3em;
+	}
+}
+
+h2 {
+	
+}
+
+input {
+	border: none;
+	outline: none;
+	background: none;
+	border-bottom: 3px solid #000;
+	font-family: inherit;
+	font-size: 1.5em;
+	transition: border-bottom-color 0.5s;
+}
+
+input[type=email]:focus:invalid {
+	border-bottom-color: #e74c3c !important;
+	box-shadow: none;
+}
+
+input[type=email]:invalid {
+	box-shadow: none;
+}
+
+input[type=email]:focus:valid {
+	border-bottom-color: #2ecc71;
+}
+
+input[type=submit] {
+	display: none;
+	visibility: hidden;
+}
+
+.error, .message {
+	width: 100%;
+	border-radius: 3px;
+	color: #fff;
+	padding: 10px;
+}
+
+.message i {
+	padding-right: 10px;
+}
+
+.error {
+	background-color: #c0392b;
+
+	span {
+		font-weight: 600;
+	}
+}
+
+.message {
+	background-color: #2ecc71;
+}

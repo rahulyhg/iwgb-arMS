@@ -1,0 +1,6 @@
+RewriteEngine Off
+
+<LimitExcept GET HEAD>
+  Order Allow,Deny
+  Deny from all
+</LimitExcept>

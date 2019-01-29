@@ -1,0 +1,239 @@
+// vars
+
+$bgcolor: #f5f5f5;
+$red: #c0392b;
+$green: #2ecc71;
+
+body {
+	background-color: $bgcolor;
+	font-family: "Fira Sans", Verdana, sans-serif;
+	margin: 0;
+}
+
+a {
+	color: inherit;
+}
+
+.content {
+	width: 60vw;
+	margin: 0 calc(50% - 30vw);
+	min-width: 300px;
+}
+
+.nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	div {
+		display: flex;
+		justify-content: space-between;
+
+		p, a, div {
+			padding: 10px;
+			text-align: center;
+		}
+
+		div {
+			margin: 16px 0;
+		}
+	}
+
+	.dropdown:hover {
+		cursor: pointer;
+
+		.dropdown-content {
+			display: block;
+		}
+	}
+
+	.dropdown-content {
+	    display: none;
+	    position: absolute;
+	    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	    z-index: 1;
+	    list-style: none;
+	    padding: 0;
+	    text-align: left;
+	    background-color: #fff;
+
+	    a {
+	    	padding: 10px;
+	    	text-align: left;
+
+	    	li {
+	    		padding: 0 10px;
+	    	}
+	    }
+	}
+}
+
+input[type=text], input[type=email], input[type=password], textarea {
+	border: none;
+	outline: none;
+	background: none;
+	border-bottom: 3px solid #000;
+	font-family: inherit;
+	transition: border-bottom-color 0.5s;
+	font-size: 16px;
+}
+
+input[name=title] {
+	width: 100%;
+	font-size: 1.5em;
+}
+
+input[type=submit] {
+	font-size: 1em;
+}
+
+input[type=submit], .button {
+	padding: 10px;
+	transition: background-color 0.5s, color 0.5s;
+	border-radius: 3px;
+	font-weight: 600;
+	border: none;
+	font-family: inherit;
+	text-decoration: underline;
+}
+
+input[type=submit]:hover, .button:hover {
+	background-color: #000;
+	color: #fff;
+	cursor: pointer;
+}
+
+textarea {
+	width: 100%;
+	resize: vertical;
+}
+
+select {
+	background: none;
+	border: none;
+	border-bottom: 3px solid #000;
+	font-family: inherit !important;
+	font-size: inherit;
+}
+
+#copy {
+	font-family: inherit;
+	border: 1px solid #999;
+	border-radius: 3px;
+	resize: none;
+}
+
+.post {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    border-radius: 2px;
+    padding: 15px;
+    background-color: #fff;
+    margin: 15px 0;
+
+    input[type=text] {
+		width: 100%;
+	}
+
+    .meta {
+		color: #999;
+
+		h2 {
+			margin: 0;
+		}
+
+		p::after {
+			content: "\00a0\00b7";
+		}
+
+		p:last-of-type::after {
+			content: "";
+		}
+	}
+
+	div p, div h2 {
+		display: inline;
+	}
+}
+
+.closed {
+	// display: none;
+}
+
+.dynamic-element {
+	padding: 10px;
+	display: inline;
+
+	h2 {
+		display: inline;
+	}
+
+	a {
+		margin: 0 5px;
+	}
+}
+
+.required {
+	color: $red;
+}
+
+.required::after {
+	content: " * ";
+}
+
+.error, .message {
+	width: calc(100% - 20px);
+	border-radius: 3px;
+	color: #fff;
+	padding: 10px;
+	margin: 10px 0;
+}
+
+.message {
+	display: flex;
+	justify-content: space-between;
+
+
+	i {
+		padding-right: 10px;
+	}
+
+}
+
+.error {
+	background-color: $red;
+
+	span {
+		font-weight: 600;
+	}
+}
+
+.edit::after {
+	content: "\00a0 If you were editing a post, your edit has been cancelled and you will need to click Edit again.";
+}
+
+.message {
+	background-color: $green;
+}
+
+#shortlink {
+	visibility: hidden;
+}
+
+.progress {
+	width: 100%;
+
+	#bar {
+		background-color: $green;
+		width: 0;
+	}
+}
+
+@media only screen and (max-width: 700px) {
+
+	.content {
+		width: 90vw;
+		margin: 0 5vw;
+	}
+
+}
+

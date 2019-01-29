@@ -1,0 +1,21 @@
+{% if _get.m is defined %}
+	{% if _get.u is defined %}
+		<div class="message">
+			<span>
+				<i class="fas fa-check"></i>
+				{{ _get.m|htmlentities }}
+			</span>
+			<span>
+				<i class="fas fa-undo"></i>
+				<a href="{{ _get.u|htmlentities }}">Undo</a>
+			</span>
+		</div>
+	{% else %}
+		<div class="message">
+			<span><i class="fas fa-check"></i>{{ _get.m|htmlentities }}</span>
+		</div>
+	{% endif %}
+{% endif %}
+{% if _get.e is defined %}
+		<div class="error"><span>Error: </span>{{ _get.e|htmlentities }}</div>
+{% endif %}

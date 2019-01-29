@@ -1,0 +1,48 @@
+{% extends 'arms-page.html.twig' %}
+
+{% block head %}
+	<title>{{ blogmeta.friendly_name }} &middot; árMS &middot; IWGB</title>
+{% endblock %}
+
+{% block navopts %}
+	<p>View
+		{% include 'arms-blogselect.html.twig' with {
+			'select': 		pagetitle,
+			'justBlogs':	false
+		} %}
+	</p>
+{% endblock %}
+
+{% block content %}
+	{% for post in posts %}
+		<div class="post">
+			<div>
+				<h2 title="{{ post.id }}">{{ post.title }}</h2>
+				<p>
+					by {{ post.name }}
+					{% if post.author != post.posted_by %}
+						<span>(posted by {{ post.posted_by }})</span>
+					{% endif %}
+				</p>
+			</div>
+			<div class="meta">
+				<p title="{{ post.timestamp }}">{{ post.timestamp|timeago }}</p>
+				<p><a href="/post/{{ post.id }}/{{ post.shortlink }}" target="_blank">View</a></p>
+				<p><a href="/arms/{{ post.id }}/edit">Edit</a></p>
+				<p><a href="/arms/{{ post.id }}/delete?callback=/arms/feed/{{ blogmeta.name }}/{{ page }}">Delete</a></p>
+			</div>
+		</div>
+	{% endfor %}
+	<div class="nav">
+		<p>
+			{% if page > 0 %}
+				<a href="/arms/feed/{{ blogmeta.name }}/{{ page - 1 }}">Newer posts</a>
+			{% endif %}
+		</p>
+		<p><a href="/arms/feed/{{ blogmeta.name }}/{{ page + 1 }}">Older posts</a></p>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	<script src="/js/arms/blogchanger.js"></script>
+{% endblock %}

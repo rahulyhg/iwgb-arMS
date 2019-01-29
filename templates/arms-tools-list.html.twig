@@ -1,0 +1,16 @@
+{% extends 'arms-page.html.twig' %}
+
+{% block content %}
+	<p>You may need specific organisational privileges to access certain tools.</p>
+	{% for tool in tools %}
+		<div class="post">
+			<div>
+				<h2>{{ tool.display }}</h2>
+			</div>
+			<div class="meta">
+				<p><a href="/arms/tools/{{ tool.name }}">View</a></p>
+				<p>{{ tool.description }}</p>
+			</div>
+		</div>
+	{% endfor %}
+{% endblock %}

@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+	<head>
+		{% block head %}
+			<title>{{ pagetitle }} &middot; árMS &middot; IWGB</title>
+		{% endblock %}
+		{% include 'arms-head.html.twig' %}
+	</head>
+	<body>
+		<div class="content">
+			{% block nav %}
+				<div class="nav">
+					<h1>{{ pagetitle }}</h1>
+					<div>
+						{% block navopts %}
+						{% endblock %}
+						<div class="dropdown">
+							Tools&nbsp;<i class="fas fa-angle-down"></i></a>
+							<ul class="dropdown-content">
+								<a href="https://analytics.google.com/analytics/web/#embed/report-home/a76719847w171843138p171444419/" target="_blank"><li>Analytics</li></a>
+								<a href="/arms/publish"><li>Create new post</li></a>
+								<a href="/arms/feed/all/0"><li>View posts</li></a>
+								<a href="/arms/upload" target="_blank"><li>Upload media</li></a>
+								<a href="/arms/dynamic"><li>Edit dynamic pages</li></a>
+								<a href="/arms/tools"><li>View more</li></a>
+							</ul>
+						</div>
+					</div>
+				</div>
+			{% endblock %}
+			{% include 'arms-messages.html.twig' %}
+			{% block content %}
+			{% endblock %}
+			{% block footer %}
+				<div class="footer">
+					<p><a href="/arms/logout">Log out</a></p>
+				</div>
+			{% endblock %}
+
+		</div>
+		
+		<script src="/js/arms/msgreplace.js"></script>
+		{% block scripts %}
+		{% endblock %}
+	</body>
+</html>

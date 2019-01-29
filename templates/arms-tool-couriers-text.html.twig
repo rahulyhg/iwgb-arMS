@@ -1,0 +1,91 @@
+{% extends 'arms-page.html.twig' %}
+
+{% block content %}
+	<textarea id="content" rows="3" placeholder="Your message here" autofocus required></textarea>
+	<div>
+		<p id="cost">Cost: £0.00 <br>
+			Subtotal (0 segments): £0.00 <br>
+			Transaction fee: £1.25 <br>
+			Total: £0.00</p>
+		<input type="hidden" id="email" value="{{ user.email }}">
+	</div>
+	<div class="progress">
+		<div id="bar">0</div>
+	</div>
+	<div id="stat"></div>
+	<p><input type="submit" value="Send" id="send"></p>
+
+<script>
+	var MEMBER_COUNT = 2;
+	var COST_PER_SEGMENT_GBP = 0.03;
+	var TRANSN_SURCHARGE_GBP = 1.25;
+	var GSM_CHARACTER_SET = "@£$¥èéùìòÇØøÅåΔ_ΦΓΛΩΠΨΣΘΞ^{}\[~]|€ÆæßÉ!\"#¤%&'()*+,-./0123456789:;<=>?¡ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÑÜ§¿abcdefghijklmnopqrstuvwxyzäöñüà \n";
+	var SID_CHARACTERS = "0123456789abcdefghiklmnopqrstuvwxyz".split("");
+	var sid = "";
+
+	window.onload = function() {
+		$('#content').keyup(function() {
+			var segments = 0;
+			var text = $('#content').val();
+			var encoding = 'GSM7';
+			var segmentLength = 153;
+			for (var i = 0; i < text.length; i++) {
+				if (GSM_CHARACTER_SET.indexOf(text[i]) == -1) {
+					encoding = 'UCS2';
+					segmentLength = 67;
+				}
+			}
+			if (encoding == 'GSM7' && text.length <= 160) {
+				segments = 1;
+			} else {
+				segments = Math.floor(text.length / segmentLength) + 1;
+			}
+			var cost = [getItemisedCostLine('Cost per ' + segmentLength + ' characters (' + encoding + ')', COST_PER_SEGMENT_GBP),
+				getItemisedCostLine('Subtotal (' + segments + ' segment(s))', segments * COST_PER_SEGMENT_GBP * MEMBER_COUNT),
+				getItemisedCostLine('Transaction fee', TRANSN_SURCHARGE_GBP),
+				getItemisedCostLine('Total', ((segments * MEMBER_COUNT * COST_PER_SEGMENT_GBP * 100) / 100) + TRANSN_SURCHARGE_GBP)];
+			$('#cost').html(cost.join(''));
+		});
+		for (var i = 0; i < 10; i++) {
+			sid += SID_CHARACTERS[Math.floor(Math.random() * SID_CHARACTERS.length)];
+		}
+
+		$('#send').click(function() {
+			$('#send').css({
+				visibility: 'hidden',
+			});
+			$('#bar').parent().css({
+				visibility: 'visible',
+			});
+			send(0);
+		});
+
+		function getItemisedCostLine(name, cost) {
+			return name + ": £" + Number.parseFloat(cost).toFixed(2) + "<br>";
+		}
+
+		function send(incr) {
+			$.post("../tools/couriers-text", {
+					t: $('#content').val(), 
+					i: incr,
+					s: sid,
+					e: $('#email').val()
+				}, function(result) {
+					$('#bar').text((incr + 1) + '/' + MEMBER_COUNT);
+					$('#bar').css({
+						width: ((100 / MEMBER_COUNT) * (incr + 1)) + '%'
+					});
+					console.log(result);
+					console.log(incr);
+					if (incr < (MEMBER_COUNT - 1)) {
+						send(++incr);
+					} else if (incr == (MEMBER_COUNT - 1)) {
+						window.location.replace('/arms/feed/all/0?m=Your texts have been sent.');
+					}
+				}
+			);
+		}
+	}
+</script>
+
+{% endblock %}

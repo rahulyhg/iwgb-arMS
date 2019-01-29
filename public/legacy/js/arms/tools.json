@@ -1,0 +1,16 @@
+{
+	"tools": {
+		"couriers-text": {
+			"name": "couriers-text",
+			"display": "Couriers & Logistics Text Cannon",
+			"description": "Send expensable texts to Couriers Branch members. You will need a Couriers & Logistics organisational account to use this tool. This tool is still under development and is not ready for use.",
+			"organisations": ["couriers"]
+		},
+		"couriers-credentials": {
+			"name": "couriers-credentials",
+			"display": "Couriers & Logistics Comms Access",
+			"description": "Get access to Couriers Branch social media accounts. You will need a Couriers & Logistics organisational account to use this tool.",
+			"organisations": ["couriers"]
+		}
+	}
+}

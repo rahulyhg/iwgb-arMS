@@ -1,0 +1,23 @@
+{% extends 'page.html.twig' %}
+
+{% block page %}
+	<h1>Your application</h1>
+	<form method="post" action="/join/verify/{{ id }}/verify">
+		{% include 'csrf-fields.html.twig' %}
+		<div>
+			<h2>Verify your application</h2>
+			<p>Ref: {{ id }}</p>
+			<p>To continue, please check the contact details you&rsquo;ve provided for a note from us containing verification codes.</p>
+			<p>It&rsquo;s just a precaution - we&rsquo;ve been catfished before, and we don&rsquo;t want to get hurt again.</p>
+			<p>If you can't see anything below, click or tap Verify to continue.</p>
+			{% for key in keys %}
+				<div>
+					<p>Type: {{ key.type|title }}</p>
+					<input name="keystr[{{ loop.index0 }}]" placeholder="My code">
+					<input name="type[{{ loop.index0 }}]" value="{{ key.type }}" type="hidden">
+				</div>
+			{% endfor %}
+		</div>
+		<input type="submit" value="Verify">
+	</form>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'page.html.twig' %}
+
+{% block page %}
+	{% include 'branches.html.twig' with {
+		'title': 'Join a branch as a member',
+		'joinlinks': true
+	} %}
+
+	<h2>When you join, you get</h2>
+	<ul>
+		<li><strong>Democratic rights:</strong> All members elect their workplace reps, branch officers and central union officers.</li>
+		<li><strong>Full legal protection:</strong> Members get full legal coverage after the second month of membership (Cases can be brought in the first two months of membership if the member pays a £50 surcharge, £100 for private hire license cases). <strong>The legal department will not handle cases that pre-date the member's joining date.</strong></li>
+		<li><strong>Campaigning rights:</strong> Want to transform your workplace? Members can organise and lead their own campaigns in their workplace with the support of IWGB officers</li>
+		<li><strong>English classes:</strong> Members have the right to free English classes</li>
+		<li><strong>Trade union training:</strong> The IWGB regularly runs training sessions on legal rights, organising and other vital skills</li>
+	</ul>
+	<p>All members must abide by the IWGB's <a href="/page/policies/conduct">Code of Conduct</a>.</p>
+
+
+{% endblock %}

@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="/css/login.css">
+		<link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,400italic,600,600italic|Sedgwick+Ave" rel="stylesheet" type="text/css">
+		<script src="https://use.fontawesome.com/4af2fbba06.js"></script>
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<title>IWGB &middot; árMS &middot; Sign in</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	</head>
+	<body>
+		<div class="body-container">
+			<form method="post" action="/arms/login">
+				{% include 'arms-messages.html.twig' %}
+				{% include 'csrf-fields.html.twig' %}
+				<h1><i class="fa fa-pencil-square-o fa-3x"></i><span>árMS</span></h1>
+				<h2>Please sign in.</h2>
+				{% if _get.callback is defined %}
+					<input name="callback" value="{{ _get.callback }}" type="hidden">
+				{% endif %}
+				{% if _get.q is defined %}
+					<input name="query" value="{{ _get.q }}" type="hidden">
+				{% endif %}
+				<input name="user" placeholder="email" type="email">
+				<input name="pass" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" type="password">
+				<input type="submit">
+			<form>
+		</div>
+	</body>
+</html>

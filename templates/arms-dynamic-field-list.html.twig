@@ -1,0 +1,93 @@
+
+{% for field in static %}
+	<div class="post">
+		<h3>{{ field.name }}
+			{% if field.required %}
+				<span class="required"></span>
+			{% endif %}
+		</h3>
+
+		{% if field.type == 'select' %}
+			<select name="{{ parent }}[{{ field.name }}]">
+				{% for option in field.options %}
+					<option value="{{ option }}"
+						{% if option == dynamic[field.name] %}
+							selected
+						{% endif %}
+						>{{ option }}
+					</option>
+				{% endfor %}
+			</select>
+
+		{% elseif field.type == 'text' %}
+
+			{% if field.role == 'meta' %}
+				<input type="text" 
+					name="{{ parent }}[{{ field.name }}]" 
+					value="{{ dynamic[field.name] }}"
+					{% if field.required %}
+						required
+					{% endif %}>
+
+			{% elseif field.role == 'content' %}
+				<input type="text" 
+					name="{{ parent }}[{{ field.name }}]" 
+					value="{{ dynamic.fields[field.name].content }}"
+					{% if field.required %}
+						required
+					{% endif %}>
+			{% endif %}
+
+		{% elseif field.type == 'image' %}
+			<input type="text" 
+					name="{{ parent }}[{{ field.name }}]" 
+					value="{{ dynamic.fields[field.name].src }}"
+					{% if field.required %}
+						required
+					{% endif %}>
+
+		{% elseif field.type == 'link' %}
+			<p>content</p>
+			<input type="text" 
+				name="{{ parent }}[{{ field.name }}][content]" 
+				value="{{ dynamic.fields[field.name].content }}">
+			<p>href</p>
+			<input type="text" 
+				name="{{ parent }}[{{ field.name }}][href]" 
+				value="{{ dynamic.fields[field.name].href }}">
+
+		{% elseif field.type == 'anchor-list' %}
+			<p>This field type is only editable on <a href="//github.com/guym4c/iwgb-arMS/tree/arMS-refactor/js">GitHub</a>.</p>
+			{% for item in dynamic.fields[field.name].items %}
+				<input type="hidden"
+					name="{{ parent }}[{{ field.name }}][items][{{ loop.index0 }}][display]"
+					value="{{ dynamic.fields[field.name].items[loop.index0].display }}">
+				<input type="hidden"
+					name="{{ parent }}[{{ field.name }}][items][{{ loop.index0 }}][href]"
+					value="{{ dynamic.fields[field.name].items[loop.index0].href }}">
+			{% endfor %}
+
+		{% elseif field.type == 'markdown' %}
+			<textarea id="{{ parent }}[{{ field.name }}]" 
+				name="{{ parent }}[{{ field.name }}]">
+			</textarea>
+			<script> 
+				var ed = new SimpleMDE({
+					element: document.getElementById('{{ parent }}[{{ field.name }}]')
+				});
+				ed.value(decodeGetString('{{ dynamic.fields[field.name].content|urlencode|addslashes }}'));
+			</script>
+
+		{% elseif field.type == 'repeat' %}
+			{% for column in dynamic.fields.columns.items %}
+				<h3>{{ column.name }}</h3>
+				{% include 'arms-dynamic-field-list.html.twig' with {
+					dynamic : dynamic.fields.columns.items[loop.index0],
+					static 	: field.fields,
+					parent	: parent ~ '[columns][' ~ column.name ~ ']'
+				} only %}
+			{% endfor %}
+
+		{% endif %}
+	</div>
+{% endfor %}

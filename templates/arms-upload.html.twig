@@ -1,0 +1,36 @@
+{% extends 'arms-page.html.twig' %}
+
+{% block content %}
+
+
+		<h2>Previously uploaded file</h2>
+		{% if result != '' %}
+			<p>Your file can be found at the following address:</p>
+			<textarea id="copy">{{ result }}</textarea>
+			<a id="clickToCopy" href="#" class="button">Copy address</a>
+		{% else %}
+			<p>No previously uploaded files found</p>
+		{% endif %}
+	<h2>Upload new file</h2>
+	<p>Upload images or other files to the árMS server to use in a posts and articles.</p>
+	<p>This tool will accept any file, but all will be renamed and given a shortlink - if you need to upload a file, then it&rsquo;s probably best to use an external filesite.</p>
+	<form action="/arms/upload" method="post" enctype="multipart/form-data">
+		{% include 'csrf-fields.html.twig' %}
+		<p><input type="file" class="button" name="file" required></p>
+		<p><input type="submit" value="Upload"></p>
+	</form>
+
+{% endblock %}
+
+{% block scripts %}
+	<script>
+		$(document).ready(function() {
+			$('#copy').select();
+		});
+		$('#clickToCopy').click(function() {
+			$('#copy').select();
+			document.execCommand('copy');
+			console.log($('#copy').val());
+		});
+	</script>
+{% endblock %}

@@ -1,0 +1,24 @@
+<select name="blog" id="blogs">
+	{% if select == '' %}
+		{% include 'arms-blogselectoption.html.twig' with {
+			'name': 	'did-not-supply',
+			'display': 	''
+		} only %}
+	{% endif %}
+	<optgroup label="Blogs">
+		{% include 'arms-blogselectoptions.html.twig' with {
+			'options': 	blogs,
+			'optgroup': 'posts',
+			'select':	select,
+			'justBlogs':justBlogs
+		} only %}
+	</optgroup>
+	<optgroup label="Page categories">
+		{% include 'arms-blogselectoptions.html.twig' with {
+			'options': 	categories,
+			'optgroup': 'pages',
+			'select':	select,
+			'justBlogs':justBlogs
+		} only %}
+	</optgroup>
+</select>

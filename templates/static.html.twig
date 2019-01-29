@@ -1,0 +1,37 @@
+{% extends 'page.html.twig' %}
+
+{% block head %}
+	<title>{{ page.title }} &middot; IWGB </title>
+{% endblock %}
+
+{% block pad %}
+	{% if page.header_img != '' %}
+		<div class="herobrine grayscale content-mid" style="background: url(/img/press.jpg) center/cover">
+			<h1>{{ page.title }}</h1>
+		</div>
+	{% endif %}
+	<div class="nav page-nav content-pad">
+		<h1>{{ page.friendly_name }}</h1>
+		<ul class="menu">
+			{% for item in nav %}
+				<a href="/page/{{ page.name }}/{{ item.shortlink }}"><li>{{ item.title }}</li></a>
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="content-mid">
+		{% if page.header_img == '' %}
+			<h1>{{ page.title }}</h1>
+		{% endif %}
+		<div class="article">
+			<div class="md">
+				{% autoescape false %}
+					{{ page.content|htmlentities|md }}
+				{% endautoescape %}
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	<script src="/js/caption.js"></script>
+{% endblock %}

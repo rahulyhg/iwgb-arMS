@@ -1,0 +1,13 @@
+<div class="tile {{ direction }} {{ color }}">
+	<div>
+		<h1>{{ fields.heading.content }}</h1>
+		<p>
+			{% autoescape false %}
+				{{ fields.body.content|htmlentities|md }}
+			{% endautoescape %}
+		</p>
+	</div>
+	<div class="img" style="background: url({{ fields.image.src }}) center/cover">
+		<div class="slant"></div>
+	</div>
+</div>

@@ -1,0 +1,112 @@
+{
+	"elements": {
+		"yt-embed": {
+			"name": "yt-embed",
+			"fields": {
+				"video": {
+					"name": "video",
+					"type": "text",
+					"role": "content",
+					"required": true
+				}
+			}
+		},
+		"slant-box": {
+			"name": "slant-box",
+			"fields": {
+				"color": {
+					"name": "color",
+					"type": "select",
+					"role": "meta",
+					"options": ["dark", "light", "red"],
+					"required": true
+				},
+				"direction": {
+					"name": "direction",
+					"type": "select",
+					"options": ["left", "right"],
+					"role": "meta",
+					"required": true
+				},
+				"heading": {
+					"name": "heading",
+					"type": "text",
+					"role": "content",
+					"required": true
+				},
+				"body": {
+					"name": "body",
+					"type": "markdown",
+					"role": "content",
+					"required": true
+				},
+				"image": {
+					"name": "image",
+					"type": "image",
+					"role": "content",
+					"required": true
+				}
+			}
+		},
+		"tri-promo": {
+			"name": "tri-promo",
+			"fields": {
+				"backgroundType": {
+					"name": "backgroundType",
+					"type": "select",
+					"role": "meta",
+					"options": ["color", "image"]
+				},
+				"backgroundAsset": {
+					"name": "backgroundAsset",
+					"type": "text",
+					"role": "meta",
+					"required": true
+				},
+				"heading": {
+					"name": "heading",
+					"type": "text",
+					"role": "content",
+					"required": true
+				},
+				"subheading": {
+					"name": "subheading",
+					"type": "text",
+					"role": "content",
+					"required": false
+				},
+				"intro": {
+					"name": "intro",
+					"type": "markdown",
+					"role": "content",
+					"required": false
+				},
+				"columns": {
+					"name": "columns",
+					"type": "repeat",
+					"iterations": 3,
+					"fields": {
+						"icon": {
+							"name": "icon",
+							"type": "text",
+							"role": "content",
+							"required": true
+						},
+						"heading": {
+							"name": "heading",
+							"type": "text",
+							"role": "content",
+							"required": true
+						},
+						"body": {
+							"name": "body",
+							"type": "markdown",
+							"role": "content",
+							"required": true
+						}
+					}
+				}
+			}
+		}
+	}
+}

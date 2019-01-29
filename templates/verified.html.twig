@@ -1,0 +1,29 @@
+{% extends 'page.html.twig' %}
+
+{% block head %}
+	{{ parent() }}
+
+	<style>
+
+	.rainbow {
+		background-image: -webkit-gradient( linear, left top, right top, color-stop(0, #f22), color-stop(0.15, #f2f), color-stop(0.3, #22f), color-stop(0.45, #2ff), color-stop(0.6, #2f2),color-stop(0.75, #2f2), color-stop(0.9, #ff2), color-stop(1, #f22) );
+		background-image: gradient( linear, left top, right top, color-stop(0, #f22), color-stop(0.15, #f2f), color-stop(0.3, #22f), color-stop(0.45, #2ff), color-stop(0.6, #2f2),color-stop(0.75, #2f2), color-stop(0.9, #ff2), color-stop(1, #f22) );
+		color:transparent;
+		-webkit-background-clip: text;
+		background-clip: text;
+		text-decoration: underline;
+		font-variant: italic;
+	}
+	</style>
+{% endblock %}
+
+{% block page %}
+	<h1>Proceed to payment</h1>
+	<div>
+		<p>Ref: {{ id }}</p>
+		<p><strong>You must click Pay Now below to complete your application.</strong></p>
+		<p>Your application has been verified, and will be complete your payment has been set up.</p>
+		<p>Our payment provider may require you to re-enter some information that has been given on your application. This information is held by our payment provider separately and is required by them in order to set up a direct debit with your authority.</p>
+		<p><a href="{{ membership.link }}" class="button">Pay now</p>
+	</div>
+{% endblock %}

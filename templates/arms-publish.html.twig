@@ -1,0 +1,88 @@
+{% extends 'arms-page.html.twig' %}
+
+{% block head %}
+	{{ parent() }}
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+	<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+{% endblock %}
+
+{% block content %}
+	<form action="/arms/publish" method="post" enctype="multipart/form-data">
+		{% include 'csrf-fields.html.twig' %}
+		{% if overwrite.do %}
+			<input type="hidden" name="overwrite" value="{{ overwrite.id }}">
+			<p><input type="text" name="title" placeholder="Title" autofocus value="{{ overwrite.title }}" required></p>
+		{% else %}
+			<p><input type="text" name="title" placeholder="Title" autofocus required></p>
+		{% endif %}
+		<p>
+			Posting on
+			{% include 'arms-blogselect.html.twig' with {
+				'select': 		select,
+				'justBlogs': 	true,
+			} %}
+			as
+			<select name="author">
+				{% for user in users %}
+					<option value="{{ user.email }}" 
+						{% if not admin and currentuser != user.email %} 
+							disabled 
+						{% endif %}
+						{% if overwrite.do and overwrite.author == user.email %}
+							selected 
+						{% endif %}
+						{% if currentuser == user.email and not overwrite.do %}
+							selected 
+						{% endif %}>
+							{{ user.name }}
+					</option>
+				{% endfor %}
+			</select>
+			<span id="shortlink">
+				 with shortlink
+				<input type="text" name="shortlink">
+			</span>
+		</p>
+		<textarea name="content"></textarea>
+		<p>Language: 
+			<select name="language">
+				<option value="en">English</option>
+				<option value="es">Spanish</option>
+			</select>
+		</p>
+		<p>Upload new header image: <input type="file" accept="image/*" name="header_img"></p>
+		<p>Your post will need a header image to be featured in the large &lsquo;latest&rsquo; box in any post feed.</p>
+		<input type="submit" class="button" value="Publish">
+		<p>If you are posting a page, you&rsquo;ll need to specify a shortlink with no caps or spaces - for example, for the page Our History, use <code>our-history</code>.</p>
+	</form>
+{% endblock %}
+
+{% block scripts %}
+	<script src="/js/arms/addshortlinkinput.js"></script>
+	<script>
+		function decodeGetString(s) {
+			s = decodeURIComponent(s);
+		    s = s.replace(/%%N%%/g, "\n");
+			s = s.replace(/\+/g, ' ');
+		    return s;
+		} 
+
+
+		var ed = new SimpleMDE({
+			autosave: {
+				enabled: true,
+				uniqueId: "publish",
+			},
+			delay: 1000,
+			insertTexts: {
+				image: ["![Caption|Credit](http://", ")"],
+			},
+		});
+		{% if _get.t is defined %}
+			ed.value(decodeGetString("{{ _get.t|urlencode|addslashes }}"));
+		{% elseif overwrite.do %}
+			ed.value(decodeGetString("{{ overwrite.content|urlencode|addslashes }}"));
+		{% endif %}
+
+	</script>
+{% endblock %}

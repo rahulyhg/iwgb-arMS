@@ -1,0 +1,25 @@
+<h1 class="story-header">{{ title }}</h1>
+<div class="stories half-height">
+	{% for branch in branches %}
+		{% if joinlinks %}
+			{% if branch.joining.type == 'external' %}
+				<a href="{{ branch.joining.link }}" target="_blank" class="story">
+			{% else %}
+				<a href="/join/{{ branch.name }}" class="story">
+			{% endif %}
+		{% elseif branch.website.type == "external" %}
+			<a href="//{{ branch.website.link }}" target="_blank" class="story">
+		{% elseif branch.website.type == "microsite" %}
+			<a href="#" class="story"><!-- TODO -->
+		{% elseif branch.website.type == "none" %}
+			<a href="#" class="story">
+		{% endif %}
+				<div class="story-container">
+					<div>
+						<h2>{{ branch.display }}</h2>
+						<p>{{ branch.desc }}</p>
+					</div>
+				</div>
+			</a>
+	{% endfor %}
+</div>

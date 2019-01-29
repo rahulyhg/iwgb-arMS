@@ -1,0 +1,26 @@
+{% for field in fields %}
+	{% if field.type == 'text' or field.type == 'numeric' or field.type == 'email' or field.type == 'tel' or field.type == 'date' %}
+		<input type="{{ field.type }}" name="{{ field.name }}" placeholder="{{ field.display }}" {% if field.autocomplete is defined %} autocomplete="{{ field.autocomplete }}" {% endif %} {% if field.required is defined %} {% if field.required %} required {% endif %} {% endif %}>
+	{% elseif field.type == 'label' %}
+		<p>{{ field.display }}</p>
+	{% elseif field.type == 'label-md' %}
+		{% autoescape false %}
+			<p>{{ field.display|htmlentities|md }}</p>
+		{% endautoescape %}
+	{% elseif field.type == 'select' %}
+		<select name="{{ field.name }}">
+			{% if field.required is not defined %}
+				{% if not field.required %}
+					<option value="did-not-supply"></option>
+				{% endif %}
+			{% endif %}
+			{% for option in field.options %}
+				<option value="{{ option.name }}">{{ option.display }}</option>
+			{% endfor %}
+		</select>
+	{% elseif field.type == 'textarea' %}
+		<textarea rows="{{ field.size }}" name="{{ field.name }}" placeholder="{{ field.display }}" {% if field.required is defined %} {% if field.required %} required {% endif %} {% endif %}></textarea>
+	{% elseif field.type == 'checkbox' %}
+		<label><input type="checkbox" name="{{ field.name }}" {% if field.required is defined %} {% if field.required %} required {% endif %} {% endif %}>{{ field.display }}</label>
+	{% endif %}
+{% endfor %}

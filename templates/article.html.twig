@@ -1,0 +1,88 @@
+{% extends 'page.html.twig' %}
+
+{% block head %}
+	<title>{{ post.title }} &middot; IWGB</title>
+{% endblock %}
+
+{% block meta %}
+	{% include 'meta.html.twig' with {
+		'title': 	post.title + ' &middot; IWGB',
+		'url': 		'iwgb.co.uk/post/' + post.id + '/' + post.shortlink,
+		'image':	post.header_img
+	} only %}
+{% endblock %}
+
+{% block pad %}
+	<div class="content-narrow">
+		<div class="headline">
+			<h1>{{ post.title|htmlentities }}</h1>
+			{% if post.header_img != '' %}
+				<img class="header_img" src="/img/bucket/{{ post.header_img }}.jpg">
+			{% endif %}
+		</div>
+		<div class="content-columns">
+			<div class="meta">
+				<img src="/img/bucket/{{ post.photo_id }}.jpg">
+				<div>
+					<h3>{{ post.name }}</h3>
+					<p>{{ post.timestamp|nicedate }}</p>
+					<p class="disqus-comment-count" data-disqus-identifier="{{ post.id }}-{{ post.shortlink }}"></p>
+				</div>
+			</div>
+			<div class="article">
+				<div class="md">
+					{% autoescape false %}
+						{{ post.content|htmlentities|md }}
+					{% endautoescape %}
+				</div>
+				<p class="social">
+					<span><a href="//www.facebook.com/sharer/sharer.php?u=http://iwgb.org.uk/post/{{ post.id }}/{{ post.shortlink }}" target="_blank"><i class="fab fa-2x fa-facebook-f"></i><span>Share on Facebook</span></a></span>
+					<span><a href="//twitter.com/share?text={{ post.title }}&url=http://iwgb.org.uk/post/{{ post.id }}/{{ post.shortlink }}" target="_blank"><i class="fab fa-2x fa-twitter"></i><span>Tweet this article</span></a></span>
+				</p>
+
+			</div>
+			<div class="links">
+				<h2>Featured</h2>
+				<div>
+					<div class="story featured">
+						<a href="/post/{{ featured.id }}/{{ featured.shortlink }}"><h3>{{ featured.title }}</h3></a>
+						<p>{{ featured.timestamp|timeago }}</p>
+					</div>
+				</div>
+				<h2>Latest stories</h2>
+				<div>
+					{% for story in stories %}
+						<div class="story">
+							<a href="/post/{{ story.id }}/{{ story.shortlink }}"><h3>{{ story.title }}</h3></a>
+							<p>{{ story.timestamp|timeago }}</p>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		<div id="disqus_thread"></div>
+			{% autoescape false %}
+				<script>
+					var disqus_config = function () {
+						this.page.identifier = '{{ post.id }}-{{ post.shortlink }}';
+						this.page.title = '{{ post.title|removequotes }}'; 
+						this.page.url = 'https://iwgb.org.uk/post/{{ post.id }}/{{ post.shortlink }}/';
+					};
+
+					(function() {
+						var d = document, s = d.createElement('script');
+						s.src = 'https://iwgb.disqus.com/embed.js';
+						s.setAttribute('data-timestamp', +new Date());
+						(d.head || d.body).appendChild(s);
+					})();
+				</script>
+			{% endautoescape %}
+			<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	<script id="dsq-count-scr" src="//iwgb.disqus.com/count.js" async></script>
+	<script src="/js/caption.js"></script>
+{% endblock %}
