@@ -26,7 +26,7 @@ class Slim implements ServiceProviderInterface {
             };
         };
 
-        $c[App::class] = function (Container $c): App {
+        $c['slim'] = function (Container $c): App {
             /** @var $c \TypeHinter */
 
             $app = new App($c);

@@ -17,7 +17,7 @@ class Doctrine implements ServiceProviderInterface {
      */
     public function register(Container $c) {
 
-        $c[EntityManager::class] = function (Container $c): EntityManager {
+        $c['em'] = function (Container $c): EntityManager {
             $config = Setup::createAnnotationMetadataConfiguration(
                 $c['settings']['doctrine']['metadata_dirs'],
                 $c['settings']['doctrine']['dev_mode']
