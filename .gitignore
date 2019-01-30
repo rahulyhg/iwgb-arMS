@@ -41,8 +41,13 @@ composer.phar
 composer.lock
 /vendor/
 
-# Twig cache
+# app caches
 /cache/
+/var/
 
 # Old config files
 /legacy/config/
+
+# config files
+/config/
+!/config/schema/

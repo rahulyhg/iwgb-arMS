@@ -2,34 +2,36 @@
 
 namespace Domain;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * src/Domain/PwKeys
  *
- * @Table(name="pw_keys", indexes={@Index(name="email", columns={"email"})})
- * @Entity
+ * @ORM\Table(name="pw_keys", indexes={@ORM\Index(name="email", columns={"email"})})
+ * @ORM\Entity
  */
 class PwKey {
     /**
      * @var string
      *
-     * @Column(name="keystr", type="string", length=23, nullable=false)
-     * @Id
+     * @ORM\Column(name="keystr", type="string", length=23, nullable=false)
+     * @ORM\Id
      */
     private $keystr;
 
     /**
      * @var \DateTime
      *
-     * @Column(name="timestamp", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="timestamp", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $timestamp = 'CURRENT_TIMESTAMP';
 
     /**
      * @var User
      *
-     * @ManyToOne(targetEntity="User")
-     * @JoinColumns({
-     *   @JoinColumn(name="email", referencedColumnName="email")
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="email", referencedColumnName="email")
      * })
      */
     private $email;

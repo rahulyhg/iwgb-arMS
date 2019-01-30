@@ -2,6 +2,8 @@
 
 namespace Domain;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * src/Domain/Verify
  *

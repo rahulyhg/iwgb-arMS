@@ -2,48 +2,50 @@
 
 namespace Domain;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
- * @Table(name="blogs", indexes={
- *     @Index(name="admin", columns={"admin"})
+ * @ORM\Table(name="blogs", indexes={
+ *     @ORM\Index(name="admin", columns={"admin"})
  * })
- * @Entity
+ * @ORM\Entity
  */
 class Blog {
     /**
      * @var string
      *
-     * @Column(name="name", type="string", length=20, nullable=false)
-     * @Id
+     * @ORM\Column(name="name", type="string", length=20, nullable=false)
+     * @ORM\Id
      */
     private $name;
 
     /**
      * @var string
      *
-     * @Column(name="friendly_name", type="string", length=100, nullable=false)
+     * @ORM\Column(name="friendly_name", type="string", length=100, nullable=false)
      */
     private $friendlyName;
 
     /**
      * @var string
      *
-     * @Column(name="friendly_singular", type="string", length=100, nullable=false)
+     * @ORM\Column(name="friendly_singular", type="string", length=100, nullable=false)
      */
     private $friendlySingular;
 
     /**
      * @var string
      *
-     * @Column(name="type", type="string", length=10, nullable=false)
+     * @ORM\Column(name="type", type="string", length=10, nullable=false)
      */
     private $type;
 
     /**
      * @var User
      *
-     * @ManyToOne(targetEntity="User")
-     * @JoinColumns({
-     *   @JoinColumn(name="admin", referencedColumnName="email")
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="admin", referencedColumnName="email")
      * })
      */
     private $admin;

@@ -2,79 +2,81 @@
 
 namespace Domain;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
- * @Table(name="posts", indexes={
- *     @Index(name="blog", columns={"blog"}),
- *     @Index(name="author", columns={"author"}),
- *     @Index(name="posted_by", columns={"posted_by"})
+ * @ORM\Table(name="posts", indexes={
+ *     @ORM\Index(name="blog", columns={"blog"}),
+ *     @ORM\Index(name="author", columns={"author"}),
+ *     @ORM\Index(name="posted_by", columns={"posted_by"})
  * })
- * @Entity
+ * @ORM\Entity(repositoryClass="PostRepository")
  */
 class Post {
     /**
      * @var string
      *
-     * @Column(name="id", type="string", length=13, nullable=false)
-     * @Id
-     * @GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="id", type="string", length=13, nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var string
      *
-     * @Column(name="content", type="text", length=16777215, nullable=false)
+     * @ORM\Column(name="content", type="text", length=16777215, nullable=false)
      */
     private $content;
 
     /**
      * @var string
      *
-     * @Column(name="language", type="string", length=2, nullable=false, options={"default"="en"})
+     * @ORM\Column(name="language", type="string", length=2, nullable=false, options={"default"="en"})
      */
     private $language = 'en';
 
     /**
      * @var string
      *
-     * @Column(name="shortlink", type="string", length=30, nullable=false)
+     * @ORM\Column(name="shortlink", type="string", length=30, nullable=false)
      */
     private $shortlink;
 
     /**
      * @var \DateTime
      *
-     * @Column(name="timestamp", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="timestamp", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $timestamp = 'CURRENT_TIMESTAMP';
 
     /**
      * @var string
      *
-     * @Column(name="title", type="string", length=200, nullable=false)
+     * @ORM\Column(name="title", type="string", length=200, nullable=false)
      */
     private $title;
 
     /**
      * @var string
      *
-     * @Column(name="header_img", type="string", length=13, nullable=true)
+     * @ORM\Column(name="header_img", type="string", length=13, nullable=true)
      */
     private $headerImage;
 
     /**
      * @var bool
      *
-     * @Column(name="deleted", type="boolean", nullable=false)
+     * @ORM\Column(name="deleted", type="boolean", nullable=false)
      */
     private $deleted = false;
 
     /**
      * @var User
      *
-     * @ManyToOne(targetEntity="User")
-     * @JoinColumns({
-     *   @JoinColumn(name="author", referencedColumnName="email")
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="author", referencedColumnName="email")
      * })
      */
     private $author;
@@ -82,9 +84,9 @@ class Post {
     /**
      * @var Blog
      *
-     * @ManyToOne(targetEntity="Blog")
-     * @JoinColumns({
-     *   @JoinColumn(name="blog", referencedColumnName="name")
+     * @ORM\ManyToOne(targetEntity="Blog")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="blog", referencedColumnName="name")
      * })
      */
     private $blog;
@@ -92,9 +94,9 @@ class Post {
     /**
      * @var User
      *
-     * @ManyToOne(targetEntity="User")
-     * @JoinColumns({
-     *   @JoinColumn(name="posted_by", referencedColumnName="email")
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="posted_by", referencedColumnName="email")
      * })
      */
     private $postedBy;
@@ -135,6 +137,13 @@ class Post {
 
         $post->generateShortlink();
         return $post;
+    }
+
+    /**
+     * @return string
+     */
+    public function getId(): string {
+        return $this->id;
     }
 
     /**

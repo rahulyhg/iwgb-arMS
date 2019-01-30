@@ -2,52 +2,54 @@
 
 namespace Domain;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
- * @Table(name="users")
- * @Entity
+ * @ORM\Table(name="users")
+ * @ORM\Entity
  */
 class User {
     /**
      * @var string
      *
-     * @Column(name="email", type="string", length=100, nullable=false)
-     * @Id
-     * @GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="email", type="string", length=100, nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $email;
 
     /**
      * @var string
      *
-     * @Column(name="pass", type="string", length=255, nullable=false)
+     * @ORM\Column(name="pass", type="string", length=255, nullable=false)
      */
     private $pass;
 
     /**
      * @var string
      *
-     * @Column(name="permissions", type="string", length=20, nullable=false)
+     * @ORM\Column(name="permissions", type="string", length=20, nullable=false)
      */
     private $permissions;
 
     /**
      * @var string
      *
-     * @Column(name="organisation", type="string", length=20, nullable=false)
+     * @ORM\Column(name="organisation", type="string", length=20, nullable=false)
      */
     private $organisation;
 
     /**
      * @var string
      *
-     * @Column(name="name", type="string", length=100, nullable=false)
+     * @ORM\Column(name="name", type="string", length=100, nullable=false)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @Column(name="photo_id", type="string", length=13, nullable=false)
+     * @ORM\Column(name="photo_id", type="string", length=13, nullable=false)
      */
     private $photoId;
 
