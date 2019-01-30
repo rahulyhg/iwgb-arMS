@@ -1,0 +1,140 @@
+{
+  "$schema:": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://iwgb.org.uk/config/schema/branch.schema.json",
+  "title": "Branch",
+  "description": "IWGB branch data",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "cost": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "description": "The cost name, with no spaces or capitals",
+          "type": "string",
+          "pattern": "^[a-z\\-]+$"
+        },
+        "display": {
+          "description": "How this cost displays on the website",
+          "type": "string"
+        },
+        "amount": {
+          "description": "The monthly cost of this option",
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "href": {
+          "description": "The link to the payment page that the applicant will be passed to upon form completion",
+          "type": "string",
+          "pattern": "https?:\/\/[a-zA-Z0-9.]{2,256}\\.[a-z]{2,6}[\/\\S]*"
+        }
+      },
+      "required": [
+        "name",
+        "display",
+        "amount",
+        "href"
+      ]
+    },
+    "option": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "description": "The option name, with no spaces or capitals",
+          "type": "string",
+          "pattern": "^[a-z\\-]+$"
+        },
+        "display": {
+          "description": "How this option displays on the website",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "display"
+      ]
+    }
+  },
+  "branch": {
+    "display": {
+      "description": "How your branch name displays",
+      "type": "string"
+    },
+    "description": {
+      "description": "A short and snappy description of the branch",
+      "type": "string"
+    },
+    "website": {
+      "description": "Your branch's website. At the moment, this can only be 'external'",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "description": "Whether the website is an external address or an iwgb.org.uk microsite",
+          "type": "string",
+          "enum": [
+            "external",
+            "microsite"
+          ]
+        },
+        "href": {
+          "description": "The link to the website",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "href"
+      ]
+    },
+    "joining": {
+      "description": "How people join your branch",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "description": "Whether you use iwgb.org.uk joining or an external form",
+          "type": "string",
+          "enum": [
+            "direct-debit",
+            "external"
+          ]
+        },
+        "href": {
+          "description": "If you use an external form, put the link here.",
+          "type": "string",
+          "pattern": "https?:\/\/[a-zA-Z0-9.]{2,256}\\.[a-z]{2,6}[\/\\S]*"
+        }
+      },
+      "required": [
+        "kind"
+      ]
+    },
+    "costs": {
+      "description": "Monthly membership costs that your branch has available to new members",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/cost"
+      }
+    },
+    "fields": {
+      "description": "Custom fields in your branch's membership form",
+      "type": "array",
+      "items": {
+        "$ref": "field.schema.json#/definitions/field"
+      }
+    }
+  },
+  "required": [
+    "display",
+    "description",
+    "website",
+    "joining",
+    "costs",
+    "fields"
+  ]
+}
+

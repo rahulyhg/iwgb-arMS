@@ -1,0 +1,143 @@
+{
+  "$schema:": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://iwgb.org.uk/config/schema/field.schema.json",
+  "description": "One item in your branch's join form. You can view more complex options by changing the item dropdown above",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "field": {
+      "oneOf": [
+        {
+          "properties": {
+            "name": {
+              "description": "The cost name, with no spaces or capitals",
+              "type": "string",
+              "pattern": "^[a-z\\-]+$"
+            },
+            "display": {
+              "description": "How this cost displays on the website",
+              "type": "string"
+            },
+            "kind": {
+              "description": "What kind of field this is",
+              "type": "string",
+              "enum": [
+                "text",
+                "number",
+                "date",
+                "month",
+                "time",
+                "checkbox",
+                "label"
+              ]
+            },
+            "required": {
+              "description": "Whether this field is required",
+              "type": "boolean",
+              "format": "checkbox"
+            }
+          },
+          "required": [
+            "name",
+            "display",
+            "kind",
+            "required"
+          ]
+        },
+        {
+          "properties": {
+            "display": {
+              "description": "How this cost displays on the website",
+              "type": "string",
+              "format": "markdown"
+            },
+            "format": {
+              "description": "What kind of field this is",
+              "type": "string",
+              "enum": [
+                "label-md"
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "name": {
+              "description": "The cost name, with no spaces or capitals",
+              "type": "string",
+              "pattern": "^[a-z\\-]+$"
+            },
+            "display": {
+              "description": "How this cost displays on the website",
+              "type": "string"
+            },
+            "kind": {
+              "description": "What kind of field this is",
+              "type": "string",
+              "enum": [
+                "textarea"
+              ]
+            },
+            "size": {
+              "description": "How many lines your large textbox should have",
+              "type": "integer",
+              "exclusiveMinimum": 0
+            },
+            "required": {
+              "description": "Whether this field is required",
+              "type": "boolean",
+              "format": "checkbox"
+            }
+          },
+          "required": [
+            "name",
+            "display",
+            "kind",
+            "size",
+            "required"
+          ]
+        },
+        {
+          "properties": {
+            "name": {
+              "description": "The cost name, with no spaces or capitals",
+              "type": "string",
+              "pattern": "^[a-z\\-]+$"
+            },
+            "display": {
+              "description": "How this cost displays on the website",
+              "type": "string"
+            },
+            "kind": {
+              "description": "What kind of field this is",
+              "type": "string",
+              "enum": [
+                "select"
+              ]
+            },
+            "options": {
+              "description": "The options that your drop-down box has",
+              "type": "array",
+              "items": {
+                "$ref": "branch.schema.json#/definitions/option"
+              },
+              "minItems": 1
+            },
+            "required": {
+              "description": "Whether this field is required",
+              "type": "boolean",
+              "format": "checkbox"
+            }
+          },
+          "required": [
+            "name",
+            "display",
+            "kind",
+            "options",
+            "required"
+          ]
+        }
+      ]
+    }
+  }
+}

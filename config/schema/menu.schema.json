@@ -1,0 +1,99 @@
+{
+  "$schema:": "http://json-schema.org/draft-07/schema#",
+  "$id": "/js/nav.schema.json",
+  "title": "Nav",
+  "description": "Declares the elements that appear in a navigation menu",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "rootNode": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "display": {
+          "description": "what this dropdown list displays as when minimised",
+          "type": "string"
+        },
+        "list-nodes": {
+          "description": "items in this drop-down list",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/leafNode"
+          }
+        }
+      },
+      "required": ["display", "list-nodes"]
+    },
+    "leafNode": {
+      "type": "object",
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "properties": {
+            "display": {
+              "description": "The label of this node in the drop-down list",
+              "type": "string"
+            },
+            "href": {
+              "description": "The internal link that this node points to. With internal links, you only need include from the first slash (e.g., /join rather than https://iwgb.org.uk/join)",
+              "type": "string",
+              "pattern": "^\/\\S*$"
+            },
+            "type": {
+              "description": "Whether this link is internal or external",
+              "type": "string",
+              "enum": ["internal"]
+            }
+          }
+        },
+        {
+          "properties": {
+            "display": {
+              "description": "The label of this node in the drop-down list",
+              "type": "string"
+            },
+            "href": {
+              "description": "The external link that this node points to",
+              "type": "string",
+              "pattern": "https?:\/\/[a-zA-Z0-9\\.]{2,256}\\.[a-z]{2,6}[\/\\S]*"
+            },
+            "type": {
+              "description": "Whether this link is internal or external",
+              "type": "string",
+              "enum": ["external"]
+            }
+          }
+        }
+      ],
+      "required": ["display", "href", "type"]
+    }
+  },
+  "properties": {
+    "name": {
+      "description": "This nav's name, with no spaces or capitals",
+      "type": "string",
+      "pattern": "^[a-z\\-]+$"
+    },
+    "display": {
+      "description": "How this nav's name displays",
+      "type": "string"
+    },
+    "nodes": {
+      "description": "each option in the nav",
+      "type": "array",
+      "minItems": 1,
+      "items":{
+        "oneOf": [
+          {
+            "$ref": "#/definitions/rootNode"
+          },
+          {
+            "$ref": "#/definitions/leafNode"
+          }
+        ]
+      }
+    }
+  },
+  "required": ["name", "display", "nodes"]
+}

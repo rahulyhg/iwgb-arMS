@@ -1,0 +1,23 @@
+{
+  "$schema:": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://iwgb.org.uk/config/schema/content.schema.json",
+  "title": "Content",
+  "description": "A translated copy element",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "content": {
+      "en": {
+        "description": "English - languages left blank will default to this",
+        "type": "string"
+      },
+      "es": {
+        "description": "Spanish",
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "en"
+  ]
+}
