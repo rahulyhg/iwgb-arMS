@@ -56,7 +56,7 @@
             "href": {
               "description": "The external link that this node points to",
               "type": "string",
-              "pattern": "https?:\/\/[a-zA-Z0-9\\.]{2,256}\\.[a-z]{2,6}[\/\\S]*"
+              "pattern": "https?:\/\/[a-zA-Z0-9.]{2,256}\\.[a-z]{2,6}[\/\\S]*"
             },
             "type": {
               "description": "Whether this link is internal or external",

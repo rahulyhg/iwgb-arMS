@@ -82,32 +82,30 @@
       "items": {
         "$ref": "field.schema.json#/definitions/field"
       }
-    },
-    "form": {
-      "properties": {
-        "name": {
-          "description": "This form's name, with no spaces or capitals",
-          "type": "string",
-          "pattern": "^[a-z\\-]+$"
-        },
-        "display": {
-          "description": "How this form's name displays",
-          "type": "string"
-        },
-        "sections": {
-          "description": "A section of the form, focusing on one aspect or topic",
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "$ref": "#/definitions/section"
-          }
-        }
-      },
-      "required": [
-        "name",
-        "display",
-        "sections"
-      ]
     }
-  }
+  },
+  "properties": {
+    "name": {
+      "description": "This form's name, with no spaces or capitals",
+      "type": "string",
+      "pattern": "^[a-z\\-]+$"
+    },
+    "display": {
+      "description": "How this form's name displays",
+      "type": "string"
+    },
+    "sections": {
+      "description": "A section of the form, focusing on one aspect or topic",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/section"
+      }
+    }
+  },
+  "required": [
+    "name",
+    "display",
+    "sections"
+  ]
 }
