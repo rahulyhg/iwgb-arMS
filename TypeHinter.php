@@ -16,4 +16,7 @@ class TypeHinter {
 
     /** @var $twilio \Twilio\Rest\Client */
     public $twilio;
+
+    /** @var  $csrf \Slim\Csrf\Guard */
+    public $csrf;
 }
