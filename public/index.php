@@ -12,7 +12,7 @@ spl_autoload_register(function ($className) {
 $container = require_once __DIR__ . '/../bootstrap.php';
 
 /** @var App $app */
-$app = $container[App::class];
+$app = $container['slim'];
 
 /** @noinspection PhpUnhandledExceptionInspection */
 $app->run();

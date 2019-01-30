@@ -1,5 +1,7 @@
 <?php
 
+namespace Action\Frontend;
+
 use Slim\Http\Request;
 use Slim\Http\Response;
 
