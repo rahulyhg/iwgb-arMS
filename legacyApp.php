@@ -142,17 +142,17 @@ $m_accesscontrol = function (Request $request, Response $response, $next) {
 
 // routes
 
-$app->get('/', function (Request $request, Response $response) {
-    $header = getPinnedPost($this->db, false, "AND b.type = 'posts'")->fetch();
-    return $this->view->render($response, 'home.html.twig', [
-        'header'        => $header,
-        'stories'       => getPosts($this->db, 3, 0, "AND p.id <> :header AND b.type = 'posts'", array(
-            ':header'       => $header['id'],
-        ))->fetchAll(),
-        'branches'      => getBranchesData(),
-        'dynamicContent'=> getDynamicPageData('home'),
-    ]);
-});
+//$app->get('/', function (Request $request, Response $response) {
+//    $header = getPinnedPost($this->db, false, "AND b.type = 'posts'")->fetch();
+//    return $this->view->render($response, 'home.html.twig', [
+//        'header'        => $header,
+//        'stories'       => getPosts($this->db, 3, 0, "AND p.id <> :header AND b.type = 'posts'", array(
+//            ':header'       => $header['id'],
+//        ))->fetchAll(),
+//        'branches'      => getBranchesData(),
+//        'dynamicContent'=> getDynamicPageData('home'),
+//    ]);
+//});
 
 // custom
 
