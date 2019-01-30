@@ -1,11 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: hello
- * Date: 30/01/2019
- * Time: 12:22
- */
 
-class Config {
-
+class Config extends MyCLabs\Enum\Enum {
+    const Branches = 'branches';
+    const Forms = 'forms';
+    const Pages = 'pages';
+    const Menus = 'menus';
+    const App = 'app';
 }
