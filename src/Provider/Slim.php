@@ -37,7 +37,11 @@ class Slim implements ServiceProviderInterface {
 
             $app->add($c['csrf']);
 
-            //legacy code --------------
+            // routes handled by v2
+
+            $app->get('/', \Action\Frontend\Home::class);
+
+            //legacy code
 
             $c['legacy'] = require APP_ROOT . '/legacyConfig.php';
             $container = $c;

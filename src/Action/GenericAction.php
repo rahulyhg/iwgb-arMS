@@ -43,6 +43,7 @@ abstract class GenericAction {
                     'name' => $this->csrf->getTokenNameKey(),
                     'value' => $this->csrf->getTokenValueKey(),
                 ],
+                'app' => new \JSONObject(\Config::App, 'app'),
             ])
         );
     }
