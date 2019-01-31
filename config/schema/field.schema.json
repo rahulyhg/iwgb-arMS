@@ -10,13 +10,14 @@
         {
           "properties": {
             "name": {
-              "description": "The cost name, with no spaces or capitals",
+              "description": "The field name, with no spaces or capitals",
               "type": "string",
               "pattern": "^[a-z\\-]+$"
             },
             "display": {
-              "description": "How this cost displays on the website",
-              "type": "string"
+              "description": "How this field displays on the website",
+              "type": "object",
+              "$ref": "content.schema.json#/definitions/content"
             },
             "kind": {
               "description": "What kind of field this is",
@@ -47,7 +48,7 @@
         {
           "properties": {
             "display": {
-              "description": "How this cost displays on the website",
+              "description": "How this cost displays on the website (English)",
               "type": "string",
               "format": "markdown"
             },
@@ -69,7 +70,8 @@
             },
             "display": {
               "description": "How this cost displays on the website",
-              "type": "string"
+              "type": "object",
+              "$ref": "content.schema.json#/definitions/content"
             },
             "kind": {
               "description": "What kind of field this is",
@@ -106,7 +108,8 @@
             },
             "display": {
               "description": "How this cost displays on the website",
-              "type": "string"
+              "type": "object",
+              "$ref": "content.schema.json#/definitions/content"
             },
             "kind": {
               "description": "What kind of field this is",

@@ -12,7 +12,8 @@
       "properties": {
         "display": {
           "description": "what this dropdown list displays as when minimised",
-          "type": "string"
+          "type": "object",
+          "$ref": "content.schema.json#/definitions/content"
         },
         "list-nodes": {
           "description": "items in this drop-down list",
@@ -33,7 +34,8 @@
           "properties": {
             "display": {
               "description": "The label of this node in the drop-down list",
-              "type": "string"
+              "type": "object",
+              "$ref": "content.schema.json#/definitions/content"
             },
             "href": {
               "description": "The internal link that this node points to. With internal links, you only need include from the first slash (e.g., /join rather than https://iwgb.org.uk/join)",
@@ -51,7 +53,8 @@
           "properties": {
             "display": {
               "description": "The label of this node in the drop-down list",
-              "type": "string"
+              "type": "object",
+              "$ref": "content.schema.json#/definitions/content"
             },
             "href": {
               "description": "The external link that this node points to",
@@ -77,7 +80,8 @@
     },
     "display": {
       "description": "How this nav's name displays",
-      "type": "string"
+      "type": "object",
+      "$ref": "content.schema.json#/definitions/content"
     },
     "nodes": {
       "description": "each option in the nav",

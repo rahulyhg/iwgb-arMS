@@ -51,7 +51,8 @@
             },
             "display": {
               "description": "How this section's name displays",
-              "type": "string"
+              "type": "object",
+              "$ref": "content.schema.json#/definitions/content"
             },
             "kind": {
               "type": "string",
@@ -92,7 +93,8 @@
     },
     "display": {
       "description": "How this form's name displays",
-      "type": "string"
+      "type": "object",
+      "$ref": "content.schema.json#/definitions/content"
     },
     "sections": {
       "description": "A section of the form, focusing on one aspect or topic",

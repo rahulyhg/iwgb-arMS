@@ -5,7 +5,7 @@
   "description": "IWGB branch data",
   "type": "object",
   "additionalProperties": false,
-  "properties": {
+  "definitions": {
     "cost": {
       "type": "object",
       "additionalProperties": false,
@@ -57,7 +57,7 @@
       ]
     }
   },
-  "branch": {
+  "properties": {
     "display": {
       "description": "How your branch name displays",
       "type": "string"
