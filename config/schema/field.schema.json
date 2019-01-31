@@ -29,13 +29,18 @@
                 "month",
                 "time",
                 "checkbox",
-                "label"
+                "tel",
+                "email"
               ]
             },
             "required": {
               "description": "Whether this field is required",
               "type": "boolean",
               "format": "checkbox"
+            },
+            "autocomplete": {
+              "description": "This tells the browser what piece of information to pre-fill this box with. Not required",
+              "type": "string"
             }
           },
           "required": [
@@ -43,33 +48,40 @@
             "display",
             "kind",
             "required"
-          ]
+          ],
+          "additionalProperties": false
         },
         {
           "properties": {
             "display": {
-              "description": "How this cost displays on the website (English)",
-              "type": "string",
-              "format": "markdown"
+              "description": "How this field displays on the website (English)",
+              "type": "object",
+              "$ref": "content.schema.json#/definitions/content-md"
             },
-            "format": {
+            "kind": {
               "description": "What kind of field this is",
               "type": "string",
               "enum": [
+                "label",
                 "label-md"
               ]
             }
-          }
+          },
+          "required": [
+            "display",
+            "kind"
+          ],
+          "additionalProperties": false
         },
         {
           "properties": {
             "name": {
-              "description": "The cost name, with no spaces or capitals",
+              "description": "The field name, with no spaces or capitals",
               "type": "string",
               "pattern": "^[a-z\\-]+$"
             },
             "display": {
-              "description": "How this cost displays on the website",
+              "description": "How this field displays on the website",
               "type": "object",
               "$ref": "content.schema.json#/definitions/content"
             },
@@ -89,6 +101,10 @@
               "description": "Whether this field is required",
               "type": "boolean",
               "format": "checkbox"
+            },
+            "autocomplete": {
+              "description": "This tells the browser what piece of information to pre-fill this box with. Not required",
+              "type": "string"
             }
           },
           "required": [
@@ -97,17 +113,18 @@
             "kind",
             "size",
             "required"
-          ]
+          ],
+          "additionalProperties": false
         },
         {
           "properties": {
             "name": {
-              "description": "The cost name, with no spaces or capitals",
+              "description": "The field name, with no spaces or capitals",
               "type": "string",
               "pattern": "^[a-z\\-]+$"
             },
             "display": {
-              "description": "How this cost displays on the website",
+              "description": "How this field displays on the website",
               "type": "object",
               "$ref": "content.schema.json#/definitions/content"
             },
@@ -122,7 +139,7 @@
               "description": "The options that your drop-down box has",
               "type": "array",
               "items": {
-                "$ref": "branch.schema.json#/definitions/option"
+                "$ref": "branches.schema.json#/definitions/option"
               },
               "minItems": 1
             },
@@ -138,7 +155,8 @@
             "kind",
             "options",
             "required"
-          ]
+          ],
+          "additionalProperties": false
         }
       ]
     }
