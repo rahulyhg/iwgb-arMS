@@ -1,33 +1,34 @@
 {% extends 'page.html.twig' %}
+{% from 'macros.html.twig' import i18n as _ %}
+
+{#
+	branch: branch data conformant to branches.schema.json#/definitions/branch
+	join: form data conformant to forms.schema.json#/definitions/form
+	recaptchaSite: Google ReCaptcha site key
+#}
 
 {% block meta %}
 	<script src="/js/nodep-date-input-polyfill.dist.min.js"></script>
 {% endblock %}
 
 {% block page %}
-	<h1>Join {{ branch.display }}</h1>
+	<h1>Join {{ _(branch.display) }}</h1>
 	<form method="post" action="/join?callback=/join/{{ branch.name }}">
 		{% include 'csrf-fields.html.twig' %}
 		<input type="hidden" name="branch" value="{{ branch.name }}">
-		{% for section in join %}
+		{% for section in join.sections %}
 			<div>
-				<h2>{{ section.display }}</h2>
-				{% if section.type == 'inline' %}
-					{% for line in section.fields %}
-						<div>
-							{% include 'formsection.html.twig' with {
-								'fields': line
-							} only %}
-						</div>
-					{% endfor %}
-				{% elseif section.type == 'vertical' %}
-					{% include 'formsection.html.twig' with {
-						'fields': section.fields
-					} only %}
-				{% endif %}
+				<h2>{{ _(section.display) }}</h2>
+				{% for line in section.fields %}
+					<div>
+						{% include 'formsection.html.twig' with {
+							'fields': line
+						} only %}
+					</div>
+				{% endfor %}
 			</div>
 		{% endfor %}
-		{% if branch.fields|length > 0 %}
+		{% if branch.fields is defined %}
 			<div>
 				<h2>Information for your branch</h2>
 				{% include 'formsection.html.twig' with {
@@ -39,11 +40,11 @@
 			<h2>Membership type</h2>
 			<select name="cost">
 				{% for cost in branch.costs %}
-					<option value="{{ cost.name }}">{{ cost.display }}: £{{ cost.amount }}</option>
+					<option value="{{ cost.name }}">{{ _(cost.display) }}: £{{ cost.amount }}</option>
 				{% endfor %}
 			</select>
 		</div>
-		<div class="g-recaptcha" data-sitekey="6LeqJU0UAAAAAOdkuqvkHwfzEz_yR9igu7NpSEKn"></div>
+		<div class="g-recaptcha" data-sitekey="{{ recaptchaSite }}"></div>
 		<input type="submit" value="Next">
 	</form>
 {% endblock %}
