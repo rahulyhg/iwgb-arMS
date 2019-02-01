@@ -4,7 +4,7 @@ namespace Action\Frontend\Join;
 
 use Action\Frontend\GenericPublicAction;
 
-class ChooseBranch extends GenericPublicAction {
+class Join extends GenericPublicAction {
 
     /**
      * {@inheritdoc}

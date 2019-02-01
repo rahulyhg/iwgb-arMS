@@ -350,7 +350,7 @@ $app->group('/join', function() {
     $this->get('/{branch}', function (Request $request, Response $response, $args) {
         $branch = getBranchData($args['branch']);
         if ($branch) {
-            return $this->view->render($response, 'joinform.html.twig', [
+            return $this->view->render($response, 'form.html.twig', [
                 'branch'    => $branch,
                 'join'      => getJoinData(),
                 'pagetitle' => 'Join ' . $branch['display'],

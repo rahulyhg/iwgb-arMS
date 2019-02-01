@@ -54,7 +54,6 @@ abstract class GenericAction {
                 'value' => $request->getAttribute($valueKey),
             ]
         ]);
-//        $this->csrf-> //TODO
 
         return $this->view->render($response, $template,
             array_merge($vars, [

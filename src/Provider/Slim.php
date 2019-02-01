@@ -42,7 +42,7 @@ class Slim implements ServiceProviderInterface {
 
             $app->get('/', \Action\Frontend\Home::class);
 
-            $app->get('/join', \Action\Frontend\Join\ChooseBranch::class);
+            $app->get('/join', \Action\Frontend\Join\Join::class);
 
             //legacy code
 

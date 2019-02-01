@@ -2,19 +2,19 @@
 
 class JSONObject {
 
-    public function __construct($config, $name) {
-        foreach (self::loadJSON($config) as $node) {
-            if ($node['name'] == $name) {
-                foreach ($node as $key => $value) {
-                    $this->{$key} = $value;
-                }
-            }
-        }
+    /**
+     * @param $config
+     * @param $name
+     * @return bool|mixed
+     */
+    public static function getItem($config, $name) {
+        $data = self::getAllItems($config);
+        return !empty($data[$name]) ? $data[$name] : false;
     }
 
     /**
      * @param $config
-     * @return mixed A JSON config file in full
+     * @return array A JSON config file in full
      */
     public static function getAllItems($config) {
         return self::loadJSON($config);
