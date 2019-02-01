@@ -13,6 +13,9 @@ abstract class GenericPublicAction extends \Action\GenericAction {
         $this->nav = new \JSONObject(\Config::Menus, 'public-top');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function render(Request $request, Response $response, string $template, $vars) {
         return parent::render($request,$response, $template,
             array_merge($vars, ['nav' => (array) $this->nav]));

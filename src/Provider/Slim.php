@@ -42,6 +42,8 @@ class Slim implements ServiceProviderInterface {
 
             $app->get('/', \Action\Frontend\Home::class);
 
+            $app->get('/join', \Action\Frontend\Join\Join::class);
+
             //legacy code
 
             $c['legacy'] = require APP_ROOT . '/legacyConfig.php';

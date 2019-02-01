@@ -8,10 +8,7 @@ use Slim\Http\Response;
 class Home extends GenericPublicAction {
 
     /**
-     * @param \Slim\Http\Request $request
-     * @param \Slim\Http\Response $response
-     * @param string[] $args
-     * @return mixed
+     * {@inheritdoc}
      */
     public function __invoke(Request $request, Response $response, $args) {
 

@@ -1,0 +1,17 @@
+{% extends '../page.html.twig' %}
+
+{#
+	joinCopy: dynamic page elements for this page conformant to pages.schema.json#/definitions/page
+	branches: list of branch data conformant to branches.schema.json
+#}
+
+{% block page %}
+	{% include '../branches.html.twig' with {
+		'title': 		'Join a branch as a member',
+		'joinlinks': 	true,
+		'branches':		branches
+	} only %}
+
+	{% include '../page-element.html.twig' with joinCopy only %}
+
+{% endblock %}
