@@ -1,5 +1,9 @@
 {% from 'macros.html.twig' import i18n as _ %}
 
+{#
+    fields: fields conformant to elements.schema.json#/definitions/markdown-element
+#}
+
 {% autoescape false %}
     {{ _(fields.content)|htmlentities|md }}
 {% endautoescape %}

@@ -1,5 +1,9 @@
 {% from 'macros.html.twig' import i18n as _ %}
 
+{#
+    fields: fields conformant to elements.schema.json#/definitions/slant-box
+#}
+
 <div class="tile {{ fields.direction }} {{ fields.colour }}">
 	<div>
 		<h1>{{ _(fields.heading) }}</h1>

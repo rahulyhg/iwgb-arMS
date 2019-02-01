@@ -1,5 +1,12 @@
 {% extends 'page.html.twig' %}
 
+{#
+	'header': the currently pinned Post
+	'stories': 3 Posts below the pinned Post
+	'branches': branch data conformant to branches.schema.json
+	'home': dynamic page elements for this page conformant to pages.schema.json#/definitions/page
+#}
+
 {% block head %}
 	<title>IWGB</title>
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" crossorigin>

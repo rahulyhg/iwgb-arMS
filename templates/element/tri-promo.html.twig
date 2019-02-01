@@ -1,5 +1,9 @@
 {% from 'macros.html.twig' import i18n as _ %}
 
+{#
+    fields: fields conformant to elements.schema.json#/definitions/tri-promo
+#}
+
 {% if fields.background.kind == 'image' %}
 	<div class="img-bg" style="background:url({{ fields.background.asset.src }}) center/cover">
 		<div class="slab-box">
