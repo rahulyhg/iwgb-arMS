@@ -12,7 +12,7 @@ abstract class GenericAction {
     protected $em;
     protected $csrf;
     protected $notFoundHandler;
-    protected $env;
+    protected $settings;
 
     public function __construct(Container $c) {
         /* @var $c \TypeHinter */
@@ -20,6 +20,7 @@ abstract class GenericAction {
         $this->csrf = $c->csrf;
         $this->em = $c->em;
         $this->notFoundHandler = $c->notFoundHandler;
+        $this->settings = $c->settings;
     }
 
     /**
@@ -53,7 +54,7 @@ abstract class GenericAction {
 
         return $this->view->render($response, $template,
             array_merge($vars, [
-                'app' => new \JSONObject(\Config::App, 'app'),
+                'app' => \JSONObject::getItem(\Config::App, 'app'),
             ])
         );
     }
