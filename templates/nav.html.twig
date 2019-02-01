@@ -1,12 +1,13 @@
 {% import 'nav.html.twig' as navTemplate %}
+{% from 'macros.html.twig' import i18n as _ %}
 
 {%  macro generateNodeLink(node) %}
+	{% from 'macros.html.twig' import i18n as _ %}
 	<a href="{{ node.href }}"
-			{% if node.type == 'external' %} target="_blank" {% endif %}>
-		<li>{{ node.display }}</li>
+		{% if node.type == 'external' %} target="_blank" {% endif %}>
+		<li>{{ _(node.display) }}</li>
 	</a>
 {% endmacro %}
-
 
 <div id="nav"></div>
 <div class="nav-container">
@@ -19,8 +20,8 @@
 					{# node is a leaf node #}
 					{{ navTemplate.generateNodeLink(parentNode) }}
 				{% else %}
-					<div class="dropdown" href="{{ parentNode.node.href }}">
-						<li>{{ parentNode.node.display }} <i class="fas fa-angle-down"></i></li>
+					<div class="dropdown" href="{{ parentNode.topNode.href }}">
+						<li>{{ _(parentNode.topNode.display) }} <i class="fas fa-angle-down"></i></li>
 						<ul class="dropdown-content">
 							{% for leafNode in parentNode.listNodes %}
 								{{ navTemplate.generateNodeLink(leafNode) }}

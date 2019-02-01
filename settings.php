@@ -32,11 +32,14 @@ return [
         'twilio' => $keys['twilio'],
         'twig' => [
             'templates_dir' => APP_ROOT .  '/templates/',
-            'cache_dir'     => APP_ROOT . '/cache/',
+//            'cache_dir'     => APP_ROOT . '/cache/',
             'cache_dir'     => false,
-            'debug'         => false,
+            'debug'         => true,
         ],
-        'languages' => ['en', 'es'],
+        'languages' => [
+            'available' => ['en', 'es'],
+            'fallback'  => 'en',
+        ],
     ],
 ];
 

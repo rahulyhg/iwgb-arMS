@@ -28,11 +28,11 @@ class Slim implements ServiceProviderInterface {
 
         $c['slim'] = function (Container $c): App {
             /** @var $c \TypeHinter */
-
             $app = new App($c);
 
             $app->add(new \McAskill\Slim\Polyglot\Polyglot([
-                'languages' => $c['settings']['languages'],
+                'languages'         => $c['settings']['languages']['available'],
+                'fallbackLanguage'  => $c['settings']['languages']['fallback'],
             ]));
 
             $app->add($c['csrf']);

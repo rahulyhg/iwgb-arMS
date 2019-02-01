@@ -1,0 +1,7 @@
+{% macro i18n(content) %}
+    {% if content[_lang] is defined %}
+        {{ content[_lang] }}
+    {% else %}
+        {{ content[_fallback] }}
+    [{% endif %}
+{% endmacro %}

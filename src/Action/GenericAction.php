@@ -12,6 +12,7 @@ abstract class GenericAction {
     protected $em;
     protected $csrf;
     protected $notFoundHandler;
+    protected $env;
 
     public function __construct(Container $c) {
         /* @var $c \TypeHinter */
@@ -37,12 +38,15 @@ abstract class GenericAction {
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function render(Request $request, Response $response, string $template, $vars) {
+        $twigEnv = $this->view->getEnvironment();
+        $twigEnv->addGlobal('_lang', $response->getHeader('Content-Language')[0]);
+        $twigEnv->addGlobal('_csrf', [
+            'name' => $request->getAttribute($this->csrf->getTokenNameKey()),
+            'value' => $request->getAttribute($this->csrf->getTokenValueKey()),
+        ]);
+
         return $this->view->render($response, $template,
             array_merge($vars, [
-                'csrfValues' => [
-                    'name' => $this->csrf->getTokenNameKey(),
-                    'value' => $this->csrf->getTokenValueKey(),
-                ],
                 'app' => new \JSONObject(\Config::App, 'app'),
             ])
         );
