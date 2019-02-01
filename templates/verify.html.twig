@@ -3,7 +3,7 @@
 {% block page %}
 	<h1>Your application</h1>
 	<form method="post" action="/join/verify/{{ id }}/verify">
-		{% include 'csrf-fields.html.twig' %}
+		{% include 'csrf.html.twig' %}
 		<div>
 			<h2>Verify your application</h2>
 			<p>Ref: {{ id }}</p>

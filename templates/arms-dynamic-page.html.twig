@@ -16,7 +16,7 @@
 		}
 	</script>
 	<form action="/arms/dynamic/{{ page }}" method="post" enctype="multipart/form-data">
-		{% include 'csrf-fields.html.twig' %}
+		{% include 'csrf.html.twig' %}
 		{% for element in dynamic.elements %}
 			<div id="{{ element.type }}{{ loop.index0 }}-parent" class="dynamic-element">
 				<div>

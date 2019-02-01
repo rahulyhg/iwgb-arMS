@@ -8,7 +8,7 @@
 
 {% block content %}
 	<form action="/arms/publish" method="post" enctype="multipart/form-data">
-		{% include 'csrf-fields.html.twig' %}
+		{% include 'csrf.html.twig' %}
 		{% if overwrite.do %}
 			<input type="hidden" name="overwrite" value="{{ overwrite.id }}">
 			<p><input type="text" name="title" placeholder="Title" autofocus value="{{ overwrite.title }}" required></p>

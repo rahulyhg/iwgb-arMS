@@ -14,7 +14,7 @@
 {% block page %}
 	<h1>Join {{ _(branch.display) }}</h1>
 	<form method="post" action="/join?callback=/join/{{ branch.name }}">
-		{% include 'csrf-fields.html.twig' %}
+		{% include 'csrf.html.twig' %}
 		<input type="hidden" name="branch" value="{{ branch.name }}">
 		{% for section in join.sections %}
 			<div>

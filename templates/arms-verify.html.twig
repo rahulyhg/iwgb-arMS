@@ -2,7 +2,7 @@
 
 {% block content %}
 	<form method="post" enctype="multipart/form-data" action="/arms/verify/">
-		{% include 'csrf-fields.html.twig' %}
+		{% include 'csrf.html.twig' %}
 		<input type="hidden" name="key" value="{{ key }}">
 		<p>The verify link you have been given is only valid once, and only valid for the email associated with your future account.</p>
 		<p>Your account email:</p>

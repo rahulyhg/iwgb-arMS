@@ -15,7 +15,7 @@
 	<p>Upload images or other files to the árMS server to use in a posts and articles.</p>
 	<p>This tool will accept any file, but all will be renamed and given a shortlink - if you need to upload a file, then it&rsquo;s probably best to use an external filesite.</p>
 	<form action="/arms/upload" method="post" enctype="multipart/form-data">
-		{% include 'csrf-fields.html.twig' %}
+		{% include 'csrf.html.twig' %}
 		<p><input type="file" class="button" name="file" required></p>
 		<p><input type="submit" value="Upload"></p>
 	</form>

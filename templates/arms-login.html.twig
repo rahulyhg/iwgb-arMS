@@ -13,7 +13,7 @@
 		<div class="body-container">
 			<form method="post" action="/arms/login">
 				{% include 'arms-messages.html.twig' %}
-				{% include 'csrf-fields.html.twig' %}
+				{% include 'csrf.html.twig' %}
 				<h1><i class="fa fa-pencil-square-o fa-3x"></i><span>árMS</span></h1>
 				<h2>Please sign in.</h2>
 				{% if _get.callback is defined %}
