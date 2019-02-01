@@ -786,7 +786,7 @@ $app->group('/arms', function() {
 
 })->add($m_accesscontrol);
 
-$app->run();
+//$app->run();
 
 // Database
 

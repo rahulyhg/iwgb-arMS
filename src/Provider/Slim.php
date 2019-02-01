@@ -2,6 +2,7 @@
 
 namespace Provider;
 
+use McAskill\Slim\Polyglot\Polyglot;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Slim\App;
@@ -30,7 +31,7 @@ class Slim implements ServiceProviderInterface {
             /** @var $c \TypeHinter */
             $app = new App($c);
 
-            $app->add(new \McAskill\Slim\Polyglot\Polyglot([
+            $app->add(new Polyglot([
                 'languages'         => $c['settings']['languages']['available'],
                 'fallbackLanguage'  => $c['settings']['languages']['fallback'],
             ]));
@@ -45,8 +46,8 @@ class Slim implements ServiceProviderInterface {
 
             $c['legacy'] = require APP_ROOT . '/legacyConfig.php';
             $container = $c;
-            include APP_ROOT . '/legacyConfig.php';
-            include APP_ROOT . '/legacyApp.php';
+            require APP_ROOT . '/legacyConfig.php';
+            require_once APP_ROOT . '/legacyApp.php';
 
             return $app;
         };

@@ -10,6 +10,7 @@ return [
     'settings' => [
         'displayErrorDetails' => true,
         'determineRouteBeforeAppMiddleware' => false,
+        'addContentLengthHeader' => false,
 
         'doctrine' => [
             // if true, metadata caching is forcefully disabled
