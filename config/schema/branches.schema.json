@@ -17,7 +17,8 @@
         },
         "display": {
           "description": "How this cost displays on the website",
-          "type": "string"
+          "type": "object",
+          "$ref": "content.schema.json#/definitions/content"
         },
         "amount": {
           "description": "The monthly cost of this option",
@@ -48,7 +49,8 @@
         },
         "display": {
           "description": "How this option displays on the website",
-          "type": "string"
+          "type": "object",
+          "$ref": "content.schema.json#/definitions/content"
         }
       },
       "required": [
@@ -67,11 +69,13 @@
         },
         "display": {
           "description": "How your branch name displays",
-          "type": "string"
+          "type": "object",
+          "$ref": "content.schema.json#/definitions/content"
         },
         "description": {
           "description": "A short and snappy description of the branch",
-          "type": "string"
+          "type": "object",
+          "$ref": "content.schema.json#/definitions/content"
         },
         "website": {
           "description": "Your branch's website. At the moment, this can only be 'external'",
