@@ -1,9 +1,11 @@
-<div class="tile {{ direction }} {{ color }}">
+{% from 'macros.html.twig' import i18n as _ %}
+
+<div class="tile {{ fields.direction }} {{ fields.colour }}">
 	<div>
-		<h1>{{ fields.heading.content }}</h1>
+		<h1>{{ _(fields.heading) }}</h1>
 		<p>
 			{% autoescape false %}
-				{{ fields.body.content|htmlentities|md }}
+				{{ _(fields.body)|htmlentities|md }}
 			{% endautoescape %}
 		</p>
 	</div>

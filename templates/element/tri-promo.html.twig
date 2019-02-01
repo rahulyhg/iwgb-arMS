@@ -1,0 +1,38 @@
+{% from 'macros.html.twig' import i18n as _ %}
+
+{% if fields.background.kind == 'image' %}
+	<div class="img-bg" style="background:url({{ fields.background.asset.src }}) center/cover">
+		<div class="slab-box">
+{% elseif fields.background.kind == 'color' %}
+		<div class="slab-box {{ fields.background.asset }}">
+{% endif %}
+			<div class="action-prompt">
+				<div class="text-container">
+					<h1>{{ _(fields.heading) }}</h1>
+				</div>
+				{% if fields.subheading is defined %}
+					<h2>{{ _(fields.subheading) }}</h2>
+				{% endif %}
+				{% if fields.intro is defined %}
+					{% autoescape false %}
+						<p>{{ _(fields.intro)|htmlentities|md }}</p>
+					{% endautoescape %}
+				{% endif %}
+			</div>
+			<div class="detail-slabs">
+				{% for column in fields.columns %}
+					<div class="detail-slab">
+						<i class="{{ column.icon }} fa-2x"></i>
+						<h2>{{ _(column.heading) }}</h2>
+						<p>
+							{% autoescape false %}
+								{{ _(column.body)|htmlentities|md }}
+							{% endautoescape %}
+						</p>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+{% if fields.background.kind == 'image' %}
+	</div>
+{% endif %}

@@ -1,0 +1,193 @@
+{
+    "$schema:": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://iwgb.org.uk/config/schema/elements.schema.json",
+    "title": "Elements",
+    "description": "IWGB dynamic elements data",
+    "type": "object",
+    "additionalProperties": false,
+    "definitions": {
+        "yt-embed": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "kind": {
+                    "description": "The type of element this is",
+                    "type": "string",
+                    "enum": ["yt-embed"]
+                },
+                "fields": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "videoId": {
+                            "description": "The video ID from the YouTube URL",
+                            "type": "string",
+                            "pattern": ""
+
+                        }
+                    },
+                    "required": ["videoId"]
+                }
+            }
+        },
+        "slant-box": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "kind": {
+                    "description": "The type of element this is",
+                    "type": "string",
+                    "enum": [
+                        "slant-box"
+                    ]
+                },
+                "fields": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "colour": {
+                            "description": "Option: background colour",
+                            "type": "string",
+                            "enum": ["dark", "light", "red"]
+                        },
+                        "direction": {
+                            "description": "Option: text alignment direction",
+                            "type": "string",
+                            "enum": ["left", "right"]
+                        },
+                        "heading": {
+                            "description": "Content: heading",
+                            "type": "object",
+                            "$ref": "content.schema.json/#definitions/content"
+                        },
+                        "body": {
+                            "description": "Content: body",
+                            "type": "object",
+                            "$ref": "content.schema.json/#definitions/content-md"
+                        },
+                        "image": {
+                            "description": "Content: image",
+                            "$ref": "#/definitions/image"
+                        }
+                    },
+                    "required": ["colour", "direction","heading", "body", "image"]
+                }
+            }
+        },
+        "tri-promo": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "kind": {
+                    "description": "The type of element this is",
+                    "type": "string",
+                    "enum": [
+                        "tri-promo"
+                    ]
+                },
+                "fields": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "background": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "oneOf": [
+                                {
+                                    "properties": {
+                                        "kind": {
+                                            "description": "Option: background type",
+                                            "type": "string",
+                                            "enum": ["image"]
+                                        },
+                                        "asset": {
+                                            "description": "Option: background image",
+                                            "$ref": "#/definitions/image"
+                                        }
+                                    }
+                                },
+                                {
+                                    "properties": {
+                                        "kind": {
+                                            "description": "Option: background type",
+                                            "type": "string",
+                                            "enum": ["colour"]
+                                        },
+                                        "asset": {
+                                            "description": "Option: background colour",
+                                            "type": "string",
+                                            "enum": ["dark", "light", "red"]
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        "heading": {
+                            "description": "Content: heading",
+                            "type": "object",
+                            "$ref": "content.schema.json/#definitions/content"
+                        },
+                        "subheading": {
+                            "description": "Content: subheading, optional",
+                            "type": "object",
+                            "$ref": "content.schema.json/#definitions/content-md"
+                        },
+                        "intro": {
+                            "description": "Content: column intro, optional",
+                            "type": "object",
+                            "$ref": "content.schema.json/#definitions/content-md"
+                        },
+                        "columns": {
+                            "type": "array",
+                            "minItems": 3,
+                            "maxItems": 4,
+                            "items": {
+                                "$ref": "#/definitions/tri-promoColumn"
+                            }
+                        }
+                    },
+                    "required": ["background", "heading", "columns"]
+                }
+            }
+        },
+        "tri-promoColumn": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "icon": {
+                    "description": "Option: FontAwesome icon selector",
+                    "type": "string"
+                },
+                "heading": {
+                    "description": "Content: column heading",
+                    "type": "object",
+                    "$ref": "content.schema.json/#definitions/content"
+                },
+                "body": {
+                    "description": "Content: column body",
+                    "type": "object",
+                    "$ref": "content.schema.json/#definitions/content-md"
+                }
+            },
+            "required": ["icon", "heading", "body"]
+        },
+
+        "image": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "src": {
+                    "description": "the address of the image, beginning with the first slash",
+                    "type": "string",
+                    "pattern": "^\/\\S*$"
+                },
+                "alt": {
+                    "description": "Text describing the image for accessibility purposes",
+                    "type": "object",
+                    "$ref": "content.schema.json/#definitions/content"
+                }
+            },
+            "required": ["src"]
+        }
+    }
+}
