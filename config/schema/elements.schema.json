@@ -150,7 +150,28 @@
                 }
             }
         },
-        "tri-promoColumn": {
+        "markdown-element": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "kind": {
+                    "description": "The type of element this is",
+                    "type": "string",
+                    "enum": [
+                        "markdown"
+                    ]
+                },
+                "fields": {
+                    "display": {
+                        "description": "The text to display here",
+                        "type": "object",
+                        "$ref": "content.schema.json#/definitions/content-md"
+                    }
+                }
+            },
+
+
+            "tri-promoColumn": {
             "type": "object",
             "additionalProperties": false,
             "properties": {

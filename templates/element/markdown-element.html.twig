@@ -1,0 +1,5 @@
+{% from 'macros.html.twig' import i18n as _ %}
+
+{% autoescape false %}
+    {{ _(fields.content)|htmlentities|md }}
+{% endautoescape %}
