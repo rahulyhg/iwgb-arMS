@@ -24,7 +24,7 @@
               "type": "string",
               "enum": [
                 "text",
-                "number",
+                "numeric",
                 "date",
                 "month",
                 "time",

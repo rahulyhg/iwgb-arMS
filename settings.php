@@ -41,6 +41,10 @@ return [
             'available' => ['en', 'es'],
             'fallback'  => 'en',
         ],
+        'recaptcha' => [
+            'site'  => '6LeqJU0UAAAAAOdkuqvkHwfzEz_yR9igu7NpSEKn',
+            'secret'=> $keys['recaptcha'],
+        ]
     ],
 ];
 
