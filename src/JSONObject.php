@@ -9,7 +9,12 @@ class JSONObject {
      */
     public static function get($config, $name) {
         $data = self::getAll($config);
-        return !empty($data[$name]) ? $data[$name] : false;
+        foreach ($data as $item) {
+            if ($item['name'] == $name) {
+                return $item;
+            }
+        }
+        return false;
     }
 
     /**

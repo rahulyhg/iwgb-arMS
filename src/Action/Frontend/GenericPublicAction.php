@@ -18,6 +18,6 @@ abstract class GenericPublicAction extends \Action\GenericAction {
      */
     public function render(Request $request, Response $response, string $template, $vars) {
         return parent::render($request,$response, $template,
-            array_merge($vars, ['nav' => [$this->nav]]));
+            array_merge($vars, ['nav' => $this->nav]));
     }
 }
