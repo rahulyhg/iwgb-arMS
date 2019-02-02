@@ -49,5 +49,5 @@ composer.lock
 /legacy/config/
 
 # config files
-/config/
-!/config/schema/
+/config/*.json
+/config/lang/

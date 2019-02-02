@@ -1,7 +1,10 @@
 {% macro i18n(content) %}
     {% if content[_lang] is defined %}
         {{ content[_lang] }}
-    {% else %}
+
+    {% elseif content[_fallback] is defined %}
         {{ content[_fallback] }}
-    [{% endif %}
+    {% else %}
+        {{ _dict.get(content, _lang) }}
+    {% endif %}
 {% endmacro %}

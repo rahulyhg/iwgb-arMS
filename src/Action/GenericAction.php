@@ -41,6 +41,7 @@ abstract class GenericAction {
     public function render(Request $request, Response $response, string $template, $vars) {
         $twigEnv = $this->view->getEnvironment();
         $twigEnv->addGlobal('_lang', $response->getHeader('Content-Language')[0]);
+        $twigEnv->addGlobal('_dict', new \LanguageDictionary());
 
         $nameKey = $this->csrf->getTokenNameKey();
         $valueKey = $this->csrf->getTokenValueKey();

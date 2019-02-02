@@ -6,4 +6,5 @@ class Config extends MyCLabs\Enum\Enum {
     const Pages = 'pages';
     const Menus = 'menus';
     const App = 'app';
+    const Dictionary = 'lang/dictionary';
 }
