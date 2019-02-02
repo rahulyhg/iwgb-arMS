@@ -20,14 +20,17 @@ class Twig implements ServiceProviderInterface {
 
             $view = new \Slim\Views\Twig($templates, compact('cache', 'debug'));
 
-            $twigEnv = $view->getEnvironment();
+            // Filters
 
-            $twigEnv->addGlobal('_get', $_GET);
-            $twigEnv->addGlobal('_csrf', [
-                'name'  => $c['csrf']->getTokenNameKey(),
-                'value' => $c['csrf']->getTokenValueKey(),
-            ]);
-            $twigEnv->addGlobal('_fallback', $c['settings']['languages']['fallback']);
+            $env = $view->getEnvironment();
+
+            $env->addFilter(new \Twig_Filter('htmlentities', function (string $s) {
+                return htmlspecialchars($s);
+            }));
+
+            $env->addFilter(new \Twig_Filter('md', function ($s) {
+                return (new \Parsedown())->text($s);
+            }));
 
             if ($debug) {
                 $view->addExtension(new \Slim\Views\TwigExtension(

@@ -94,17 +94,6 @@ $f_nicedate = new Twig_SimpleFilter('nicedate', function ($s) {
 });
 $container['view']->getEnvironment()->addFilter($f_nicedate);
 
-$f_md = new Twig_SimpleFilter('md', function ($s) {
-    $parser = new Parsedown();
-    return $parser->text($s);
-});
-$container['view']->getEnvironment()->addFilter($f_md);
-
-$f_htmlentities = new Twig_SimpleFilter('htmlentities', function ($s) {
-    return htmlspecialchars($s);
-});
-$container['view']->getEnvironment()->addFilter($f_htmlentities);
-
 $f_urlencode = new Twig_SimpleFilter('urlencode', function($s) {
     return urlencode($s);
 });
@@ -246,7 +235,7 @@ $app->group('/feed', function() {
 
 // Join
 
-$app->group('/join', function() {
+$app->group('/legacyjoin', function() {
 
     $this->get('', function (Request $request, Response $response) {
         return $this->view->render($response, 'join.html.twig', [

@@ -2,14 +2,15 @@
 
 namespace Action\Frontend;
 
+use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
 abstract class GenericPublicAction extends \Action\GenericAction {
     protected $nav;
 
-    public function __construct($container) {
-        parent::__construct($container);
+    public function __construct(Container $c) {
+        parent::__construct($c);
         $this->nav = \JSONObject::get(\Config::Menus, 'public-top');
     }
 

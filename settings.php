@@ -33,7 +33,7 @@ return [
         'twilio' => $keys['twilio'],
         'twig' => [
             'templates_dir' => APP_ROOT .  '/templates/',
-//            'cache_dir'     => APP_ROOT . '/cache/',
+//            'cache_dir'     => APP_ROOT . '/var/twig',
             'cache_dir'     => false,
             'debug'         => true,
         ],

@@ -21,7 +21,7 @@ class Home extends GenericPublicAction {
             'header'    => $pinned,
             'stories'   => $stories,
             'branches'  => \JSONObject::getAll(\Config::Branches),
-            'home'      => (array) new \JSONObject(\Config::Pages, 'home'),
+            'home'      => \JSONObject::get(\Config::Pages, 'home'),
         ]);
     }
 }
