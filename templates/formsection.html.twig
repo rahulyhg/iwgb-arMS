@@ -3,24 +3,26 @@
 #}
 
 {% for field in fields %}
-	{% if field.type == 'text' or field.type == 'numeric' or field.type == 'email' or field.type == 'tel' or field.type == 'date' %}
-		<input type="{{ field.type }}"
+	{% if field.kind == 'text' or field.kind == 'numeric' or field.kind == 'email' or field.kind == 'tel' or field.kind == 'date' %}
+		{% if field.kind == 'date' %}
+			<label>{{ _(field.display) }}</label>
+		{% endif %}
+		<input type="{{ field.kind }}"
 			   name="{{ field.name }}"
 			   placeholder="{{ _(field.display) }}"
 				{% if field.autocomplete is defined %}
 					autocomplete="{{ field.autocomplete }}"
 				{% endif %}
 				{% if field.required %} required {% endif %}>
-
-	{% elseif field.type == 'label' %}
+	{% elseif field.kind == 'label' %}
 		<p>{{ _(field.display) }}</p>
 
-	{% elseif field.type == 'label-md' %}
+	{% elseif field.kind == 'label-md' %}
 		{% autoescape false %}
 			<p>{{ _(field.display)|htmlentities|md }}</p>
 		{% endautoescape %}
 
-	{% elseif field.type == 'select' %}
+	{% elseif field.kind == 'select' %}
 		<label>
 			{{ _(field.display) }}
 			<select name="{{ field.name }}">
@@ -35,14 +37,13 @@
 			</select>
 		</label>
 
-	{% elseif field.type == 'textarea' %}
+	{% elseif field.kind == 'textarea' %}
 		<textarea rows="{{ field.size }}"
 				  name="{{ field.name }}"
 				  placeholder="{{ _(field.display) }}"
-				{% if field.required %} required {% endif %}
-		</textarea>
+				{% if field.required %} required {% endif %}></textarea>
 
-	{% elseif field.type == 'checkbox' %}
+	{% elseif field.kind == 'checkbox' %}
 		<label>
 			<input type="checkbox"
 				name="{{ field.name }}"

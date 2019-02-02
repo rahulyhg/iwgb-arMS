@@ -1,4 +1,4 @@
-{% extends '../page.html.twig' %}
+{% extends 'page.html.twig' %}
 
 {#
 	branch: branch data conformant to branches.schema.json#/definitions/branch
@@ -11,16 +11,18 @@
 {% endblock %}
 
 {% block page %}
+
 	<h1>Join {{ _(branch.display) }}</h1>
 	<form method="post" action="/join?callback=/join/{{ branch.name }}">
-		{% include '../csrf.html.twig' %}
+		{% include 'csrf.html.twig' %}
 		<input type="hidden" name="branch" value="{{ branch.name }}">
 		{% for section in join.sections %}
 			<div>
 				<h2>{{ _(section.display) }}</h2>
 				{% for line in section.fields %}
+					{% autoescape false %} {{ dump(line) }} {% endautoescape %}
 					<div>
-						{% include '../formsection.html.twig' with {
+						{% include 'formsection.html.twig' with {
 							'fields': line
 						} only %}
 					</div>
@@ -30,7 +32,7 @@
 		{% if branch.fields is defined %}
 			<div>
 				<h2>Information for your branch</h2>
-				{% include '../formsection.html.twig' with {
+				{% include 'formsection.html.twig' with {
 					'fields': branch.fields
 				} only %}
 			</div>

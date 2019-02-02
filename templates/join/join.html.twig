@@ -1,4 +1,4 @@
-{% extends '../page.html.twig' %}
+{% extends 'page.html.twig' %}
 
 {#
 	joinCopy: dynamic page elements for this page conformant to pages.schema.json#/definitions/page
@@ -6,12 +6,12 @@
 #}
 
 {% block page %}
-	{% include '../branches.html.twig' with {
+	{% include 'branches.html.twig' with {
 		'title': 		'Join a branch as a member',
 		'joinlinks': 	true,
 		'branches':		branches
 	} only %}
 
-	{% include '../page-element.html.twig' with joinCopy only %}
+	{% include 'page-element.html.twig' with joinCopy only %}
 
 {% endblock %}

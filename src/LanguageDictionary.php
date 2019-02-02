@@ -59,6 +59,6 @@ class LanguageDictionary {
      */
     private function flush(): void {
         file_put_contents(APP_ROOT . '/config/lang/dictionary.json',
-            json_encode($this->dictionary));
+            json_encode([\Config::Dictionary => $this->dictionary]));
     }
 }
