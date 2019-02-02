@@ -18,10 +18,10 @@ class Home extends GenericPublicAction {
         $stories = $postRepo->getStoriesExcluding($pinned, 3);
 
         return $this->render($request, $response, 'home.html.twig', [
-            'header'    => $pinned,
+            'pinned'    => $pinned,
             'stories'   => $stories,
             'branches'  => \JSONObject::getAll(\Config::Branches),
-            'home'      => \JSONObject::get(\Config::Pages, 'home'),
+            'elements'  => \JSONObject::get(\Config::Pages, 'home')['elements'],
         ]);
     }
 }

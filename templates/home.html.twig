@@ -1,10 +1,10 @@
 {% extends 'page.html.twig' %}
 
 {#
-	'header': the currently pinned Post
+	'pinned': the currently pinned Post
 	'stories': 3 Posts below the pinned Post
 	'branches': branch data conformant to branches.schema.json
-	'home': dynamic page elements for this page conformant to pages.schema.json#/definitions/page
+	'elements': dynamic page elements for this page conformant to pages.schema.json#/definitions/page/elements
 #}
 
 {% block head %}
@@ -38,10 +38,14 @@
 
 {% block pad %}
 	<div id="content" class="content content-pad">
-		{% include 'storygrid.html.twig' %}
+		{% include 'storygrid.html.twig' with {
+			'header': pinned,
+			'stories': stories,
+			'page': 'stories'
+		} only %}
 	</div>
 	<div id="intro">
-		{% for element in home.elements %}
+		{% for element in elements %}
 			{% include 'page-element.html.twig' with element only %}
 		{% endfor %}
 	</div>

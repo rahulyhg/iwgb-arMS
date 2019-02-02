@@ -1,27 +1,33 @@
 <div class="stories">
-	<a href="/post/{{ header.id }}/{{ header.shortlink }}" class="story pinned latest" style="background: url('/img/bucket/{{ header.header_img }}.jpg') center/cover">
+	<a href="/post/{{ header.getId() }}/{{ header.getShortlink() }}"
+	   class="story pinned latest"
+	   style="background: url('/img/bucket/{{ header.getHeaderImage() }}.jpg') center/cover">
 		<div>
-			<h2>{{ header.title|htmlentities }}</h2>
+			<h2>{{ header.getTitle()|htmlentities }}</h2>
 			<div class="meta">
-				<p class="category">{{ header.friendly_singular }}</p>
-				<p>{{ header.timestamp|timeago }}</p>
-				<p class="disqus-comment-count" data-disqus-identifier="{{ header.id }}-{{ header.shortlink }}">0 comments</p>
+				<p class="category">{{ header.getBlog().getFriendlySingular() }}</p>
+				<p>{{ header.getTimestamp()|timeago }}</p>
+				<p class="disqus-comment-count"
+				   data-disqus-identifier="{{ header.getId() }}-{{ header.getShortlink() }}">0 comments</p>
 			</div>
 		</div>
 	</a>
 	<div class="stories half-height">
 		{% for story in stories %}
-				{% if story.header_img != '' %}
-					<a href="/post/{{ story.id }}/{{ story.shortlink}}" class="story img" style="background: url(/img/bucket/{{ story.header_img }}.jpg) center/cover;">
+				{% if story.getHeaderImage() != '' %}
+					<a href="/post/{{ story.getId() }}/{{ story.getShortlink() }}"
+					   class="story img"
+					   style="background: url(/img/bucket/{{ story.getHeaderImage() }}.jpg) center/cover;">
 				{% else %}
-					<a href="/post/{{ story.id }}/{{ story.shortlink}}" class="story">
+					<a href="/post/{{ story.getId() }}/{{ story.getShortlink() }}" class="story">
 				{% endif %}
 						<div class="story-container">
-							<h2>{{ story.title|htmlentities }}</h2>
+							<h2>{{ story.getTitle()|htmlentities }}</h2>
 							<div class="meta">
-								<p class="category">{{ story.friendly_singular }}</p>
-								<p>{{ story.timestamp|timeago }}</p>
-								<p class="disqus-comment-count" data-disqus-identifier="{{ story.id }}-{{ story.shortlink }}">0 comments</p>
+								<p class="category">{{ story.getBlog().getFriendlySingular() }}</p>
+								<p>{{ story.getTimestamp()|timeago }}</p>
+								<p class="disqus-comment-count"
+								   data-disqus-identifier="{{ story.getId() }}-{{ story.getShortlink() }}">0 comments</p>
 							</div>
 						</div>
 					</a>
@@ -34,6 +40,8 @@
 			{% endif %}
 			<a href="/feed/{{ blog }}/{{ page + 1 }}">More stories</a>
 		</p>
+	{% elseif page is defined %}
+		<p class="view-more"><a href="/feed/{{ page }}/0">More stories</a></p>
 	{% else %}
 		<p class="view-more"><a href="/feed/all/0">More stories</a></p>
 	{% endif %}
