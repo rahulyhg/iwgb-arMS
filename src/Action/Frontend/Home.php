@@ -20,7 +20,7 @@ class Home extends GenericPublicAction {
         return $this->render($request, $response, 'home.html.twig', [
             'header'    => $pinned,
             'stories'   => $stories,
-            'branches'  => \JSONObject::getAllItems(\Config::Branches),
+            'branches'  => \JSONObject::getAll(\Config::Branches),
             'home'      => (array) new \JSONObject(\Config::Pages, 'home'),
         ]);
     }

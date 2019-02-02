@@ -10,7 +10,7 @@ abstract class GenericPublicAction extends \Action\GenericAction {
 
     public function __construct($container) {
         parent::__construct($container);
-        $this->nav = \JSONObject::getItem(\Config::Menus, 'public-top');
+        $this->nav = \JSONObject::get(\Config::Menus, 'public-top');
     }
 
     /**
@@ -18,6 +18,6 @@ abstract class GenericPublicAction extends \Action\GenericAction {
      */
     public function render(Request $request, Response $response, string $template, $vars) {
         return parent::render($request,$response, $template,
-            array_merge($vars, ['nav' => [$this->nav]));
+            array_merge($vars, ['nav' => [$this->nav]]));
     }
 }

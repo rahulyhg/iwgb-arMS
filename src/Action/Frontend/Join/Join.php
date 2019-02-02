@@ -11,8 +11,8 @@ class Join extends GenericPublicAction {
      */
     public function __invoke(\Slim\Http\Request $request, \Slim\Http\Response $response, $args) {
         return $this->render($request, $response, 'join/join.html.twig', [
-            'joinCopy'  => \JSONObject::getItem(\Config::Pages, 'join'),
-            'branches'  => \JSONObject::getAllItems(\Config::Branches),
+            'joinCopy'  => \JSONObject::get(\Config::Pages, 'join'),
+            'branches'  => \JSONObject::getAll(\Config::Branches),
         ]);
     }
 }

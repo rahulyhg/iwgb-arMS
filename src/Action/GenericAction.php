@@ -57,7 +57,7 @@ abstract class GenericAction {
 
         return $this->view->render($response, $template,
             array_merge($vars, [
-                'app' => \JSONObject::getItem(\Config::App, 'app'),
+                'app' => \JSONObject::get(\Config::App, 'app'),
             ])
         );
     }
