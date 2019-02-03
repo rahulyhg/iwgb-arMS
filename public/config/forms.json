@@ -1,0 +1,217 @@
+{
+    "forms": [
+        {
+            "name": "join",
+            "display": {
+                "en": "Membership form"
+            },
+            "sections": [
+                {
+                    "name": "about",
+                    "display": {
+                        "en": "About you"
+                    },
+                    "fields": [
+                        [
+                            {
+                                "kind": "label",
+                                "display": {
+                                    "en": "Thanks for deciding to join the IWGB! We're thrilled to have you on board - we just need to get a little bit of information about you first."
+                                }
+                            }
+                        ],
+                        [
+                            {
+                                "kind": "text",
+                                "name": "first-name",
+                                "display": {
+                                    "en": "First name"
+                                },
+                                "required": true,
+                                "autocomplete": "given-name"
+                            },
+                            {
+                                "kind": "text",
+                                "name": "surname",
+                                "display": {
+                                    "en": "Surname"
+                                },
+                                "required": true,
+                                "autocomplete": "family-name"
+                            }
+                        ],
+                        [
+                            {
+                                "kind": "date",
+                                "name": "dob",
+                                "display": {
+                                    "en": "Date of birth"
+                                },
+                                "required": true
+                            }
+                        ]
+                    ]
+                },
+                {
+                    "name": "diversity",
+                    "display": {
+                        "en": "Diversity"
+                    },
+                    "fields": [
+                        [
+                            {
+                                "kind": "label",
+                                "display": {
+                                    "en": "The IWGB gather members' diversity information to ensure members are able to vote accordingly. Giving this information is optional."
+                                }
+                            }
+                        ],
+                        [
+                            {
+                                "kind": "select",
+                                "name": "gender",
+                                "display": {
+                                    "en": "Gender identity"
+                                },
+                                "required": false,
+                                "options": [
+                                    {
+                                        "name": "man",
+                                        "display": "Man"
+                                    },
+                                    {
+                                        "name": "woman",
+                                        "display": "Woman"
+                                    },
+                                    {
+                                        "name": "trans-man",
+                                        "display": "Transgender man"
+                                    },
+                                    {
+                                        "name": "trans-woman",
+                                        "display": "Transgender woman"
+                                    },
+                                    {
+                                        "name": "non-binary",
+                                        "display": "Non-binary"
+                                    },
+                                    {
+                                        "name": "intersex",
+                                        "display": "Intersex"
+                                    },
+                                    {
+                                        "name": "other",
+                                        "display": "Other"
+                                    }
+                                ]
+                            }
+                        ]
+                    ]
+                },
+                {
+                    "name": "contact",
+                    "display": {
+                        "en": "Your contact details"
+                    },
+                    "fields": [
+                        [
+                            {
+                                "kind": "tel",
+                                "name": "mobile",
+                                "display": {
+                                    "en": "Mobile phone"
+                                },
+                                "autocomplete": "tel",
+                                "required": true
+                            }
+                        ],
+                        [
+                            {
+                                "kind": "email",
+                                "name": "email",
+                                "display": {
+                                    "en": "Email"
+                                },
+                                "autocomplete": "email",
+                                "required": true
+                            }
+                        ],
+                        [
+                            {
+                                "kind": "textarea",
+                                "size": 5,
+                                "name": "address",
+                                "display": {
+                                    "en": "Address"
+                                },
+                                "required": true
+                            }
+                        ],
+                        [
+                            {
+                                "kind": "text",
+                                "name": "postcode",
+                                "display": {
+                                    "en": "Postcode"
+                                },
+                                "required": true
+                            }
+                        ]
+                    ]
+                },
+                {
+                    "name": "work",
+                    "display": {
+                        "en": "About your work"
+                    },
+                    "fields": [
+                        [
+                            {
+                                "kind": "numeric",
+                                "name": "avg-hours",
+                                "display": {
+                                    "en": "Average hours per week"
+                                },
+                                "required": true
+                            }
+                        ],
+                        [
+                            {
+                                "kind": "text",
+                                "name": "job-title",
+                                "display": {
+                                    "en": "Job title"
+                                },
+                                "required": true
+                            },
+                            {
+                                "kind": "text",
+                                "name": "employer",
+                                "display": {
+                                    "en": "Employer"
+                                },
+                                "required": true
+                            }
+                        ]
+                    ]
+                },
+                {
+                    "name": "declaration",
+                    "display": {
+                        "en": "Declaration"
+                    },
+                    "fields": [
+                        [
+                            {
+                                "kind": "label-md",
+                                "display": {
+                                    "en": "This membership form covers information that our union treats as confidential. It will be held securely and is only used for union purposes. For more information on how we use your information please see our [Privacy Policy](/page/about/privacy). \n\nI agree to join the Independent Workers' Union of Great Britain (IWGB) and authorise IWGB to collect my membership fees by Direct Debit. \n\nI understand that, in joining the union, I agree to the union's [constitution](/page/secret/constitution) and rules and the union's policies. I understand that the constitution, rules and policies may be amended from time to time."
+                                }
+                            }
+                        ]
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,86 @@
+{
+    "$schema:": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://iwgb.org.uk/config/schema/form.schema.json",
+    "title": "Forms",
+    "description": "Sets out the fields and layout of forms",
+    "type": "object",
+    "additionalProperties": false,
+    "definitions": {
+        "section": {
+            "type": "object",
+            "additionalProperties": false,
+            "oneOf": [
+                {
+                    "properties": {
+                        "name": {
+                            "description": "This section's name, with no spaces or capitals",
+                            "type": "string",
+                            "pattern": "^[a-z\\-]+$"
+                        },
+                        "display": {
+                            "description": "How this section's name displays",
+                            "type": "object",
+                            "$ref": "content.schema.json#/definitions/content"
+                        },
+                        "fields": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/line"
+                            }
+                        }
+                    },
+                    "required": [
+                        "name",
+                        "display",
+                        "fields"
+                    ],
+                    "additionalProperties": false
+                }
+            ]
+        },
+        "line": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "$ref": "field.schema.json#/definitions/field"
+            }
+        },
+        "form": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "description": "This form's name, with no spaces or capitals",
+                    "type": "string",
+                    "pattern": "^[a-z\\-]+$"
+                },
+                "display": {
+                    "description": "How this form's name displays",
+                    "type": "object",
+                    "$ref": "content.schema.json#/definitions/content"
+                },
+                "sections": {
+                    "description": "A section of the form, focusing on one aspect or topic",
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "$ref": "#/definitions/section"
+                    }
+                }
+            },
+            "required": [
+                "name",
+                "display",
+                "sections"
+            ]
+        }
+    },
+    "properties": {
+        "forms": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/form"
+            }
+        }
+    }
+}

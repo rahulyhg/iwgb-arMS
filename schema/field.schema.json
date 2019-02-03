@@ -1,0 +1,164 @@
+{
+  "$schema:": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://iwgb.org.uk/config/schema/field.schema.json",
+  "description": "One item in your branch's join form. You can view more complex options by changing the item dropdown above",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "field": {
+      "oneOf": [
+        {
+          "properties": {
+            "name": {
+              "description": "The field name, with no spaces or capitals",
+              "type": "string",
+              "pattern": "^[a-z\\-]+$"
+            },
+            "display": {
+              "description": "How this field displays on the website",
+              "type": "object",
+              "$ref": "content.schema.json#/definitions/content"
+            },
+            "kind": {
+              "description": "What kind of field this is",
+              "type": "string",
+              "enum": [
+                "text",
+                "numeric",
+                "date",
+                "month",
+                "time",
+                "checkbox",
+                "tel",
+                "email"
+              ]
+            },
+            "required": {
+              "description": "Whether this field is required",
+              "type": "boolean",
+              "format": "checkbox"
+            },
+            "autocomplete": {
+              "description": "This tells the browser what piece of information to pre-fill this box with. Not required",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "display",
+            "kind",
+            "required"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "display": {
+              "description": "How this field displays on the website (English)",
+              "type": "object",
+              "$ref": "content.schema.json#/definitions/content-md"
+            },
+            "kind": {
+              "description": "What kind of field this is",
+              "type": "string",
+              "enum": [
+                "label",
+                "label-md"
+              ]
+            }
+          },
+          "required": [
+            "display",
+            "kind"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "name": {
+              "description": "The field name, with no spaces or capitals",
+              "type": "string",
+              "pattern": "^[a-z\\-]+$"
+            },
+            "display": {
+              "description": "How this field displays on the website",
+              "type": "object",
+              "$ref": "content.schema.json#/definitions/content"
+            },
+            "kind": {
+              "description": "What kind of field this is",
+              "type": "string",
+              "enum": [
+                "textarea"
+              ]
+            },
+            "size": {
+              "description": "How many lines your large textbox should have",
+              "type": "integer",
+              "exclusiveMinimum": 0
+            },
+            "required": {
+              "description": "Whether this field is required",
+              "type": "boolean",
+              "format": "checkbox"
+            },
+            "autocomplete": {
+              "description": "This tells the browser what piece of information to pre-fill this box with. Not required",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "display",
+            "kind",
+            "size",
+            "required"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "name": {
+              "description": "The field name, with no spaces or capitals",
+              "type": "string",
+              "pattern": "^[a-z\\-]+$"
+            },
+            "display": {
+              "description": "How this field displays on the website",
+              "type": "object",
+              "$ref": "content.schema.json#/definitions/content"
+            },
+            "kind": {
+              "description": "What kind of field this is",
+              "type": "string",
+              "enum": [
+                "select"
+              ]
+            },
+            "options": {
+              "description": "The options that your drop-down box has",
+              "type": "array",
+              "items": {
+                "$ref": "branches.schema.json#/definitions/option"
+              },
+              "minItems": 1
+            },
+            "required": {
+              "description": "Whether this field is required",
+              "type": "boolean",
+              "format": "checkbox"
+            }
+          },
+          "required": [
+            "name",
+            "display",
+            "kind",
+            "options",
+            "required"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  }
+}
