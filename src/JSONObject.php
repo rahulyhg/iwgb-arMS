@@ -41,6 +41,6 @@ class JSONObject {
     }
 
     protected static function loadJSON($config) {
-        return json_decode(file_get_contents(APP_ROOT . "/config/$config.json"), true)[$config];
+        return json_decode(file_get_contents(APP_ROOT . "/public/config/$config.json"), true)[$config];
     }
 }

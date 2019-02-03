@@ -58,7 +58,7 @@ class LanguageDictionary {
      * Write any changes to the in-memory $dictionary to dictionary.json
      */
     private function flush(): void {
-        file_put_contents(APP_ROOT . '/config/lang/dictionary.json',
+        file_put_contents(APP_ROOT . '/public/config/lang/dictionary.json',
             json_encode([\Config::Dictionary => $this->dictionary]));
     }
 }

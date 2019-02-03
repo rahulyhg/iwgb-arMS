@@ -54,7 +54,7 @@ $container['db'] = function ($c) {
 //};
 
 //$container['view'] = function ($container) {
-//    $templates = __DIR__ . '/templates/';
+//    $view = __DIR__ . '/view/';
 //    $cache = __DIR__ . '/cache/';
 //    $debug = false;
 //    // $debug = true;

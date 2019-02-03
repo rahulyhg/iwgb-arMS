@@ -1,0 +1,144 @@
+{
+    "menus": [
+        {
+            "name": "public-top",
+            "display": {
+                "en": "Public site navigation"
+            },
+            "nodes": [
+                {
+                    "display": {
+                        "en": "Join"
+                    },
+                    "href": "/join",
+                    "type": "internal"
+                },
+                {
+                    "display": {
+                        "en": "Donate"
+                    },
+                    "href": "https://crowdjustice.com/case/cleanupoutsourcing",
+                    "type": "external"
+                },
+                {
+                    "topNode": {
+                        "display": {
+                            "en": "News"
+                        },
+                        "href": "/feed",
+                        "type": "internal"
+                    },
+                    "listNodes": [
+                        {
+                            "display": {
+                                "en": "News"
+                            },
+                            "href": "/feed",
+                            "type": "internal"
+                        },
+                        {
+                            "display": {
+                                "en": "Press Releases"
+                            },
+                            "href": "/feed/press-releases",
+                            "type": "internal"
+                        },
+                        {
+                            "display": {
+                                "en": "Blog"
+                            },
+                            "href": "/feed/blog",
+                            "type": "internal"
+                        }
+                    ]
+                },
+                {
+                    "topNode": {
+                        "display": {
+                            "en": "Campaigns"
+                        },
+                        "href": "/page/campaigns/justice-outsourced-work",
+                        "type": "internal"
+                    },
+                    "listNodes": [
+                        {
+                            "display": {
+                                "en": "Gig Economy"
+                            },
+                            "href": "/page/campaigns/gig-econ",
+                            "type": "internal"
+                        },
+                        {
+                            "display": {
+                                "en": "Foster Care Workers"
+                            },
+                            "href": "/page/campaigns/foster-brighter-future",
+                            "type": "internal"
+                        },
+                        {
+                            "display": {
+                                "en": "Outsourced Workers"
+                            },
+                            "href": "/page/campaigns/justice-outsourced-work",
+                            "type": "internal"
+                        }
+                    ]
+                },
+                {
+                    "topNode": {
+                        "display": {
+                            "en": "About"
+                        },
+                        "href": "/page/about/about",
+                        "type": "internal"
+                    },
+                    "listNodes": [
+                        {
+                            "display": {
+                                "en": "About Us"
+                            },
+                            "href": "/page/about/about",
+                            "type": "internal"
+                        },
+                        {
+                            "display": {
+                                "en": "Privacy Policy"
+                            },
+                            "href": "/page/about/privacy",
+                            "type": "internal"
+                        },
+                        {
+                            "display": {
+                                "en": "Data Protection"
+                            },
+                            "href": "/page/about/data-protection",
+                            "type": "internal"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "public-footer",
+            "display": {
+                "en": "The public site's footer"
+            },
+            "nodes": [
+                {
+                    "display": {
+                        "en": "Privacy Policy"
+                    },
+                    "href": "/page/about/privacy",
+                    "type": "internal"
+                },
+                {
+                    "display": {
+                        "en": "Data Protection Policy"
+                    },
+                    "href": "/page/about/data-protection",
+                    "type": "internal"
+                }
+            ]
+        }
+    ]
+}
