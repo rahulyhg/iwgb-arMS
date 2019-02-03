@@ -45,7 +45,6 @@ abstract class GenericAction {
 
         $twigEnv = $this->view->getEnvironment();
 
-
         $twigEnv->addGlobal('_lang', $requestLanguage);
         $twigEnv->addGlobal('_fallback', $fallbackLanguage);
 

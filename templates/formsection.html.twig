@@ -3,52 +3,52 @@
 #}
 
 {% for field in fields %}
-	{% if field.kind == 'text' or field.kind == 'numeric' or field.kind == 'email' or field.kind == 'tel' or field.kind == 'date' %}
-		{% if field.kind == 'date' %}
-			<label>{{ _(field.display) }}</label>
-		{% endif %}
-		<input type="{{ field.kind }}"
-			   name="{{ field.name }}"
-			   placeholder="{{ _(field.display) }}"
-				{% if field.autocomplete is defined %}
-					autocomplete="{{ field.autocomplete }}"
-				{% endif %}
-				{% if field.required %} required {% endif %}>
-	{% elseif field.kind == 'label' %}
-		<p>{{ _(field.display) }}</p>
+    {% if field.kind == 'text' or field.kind == 'numeric' or field.kind == 'email' or field.kind == 'tel' or field.kind == 'date' %}
+        {% if field.kind == 'date' %}
+            <label>{{ _(field.display) }}</label>
+        {% endif %}
+        <input type="{{ field.kind }}"
+               name="{{ field.name }}"
+               placeholder="{{ _(field.display) }}"
+                {% if field.autocomplete is defined %}
+                    autocomplete="{{ field.autocomplete }}"
+                {% endif %}
+                {% if field.required %} required {% endif %}>
+    {% elseif field.kind == 'label' %}
+        <p>{{ _(field.display) }}</p>
 
-	{% elseif field.kind == 'label-md' %}
-		{% autoescape false %}
-			<p>{{ _(field.display)|htmlentities|md }}</p>
-		{% endautoescape %}
+    {% elseif field.kind == 'label-md' %}
+        {% autoescape false %}
+            <p>{{ _(field.display)|htmlentities|md }}</p>
+        {% endautoescape %}
 
-	{% elseif field.kind == 'select' %}
-		<label>
-			{{ _(field.display) }}
-			<select name="{{ field.name }}">
-				{% if not field.required %}
-					<option value="did-not-supply"></option>
-				{% endif %}
-				{% for option in field.options %}
-					<option value="{{ option.name }}">
-						{{ _(option.display) }}
-					</option>
-				{% endfor %}
-			</select>
-		</label>
+    {% elseif field.kind == 'select' %}
+        <label>
+            {{ _(field.display) }}
+            <select name="{{ field.name }}">
+                {% if not field.required %}
+                    <option value="did-not-supply"></option>
+                {% endif %}
+                {% for option in field.options %}
+                    <option value="{{ option.name }}">
+                        {{ _(option.display) }}
+                    </option>
+                {% endfor %}
+            </select>
+        </label>
 
-	{% elseif field.kind == 'textarea' %}
-		<textarea rows="{{ field.size }}"
-				  name="{{ field.name }}"
-				  placeholder="{{ _(field.display) }}"
+    {% elseif field.kind == 'textarea' %}
+        <textarea rows="{{ field.size }}"
+                  name="{{ field.name }}"
+                  placeholder="{{ _(field.display) }}"
 				{% if field.required %} required {% endif %}></textarea>
 
-	{% elseif field.kind == 'checkbox' %}
-		<label>
-			<input type="checkbox"
-				name="{{ field.name }}"
-				{% if field.required %} required {% endif %}>
-			{{ _(field.display) }}
-		</label>
-	{% endif %}
+    {% elseif field.kind == 'checkbox' %}
+        <label>
+            <input type="checkbox"
+                   name="{{ field.name }}"
+                    {% if field.required %} required {% endif %}>
+            {{ _(field.display) }}
+        </label>
+    {% endif %}
 {% endfor %}

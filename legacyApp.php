@@ -81,6 +81,11 @@ $container['db'] = function ($c) {
 //    };
 //};
 
+$container->view->getEnvironment()->addGlobal('csrfKeys', [
+    'name'  => $container['csrf']->getTokenNameKey(),
+    'value' => $container['csrf']->getTokenValueKey(),
+]);
+
 // filters
 
 $f_timeAgo = new Twig_SimpleFilter('timeago', function ($s) {
