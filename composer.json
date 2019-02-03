@@ -12,6 +12,7 @@
         "ext-pdo": "*",
         "league/csv": "^9.1",
         "ext-json": "*",
-        "myclabs/php-enum": "^1.6"
+        "myclabs/php-enum": "^1.6",
+        "bryanjhv/slim-session": "^3.6"
     }
 }

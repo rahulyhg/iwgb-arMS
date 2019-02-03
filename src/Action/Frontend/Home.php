@@ -13,7 +13,7 @@ class Home extends GenericPublicAction {
     public function __invoke(Request $request, Response $response, $args) {
 
         /* @var $postRepo \Domain\PostRepository */
-        $postRepo = $this->em->getRepository('\Domain\Post');
+        $postRepo = $this->em->getRepository(\Domain\Post::class);
         $pinned = $postRepo->getPinnedPost()[0];
         $stories = $postRepo->getStoriesExcluding($pinned, 3);
 

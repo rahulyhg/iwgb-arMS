@@ -27,6 +27,10 @@ class Slim implements ServiceProviderInterface {
             };
         };
 
+        $c['session'] = function (Container $c) {
+            return new \SlimSession\Helper;
+        };
+
         $c['slim'] = function (Container $c): App {
             /** @var $c \TypeHinter */
             $app = new App($c);
@@ -37,6 +41,12 @@ class Slim implements ServiceProviderInterface {
             ]));
 
             $app->add($c['csrf']);
+
+            $app->add(new \Slim\Middleware\Session([
+                'name' => 'IwgbSession',
+                'autorefresh' => true,
+                'lifetime' => '1 hour'
+            ]));
 
             // routes handled by v2
 
@@ -53,7 +63,6 @@ class Slim implements ServiceProviderInterface {
 
 
             //legacy code
-
 
             $c['legacy'] = require APP_ROOT . '/legacyConfig.php';
             $container = $c;

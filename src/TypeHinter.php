@@ -19,4 +19,7 @@ class TypeHinter {
 
     /** @var  $csrf \Slim\Csrf\Guard */
     public $csrf;
+
+    /** @var $session \SlimSession\Helper */
+    public $session;
 }

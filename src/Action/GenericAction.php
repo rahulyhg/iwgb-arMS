@@ -2,6 +2,7 @@
 
 namespace Action;
 
+use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -13,6 +14,7 @@ abstract class GenericAction {
     protected $csrf;
     protected $notFoundHandler;
     protected $settings;
+    protected $session;
 
     public function __construct(Container $c) {
         /* @var $c \TypeHinter */
@@ -21,6 +23,7 @@ abstract class GenericAction {
         $this->em = $c->em;
         $this->notFoundHandler = $c->notFoundHandler;
         $this->settings = $c->settings;
+        $this->session = $c->session;
     }
 
     /**
@@ -38,7 +41,7 @@ abstract class GenericAction {
      * @param mixed[] $vars
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function render(Request $request, Response $response, string $template, $vars) {
+    public function render(Request $request, Response $response, string $template, $vars): ResponseInterface {
         $requestLanguage = $response->getHeader('Content-Language')[0];
         $fallbackLanguage = $this->settings['languages']['fallback'];
         $dictionary = new \LanguageDictionary($requestLanguage, $fallbackLanguage);

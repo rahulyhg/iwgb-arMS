@@ -14,7 +14,6 @@ class User {
      *
      * @ORM\Column(name="email", type="string", length=100, nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $email;
 

@@ -1,25 +1,28 @@
 <?php
 
-namespace Action\Frontend;
+namespace Action\Backend;
 
+use Action\GenericAction;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-abstract class GenericPublicAction extends \Action\GenericAction {
-    protected $nav;
+abstract class GenericLoggedInAction extends GenericAction {
+
+    protected $user;
 
     public function __construct(Container $c) {
         parent::__construct($c);
-        $this->nav = \JSONObject::get(\Config::Menus, 'public-top');
+        $this->user = $this->em
+            ->getRepository(\Domain\User::class)
+            ->find($this->session->get('user'));
     }
 
     /**
      * {@inheritdoc}
      */
     public function render(Request $request, Response $response, string $template, $vars): ResponseInterface {
-        return parent::render($request,$response, $template,
-            array_merge($vars, ['nav' => $this->nav]));
+        return parent::render($request, $response, $template, $vars);
     }
 }

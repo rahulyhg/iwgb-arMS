@@ -121,9 +121,9 @@ $container['view']->getEnvironment()->addFilter($f_uniqid);
 
 // middleware
 
-$m_accesscontrol = function (Request $request, Response $response, $next) {
+$m_accesscontrol = function (Request $request, Response $response, $next) use ($container) {
     $callback = $request->getUri()->getPath();
-    if ($callback != '/arms/login' && !isLoggedIn()) {
+    if ($callback != '/arms/login' && !isLoggedIn($container->session)) {
         $query = urlencode($request->getUri()->getQuery());
         if ($query != '') {
             $query = '&q=' . $query;
@@ -449,7 +449,7 @@ $app->group('/arms', function() {
 
     $this->post('/login', function (Request $request, Response $response) {
         $post = $request->getParsedBody();
-        $login = logIn($this->db, $post, $request->getAttribute('ip_address'));
+        $login = logIn($this->db, $post, $this->session, $request->getAttribute('ip_address'));
         if ($login === true) {
             $url = '/arms/feed';
             if (!empty($post['callback']) && $post['callback'] != '/arms') {
@@ -466,7 +466,7 @@ $app->group('/arms', function() {
     });
 
     $this->get('/logout', function (Request $request, Response $response) {
-        logOut($this->db);
+        logOut($this->db, $this->session);
         return $response->withRedirect('/arms/login?m=You have been logged out.');
     });
 
@@ -520,7 +520,7 @@ $app->group('/arms', function() {
                 $select = $overwrite['blog'];
             }
         }
-        $currentUser = getCurrentUser()['email'];
+        $currentUser = getCurrentUser($this->session)['email'];
         return $this->view->render($response, 'arms-publish.html.twig', [
             'overwrite'     => $overwrite,
             'users'         => getUsers($this->db),
@@ -637,7 +637,7 @@ $app->group('/arms', function() {
                 ':content'      => $content,
                 ':language'     => $language,
                 ':shortlink'    => $shortlink,
-                ':posted_by'    => getCurrentUser()['email'],
+                ':posted_by'    => getCurrentUser($this->session)['email'],
                 ':title'        => $title,
                 ':header_img'   => $header_img,
             ));
@@ -1392,11 +1392,7 @@ function redirectToCallbackUrl($response, $default, $params = array(), $callback
 
 function logEvent($db, $type, $upon = '', $notes = '', $by = false) {
     if (!$by) {
-        if (isLoggedIn()) {
-            $by = getCurrentUser()['email'];
-        } else {
-            $by = 'unknown';
-        }
+        $by = 'unknown';
     }
     $q = $db->prepare('INSERT INTO events (id, type, act_upon, act_by, notes)
         VALUES (:id, :type, :upon, :by, :notes);'
@@ -1421,16 +1417,16 @@ function notFoundHandler($app, $request, $response) {
 // auth
 // hat-tip to panique/php-login-minimal
 
-function isLoggedIn() {
-    return isset($_SESSION['loginStatus']) && $_SESSION['loginStatus'] == true;
+function isLoggedIn($session) {
+    return ($session->get('loginStatus'));
 }
 
-function logIn($db, $post, $ip) {
+function logIn($db, $post, $session, $ip) {
     $q = $db->prepare("SELECT id 
         FROM events
         WHERE type = 'login'
-        AND act_by = :ip
-        AND timestamp BETWEEN DATE_SUB(NOW() , INTERVAL 10 MINUTE) AND NOW()"
+    AND act_by = :ip
+    AND timestamp BETWEEN DATE_SUB(NOW() , INTERVAL 10 MINUTE) AND NOW()"
     );
     $q->execute(array(
         ':ip' => $ip,
@@ -1451,11 +1447,10 @@ function logIn($db, $post, $ip) {
         if ($q->rowCount() == 1) {
             $user = $q->fetch();
             if (password_verify($post['pass'], $user['pass'])) {
-                $_SESSION = array(
-                    'user'          => $user['email'],
-                    'name'          => $user['name'],
-                    'loginStatus'   => true,
-                );
+                $session->clear()
+                    ->set('user', $user['email'])
+                    ->set('name', $user['name'])
+                    ->set('loginStatus', true);
                 if (password_needs_rehash($user['pass'], PASSWORD_DEFAULT)) {
                     $hash = password_hash($post['pass'], PASSWORD_DEFAULT);
                     $q = $db->prepare('UPDATE users SET pass = :pass WHERE email = :user');
@@ -1487,30 +1482,29 @@ function register($db, $email, $pass) {
     ));
 }
 
-function logOut($db) {
+function logOut($db, $session) {
     logEvent($db, 'logout');
-    $_SESSION = array();
-    session_destroy();
+    $session::destroy();
 }
 
-function getCurrentUser() {
-    if (isset($_SESSION['user'])) {
+function getCurrentUser($session) {
+    if ($session->exists('user')) {
         return array(
-            'email' => $_SESSION['user'],
-            'name'  => $_SESSION['name'],
+            'email' => $session->get('user'),
+            'name'  => $session->get('name'),
         );
     } else {
         return 'user';
     }
 }
 
-function getCurrentUserData($db) {
+function getCurrentUserData($db, $session) {
     $q = $db->prepare('SELECT permissions, organisation
         FROM users
         WHERE email = :email'
     );
     $q->execute(array(
-        ':email' => getCurrentUser()['email'],
+        ':email' => getCurrentUser($session)['email'],
     ));
     return $q->fetch();
 }
