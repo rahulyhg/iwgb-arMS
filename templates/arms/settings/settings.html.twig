@@ -1,0 +1,12 @@
+{% extends 'arms-page.html.twig' %}
+
+{% block content %}
+    {% for display, config in configs %}
+        <h1>{{ display }}</h1>
+        {% for item in config.items %}
+            <p><a href="/admin/settings/{{ config.name }}/{{ item.name }}">{{ _(item.display) }}</a></p>
+        {% endfor %}
+    {% endfor %}
+
+    {#{% autoescape false %}{{ dump(configs) }}{% endautoescape %}#}
+{% endblock %}
