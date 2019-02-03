@@ -58,8 +58,10 @@ class Slim implements ServiceProviderInterface {
                 $app->get('/{branch}', \Action\Frontend\Join\Form::class);
             });
 
+            $app->group('/admin', function (App $app) {
 
 
+            })->add(new \AuthMiddleware($c->session));
 
 
             //legacy code
