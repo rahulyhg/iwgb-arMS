@@ -1,6 +1,6 @@
 {
     "$schema:": "http://json-schema.org/draft-07/schema#",
-    "$id": "/js/nav.schema.json",
+    "$id": "https://iwgb.org.uk/js/nav.schema.json",
     "title": "Nav",
     "description": "Declares the elements that appear in a navigation menu",
     "type": "object",
@@ -23,7 +23,10 @@
                     }
                 }
             },
-            "required": ["topNode", "listNodes"]
+            "required": [
+                "topNode",
+                "listNodes"
+            ]
         },
         "leafNode": {
             "type": "object",
@@ -34,7 +37,7 @@
                         "display": {
                             "description": "The label of this node in the drop-down list",
                             "type": "object",
-                            "$ref": "content.schema.json#/definitions/content"
+                            "$ref": "/config/schema/content.schema.json#/definitions/content"
                         },
                         "href": {
                             "description": "The internal link that this node points to. With internal links, you only need include from the first slash (e.g., /join rather than https://iwgb.org.uk/join)",
@@ -44,7 +47,9 @@
                         "type": {
                             "description": "Whether this link is internal or external",
                             "type": "string",
-                            "enum": ["internal"]
+                            "enum": [
+                                "internal"
+                            ]
                         }
                     }
                 },
@@ -53,7 +58,7 @@
                         "display": {
                             "description": "The label of this node in the drop-down list",
                             "type": "object",
-                            "$ref": "content.schema.json#/definitions/content"
+                            "$ref": "/config/schema/content.schema.json#/definitions/content"
                         },
                         "href": {
                             "description": "The external link that this node points to",
@@ -63,12 +68,18 @@
                         "type": {
                             "description": "Whether this link is internal or external",
                             "type": "string",
-                            "enum": ["external"]
+                            "enum": [
+                                "external"
+                            ]
                         }
                     }
                 }
             ],
-            "required": ["display", "href", "type"]
+            "required": [
+                "display",
+                "href",
+                "type"
+            ]
         },
         "menu": {
             "type": "object",
@@ -82,13 +93,13 @@
                 "display": {
                     "description": "How this nav's name displays",
                     "type": "object",
-                    "$ref": "content.schema.json#/definitions/content"
+                    "$ref": "/config/schema/content.schema.json#/definitions/content"
                 },
                 "nodes": {
                     "description": "each option in the nav",
                     "type": "array",
                     "minItems": 1,
-                    "items":{
+                    "items": {
                         "oneOf": [
                             {
                                 "$ref": "#/definitions/rootNode"
@@ -100,7 +111,11 @@
                     }
                 }
             },
-            "required": ["name", "display", "nodes"]
+            "required": [
+                "name",
+                "display",
+                "nodes"
+            ]
         }
     },
     "properties": {

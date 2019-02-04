@@ -12,12 +12,8 @@ class EditConfig extends GenericLoggedInAction {
      * {@inheritdoc}
      */
     public function __invoke(Request $request, Response $response, $args) {
-
-        //TODO validate args
-
-        return $this->render($request, $response, '/admin/settings/edit.html.twig', [
-            'config'=> $args['config'],
-            'item'  => '',
-        ]);
+        // TODO: if is valid config
+        $config = $args['config'];
+        return $response->withRedirect("/config/edit/?config=$config", 302);
     }
 }

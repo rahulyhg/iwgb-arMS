@@ -7,6 +7,8 @@
     "additionalProperties": false,
     "definitions": {
         "content": {
+            "type": "object",
+            "additionalProperties": false,
             "properties": {
                 "en": {
                     "description": "English - languages left blank will default to this",
@@ -20,6 +22,8 @@
             "required": ["en"]
         },
         "content-md": {
+            "type": "object",
+            "additionalProperties": false,
             "properties": {
                 "en": {
                     "description": "English - languages left blank will default to this",

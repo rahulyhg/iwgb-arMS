@@ -58,12 +58,12 @@
                         "heading": {
                             "description": "Content: heading",
                             "type": "object",
-                            "$ref": "content.schema.json/#definitions/content"
+                            "$ref": "/config/schema/content.schema.json/#definitions/content"
                         },
                         "body": {
                             "description": "Content: body",
                             "type": "object",
-                            "$ref": "content.schema.json/#definitions/content-md"
+                            "$ref": "/config/schema/content.schema.json/#definitions/content-md"
                         },
                         "image": {
                             "description": "Content: image",
@@ -125,17 +125,17 @@
                         "heading": {
                             "description": "Content: heading",
                             "type": "object",
-                            "$ref": "content.schema.json/#definitions/content"
+                            "$ref": "/config/schema/content.schema.json/#definitions/content"
                         },
                         "subheading": {
                             "description": "Content: subheading, optional",
                             "type": "object",
-                            "$ref": "content.schema.json/#definitions/content-md"
+                            "$ref": "/config/schema/content.schema.json/#definitions/content-md"
                         },
                         "intro": {
                             "description": "Content: column intro, optional",
                             "type": "object",
-                            "$ref": "content.schema.json/#definitions/content-md"
+                            "$ref": "/config/schema/content.schema.json/#definitions/content-md"
                         },
                         "columns": {
                             "type": "array",
@@ -165,7 +165,7 @@
                     "display": {
                         "description": "The text to display here",
                         "type": "object",
-                        "$ref": "content.schema.json#/definitions/content-md"
+                        "$ref": "/config/schema/content.schema.json#/definitions/content-md"
                     }
                 }
             },
@@ -182,12 +182,12 @@
                 "heading": {
                     "description": "Content: column heading",
                     "type": "object",
-                    "$ref": "content.schema.json/#definitions/content"
+                    "$ref": "/config/schema/content.schema.json/#definitions/content"
                 },
                 "body": {
                     "description": "Content: column body",
                     "type": "object",
-                    "$ref": "content.schema.json/#definitions/content-md"
+                    "$ref": "/config/schema/content.schema.json/#definitions/content-md"
                 }
             },
             "required": ["icon", "heading", "body"]
@@ -205,7 +205,7 @@
                 "alt": {
                     "description": "Text describing the image for accessibility purposes",
                     "type": "object",
-                    "$ref": "content.schema.json/#definitions/content"
+                    "$ref": "/config/schema/content.schema.json/#definitions/content"
                 }
             },
             "required": ["src"]

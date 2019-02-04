@@ -51,3 +51,4 @@ composer.lock
 # config files
 /public/config/*.json
 /public/config/lang/
+/public/config/edit/
