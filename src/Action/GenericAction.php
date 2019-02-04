@@ -50,6 +50,7 @@ abstract class GenericAction {
 
         $twigEnv->addGlobal('_lang', $requestLanguage);
         $twigEnv->addGlobal('_fallback', $fallbackLanguage);
+        $twigEnv->addGlobal('_get', $request->getQueryParams());
 
         $twigEnv->addFunction(new \Twig_Function('_', function ($content) use ($dictionary) {
             return $dictionary->get($content);

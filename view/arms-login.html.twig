@@ -12,7 +12,6 @@
 	<body>
 		<div class="body-container">
 			<form method="post" action="/arms/login">
-				{% autoescape false %}{{ dump(_csrf) }}{% endautoescape %}
 				{% include 'arms-messages.html.twig' %}
 				{% include 'csrf.html.twig' %}
 				<h1><i class="fa fa-pencil-square-o fa-3x"></i><span>árMS</span></h1>

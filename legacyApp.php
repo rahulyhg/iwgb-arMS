@@ -86,6 +86,8 @@ $container->view->getEnvironment()->addGlobal('csrfKeys', [
     'value' => $container['csrf']->getTokenValueKey(),
 ]);
 
+$container->view->getEnvironment()->addGlobal('_get', $_GET);
+
 // filters
 
 $f_timeAgo = new Twig_SimpleFilter('timeago', function ($s) {
