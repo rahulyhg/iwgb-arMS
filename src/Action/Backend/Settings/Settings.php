@@ -23,7 +23,7 @@ class Settings extends GenericLoggedInAction {
                 ];
             }
         }
-        return $this->render($request, $response, 'arms/settings/settings.html.twig', [
+        return $this->render($request, $response, 'admin/settings/settings.html.twig', [
             'configs' => $configs,
         ]);
     }
