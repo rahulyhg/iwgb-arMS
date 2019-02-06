@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import "./App.css";
 import Form from "react-jsonschema-form";
 
@@ -15,15 +16,15 @@ class App extends Component {
   }
 
   load() {
-    fetch("/config/schema/" + this.state.config + ".schema.json").then(
+    fetch("/admin/settings/" + this.state.config + "/data/schema").then(
       response => this.setState({ jsonschema: response })
     );
 
-    fetch("/config/" + this.state.config + ".json").then(response =>
+    fetch("/admin/settings/" + this.state.config + "/data/config").then(response =>
       this.setState({ formData: response })
     );
 
-    fetch("/config/schema/" + this.state.config + ".ui.schema.json").then(
+    fetch("/admin/settings/" + this.state.config + "/data/ui").then(
       response => this.setState({ uiSchema: response })
     );
   }

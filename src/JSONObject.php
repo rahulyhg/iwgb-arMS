@@ -40,7 +40,21 @@ class JSONObject {
         return $items;
     }
 
-    protected static function loadJSON($config) {
-        return json_decode(file_get_contents(APP_ROOT . "/public/config/$config.json"), true)[$config];
+    /**
+     * @param $name
+     * @return array
+     */
+    public static function getSchema($name) {
+        return self::load("/public/config/schema/$name.schema.json");
     }
+
+    private static function loadJSON($config) {
+        return self::load("/public/config/$config.json")[$config];
+    }
+
+    private static function load($file) {
+        return json_decode(file_get_contents(APP_ROOT . $file), true);
+    }
+
+
 }

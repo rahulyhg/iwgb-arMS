@@ -63,7 +63,9 @@ class Slim implements ServiceProviderInterface {
                 $app->group('/settings', function (App $app) {
 
                     $app->get('', \Action\Backend\Settings\Settings::class);
-                    $app->get('/{config}', \Action\Backend\Settings\EditConfig::class);
+                    $app->get('/{config}/{item}/data/{type}', \Action\Backend\Settings\GetJson::class);
+                    $app->get('/{config}/{item}', \Action\Backend\Settings\EditConfig::class);
+
                 });
 
             })->add(new \AuthMiddleware($c->session));

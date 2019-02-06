@@ -14,6 +14,7 @@ class EditConfig extends GenericLoggedInAction {
     public function __invoke(Request $request, Response $response, $args) {
         // TODO: if is valid config
         $config = $args['config'];
-        return $response->withRedirect("/config/edit/?config=$config", 302);
+        $item = $args['item'];
+        return $response->withRedirect("/config/edit/?config=$config/$item", 302);
     }
 }
