@@ -15,18 +15,39 @@ class Verify extends \Action\Frontend\GenericMemberAction {
         $member = $this->getMember($args['application']);
 
         // if is post, redirect to get
+        if ($request->getMethod() == 'POST') {
+            $data = $request->getParsedBody();
+            if (count($data) > 0) {
+                foreach ($data as $verification) {
+                    $this->http->submitForm('/join/verify', [
+                        'k'         => $verification['k'],
+                        't'         => $verification['t'],
+                        'headless'  => true,
+                    ], 'GET');
+                }
+            }
+            return $response->withRedirect('/join/verify');
+        }
 
-        // if k and t are set, attempt verification
+        $get = $request->getQueryParams();
+        if (!empty($get['k']) &&
+            !empty($get['t'])) {
+            $this->verify($get['k'], $get['t']);
+        }
 
-        // if no more verifications are associated with this application, redirect
+        if ($get['headless']) {
+            return $response;
+        }
+
+        // check authy if verified
+        if (false /* verified */) {
+            return $response->withRedirect('/join/verified')
+        }
 
         // else, display
-
-
-
     }
 
     private function verify(string $k, string $t): bool {
-
+        // authy verify
     }
 }
