@@ -57,7 +57,7 @@ abstract class GenericAction {
      * @param string[] $args
      * @return mixed
      */
-    abstract public function __invoke(Request $request, Response $response, $args): ResponseInterface;
+    abstract public function __invoke(Request $request, Response $response, $args);
 
     /**
      * @param Request $request

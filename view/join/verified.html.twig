@@ -1,0 +1,17 @@
+{% extends 'page.html.twig' %}
+
+{#
+    member: an instance of \Domain\Member
+    membership: a membership Cost conformant to branches.schema.json#/definitions/cost
+#}
+
+{% block page %}
+	<h1>Proceed to payment</h1>
+	<div>
+		<p>Ref: {{ member.getId() }}</p>
+		<p><strong>You must click Pay Now below to complete your application.</strong></p>
+		<p>Your application has been verified, and will be complete your payment has been set up.</p>
+		<p>Our payment provider may require you to re-enter some information that has been given on your application. This information is held by our payment provider separately and is required by them in order to set up a direct debit with your authority.</p>
+        <p><a href="{{ membership.link }}" class="button">Pay now</a></p>
+	</div>
+{% endblock %}

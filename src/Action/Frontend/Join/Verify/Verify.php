@@ -19,14 +19,14 @@ class Verify extends \Action\Frontend\GenericMemberAction {
             $data = $request->getParsedBody();
             if (count($data) > 0) {
                 foreach ($data as $verification) {
-                    $this->http->submitForm('/join/verify', [
-                        'k'         => $verification['k'],
-                        't'         => $verification['t'],
-                        'headless'  => true,
+                    $this->http->submitForm('/join/application/' . $member->getId() . '/verify', [
+                        'k' => $verification['k'],
+                        't' => $verification['t'],
+                        'headless' => true,
                     ], 'GET');
                 }
             }
-            return $response->withRedirect('/join/verify');
+            return $response->withRedirect('/join/application/' . $member->getId() . '/verify');
         }
 
         $get = $request->getQueryParams();
@@ -36,15 +36,18 @@ class Verify extends \Action\Frontend\GenericMemberAction {
         }
 
         if ($get['headless']) {
-            return $response;
+            return $response->withStatus(200);
         }
 
         // check authy if verified
         if (false /* verified */) {
-            return $response->withRedirect('/join/verified')
+            return $response->withRedirect('/join/application/' . $member->getId() . '/verified');
         }
 
         // else, display
+        return $this->render($request, $response, '/join/verify.html.twig', [
+
+        ]);
     }
 
     private function verify(string $k, string $t): bool {

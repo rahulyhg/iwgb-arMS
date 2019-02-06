@@ -3,6 +3,7 @@
 namespace Action\Frontend\Join;
 
 use Action\Frontend\GenericPublicAction;
+use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -10,8 +11,9 @@ class Form extends GenericPublicAction {
 
     /**
      * {@inheritdoc}
+     * @return ResponseInterface|callable
      */
-    public function __invoke(Request $request, Response $response, $args): ResponseInterface {
+    public function __invoke(Request $request, Response $response, $args) {
         $branch = \JSONObject::get(\Config::Branches, $args['branch']);
         if ($branch === false) {
             return $this->notFoundHandler;
