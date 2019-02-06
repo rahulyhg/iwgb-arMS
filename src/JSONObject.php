@@ -5,11 +5,19 @@ class JSONObject {
     /**
      * @param $config
      * @param $name
-     * @return bool|mixed
+     * @return bool|array
      */
     public static function get($config, $name) {
-        $data = self::getAll($config);
-        foreach ($data as $item) {
+        return self::findItem(self::getAll($config), $name);
+    }
+
+    /**
+     * @param array $json
+     * @param string $name
+     * @return bool|array
+     */
+    public static function findItem(array $json, string $name) {
+        foreach ($json as $item) {
             if ($item['name'] == $name) {
                 return $item;
             }

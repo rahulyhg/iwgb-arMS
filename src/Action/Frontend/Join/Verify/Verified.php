@@ -62,6 +62,15 @@ class Verified extends GenericMemberAction {
             ]);
 
         // render page
+        $membership = \JSONObject::findItem(
+            \JSONObject::get(\Config::Branches, $member->getBranch())['costs'],
+            $member->getMembership()
+        );
+
+        return $this->render($request, $response, 'join/verified.html.twig', [
+            'membership' => $membership,
+            'member'     => $member,
+        ]);
     }
 
 
