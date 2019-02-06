@@ -22,4 +22,7 @@ class TypeHinter {
 
     /** @var $session \SlimSession\Helper */
     public $session;
+
+    /** @var $http \Buzz\Browser */
+    public $http;
 }
