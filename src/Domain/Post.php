@@ -18,7 +18,8 @@ class Post {
      *
      * @ORM\Column(name="id", type="string", length=13, nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="\Domain\UniqidGenerator")
      */
     private $id;
 
