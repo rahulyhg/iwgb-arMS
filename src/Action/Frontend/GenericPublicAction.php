@@ -8,6 +8,8 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 abstract class GenericPublicAction extends \Action\GenericAction {
+
+    /** @var $nav array */
     protected $nav;
 
     public function __construct(Container $c) {

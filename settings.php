@@ -44,7 +44,13 @@ return [
         'recaptcha' => [
             'site'  => '6LeqJU0UAAAAAOdkuqvkHwfzEz_yR9igu7NpSEKn',
             'secret'=> $keys['recaptcha'],
-        ]
+        ],
+        'mailgun' => [
+            'domain'    => 'mx.iwgb.org.uk',
+            'key'       => $keys['mailgun'],
+            'from'      => 'noreply@iwgb.org.uk',
+            'replyTo'   => 'office@iwgb.co.uk',
+        ],
     ],
 ];
 

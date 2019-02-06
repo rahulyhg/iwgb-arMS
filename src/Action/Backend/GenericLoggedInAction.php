@@ -10,6 +10,7 @@ use Slim\Http\Response;
 
 abstract class GenericLoggedInAction extends GenericAction {
 
+    /** @var $user \Domain\User */
     protected $user;
 
     public function __construct(Container $c) {
