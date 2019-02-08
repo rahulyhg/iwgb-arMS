@@ -2,7 +2,7 @@
 
 {#
 	member: an instance of \Domain\Member
-	keys: TODO authy integration
+	keys: array of \Domain\VerificatonKey
 #}
 
 {% block page %}
@@ -13,11 +13,11 @@
 			<h2>Verify your application</h2>
 			<p>Ref: {{ member.getId() }}</p>
 			<p>To continue, please check the contact details you&rsquo;ve provided for a note from us containing verification code.</p>
-			{% for key in keys %}
+			{% for key in member.getUnverifiedKeys() %}
 				<div>
-					<p>Type: {{ key.type|title }}</p>
+					<p>Type: {{ key.getType()|title }}</p>
 					<input name="keystr[{{ loop.index0 }}]" placeholder="My code">
-					<input name="type[{{ loop.index0 }}]" value="{{ key.type }}" type="hidden">
+					<input name="type[{{ loop.index0 }}]" value="{{ key.getType() }}" type="hidden">
 				</div>
 			{% endfor %}
 		</div>
