@@ -5,7 +5,7 @@ namespace Domain;
 class UniqidGenerator extends \Doctrine\ORM\Id\AbstractIdGenerator {
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function generate(\Doctrine\ORM\EntityManager $em, $entity) {
         return uniqid();

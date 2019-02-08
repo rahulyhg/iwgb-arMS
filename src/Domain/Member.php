@@ -2,6 +2,7 @@
 
 namespace Domain;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -111,6 +112,13 @@ class Member {
     private $postcode;
 
     /**
+     * @var VerificationKey[]
+     *
+     * @ORM\OneToMany(targetEntity="VerificationKey", mappedBy="member")
+     */
+    private $verificationKeys;
+
+    /**
      * Member constructor.
      * @param string $branchData
      * @param string $branch
@@ -137,6 +145,7 @@ class Member {
         $this->email = $email;
         $this->address = $address;
         $this->postcode = $postcode;
+        $this->verificationKeys = new ArrayCollection();
     }
 
     /**
@@ -342,7 +351,53 @@ class Member {
         return $this->timestamp;
     }
 
+    /**
+     * @return VerificationKey[]
+     */
+    public function getVerificationKeys(): array {
+        return $this->verificationKeys;
+    }
 
+
+    /**
+     * @return bool Is this member's application verified
+     */
+    public function isVerified(): bool {
+        $result = true;
+        foreach ($this->getVerificationKeys() as $key) {
+            if (!$key->isVerified()) {
+                $result = false;
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * @param string $k
+     * @param string $t
+     * @return bool was the provided verification key found
+     */
+    public function verify(string $k, string $t): bool {
+        $found = false;
+        foreach ($this->getVerificationKeys() as $key) {
+            if ($key->getKey() == $k &&
+                $key->getType() == $t) {
+                $key->setVerified(true);
+                $found = true;
+            }
+        }
+        return $found;
+    }
+
+    public function getUnverifiedKeys() {
+        $unverified = [];
+        foreach ($this->getVerificationKeys() as $key) {
+            if (!$this->isVerified()) {
+                $unverified[] = $key;
+            }
+        }
+        return $unverified;
+    }
 
 
 }

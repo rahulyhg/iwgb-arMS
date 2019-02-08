@@ -274,6 +274,15 @@ class Post {
     }
 
     /**
+     * @return \DateTime
+     */
+    public function getTimestamp(): \DateTime {
+        return $this->timestamp;
+    }
+
+
+
+    /**
      * Generate a new shortlink for this Post.
      */
     public function generateShortlink(): void {
