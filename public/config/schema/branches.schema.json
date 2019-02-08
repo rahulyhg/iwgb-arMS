@@ -9,7 +9,7 @@
     "branches": {
       "type": "array",
       "items": {
-        "$ref": "/config/schema/branch.schema.json"
+        "$ref": "branch.schema.json#/definitions/branch"
       }
     }
   },

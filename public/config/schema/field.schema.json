@@ -126,7 +126,7 @@
             "display": {
               "description": "How this field displays on the website",
               "type": "object",
-              "$ref": "/config/schema/content.schema.json#/definitions/content"
+              "$ref": "content.schema.json#/definitions/content"
             },
             "kind": {
               "description": "What kind of field this is",
@@ -139,7 +139,7 @@
               "description": "The options that your drop-down box has",
               "type": "array",
               "items": {
-                "$ref": "/config/schema/branches.schema.json#/definitions/option"
+                "$ref": "branches.schema.json#/definitions/option"
               },
               "minItems": 1
             },
