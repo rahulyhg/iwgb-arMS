@@ -10,35 +10,25 @@ use Slim\Http\Response;
 
 abstract class GenericAction {
 
-    /** @var $view \Slim\Views\Twig */
     protected $view;
 
-    /** @var $notFound callable */
     protected $notFoundHandler;
 
-    /** @var $em \Doctrine\ORM\EntityManager */
     protected $em;
 
-    /** @var $slim \Slim\App */
     protected $slim;
 
-    /** @var $twilio \Twilio\Rest\Client */
     protected $twilio;
 
-    /** @var  $csrf \Slim\Csrf\Guard */
     protected $csrf;
 
-    /** @var $session \SlimSession\Helper */
     protected $session;
 
-    /** @var $http \Buzz\Browser */
     protected $http;
 
-    /** @var $settings array */
     protected $settings;
 
-    /** @var $mailgun \Mailgun\Mailgun */
-    protected $mailgun;
+    protected $email;
 
     public function __construct(Container $c) {
         /* @var $c \TypeHinter */
@@ -49,6 +39,7 @@ abstract class GenericAction {
         $this->settings = $c->settings;
         $this->session = $c->session;
         $this->http = $c->http;
+        $this->email = $c->email;
     }
 
     /**
@@ -100,33 +91,5 @@ abstract class GenericAction {
             ])
         );
     }
-
-    protected function sendEmail(array $params): SendResponse {
-        return $this->mailgun->messages()->send($this->settings['mailgun']['domain'],
-            array_merge([
-                'from'      => $this->settings['mailgun']['from'],
-                'h:Reply-To'=> $this->settings['mailgun']['replyTo'],
-                ], $params)
-            );
-    }
-
-    protected function sendTransactionalEmail(string $to, string $subject, string $text, array $htmlVars, array $params): SendResponse {
-        $email = $this->view->getEnvironment()->load('/email/transaction.html.twig');
-        $html = $email->render(array_merge([$subject], $htmlVars));
-        return $this->sendEmail([
-            'to'        => $params['to'],
-            'subject'   => $params['subject'],
-            'text'      => self::processEmailText($text, $params),
-            'html'      => self::processEmailText($html, $params),
-        ]);
-    }
-
-    private static function processEmailText($body, $params): string {
-        foreach ($params as $key => $value) {
-            $body = str_replace("%$key%", $value, $body);
-        }
-        return $body;
-    }
-
 
 }

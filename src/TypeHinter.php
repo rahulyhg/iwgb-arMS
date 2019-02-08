@@ -25,4 +25,13 @@ class TypeHinter {
 
     /** @var $http \Buzz\Browser */
     public $http;
+
+    /** @var $mailgun \Mailgun\Mailgun */
+    public $mailgun;
+
+    /** @var $settings array */
+    public $settings;
+
+    /** @var $email \Emailer */
+    public $email;
 }

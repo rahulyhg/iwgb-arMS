@@ -10,6 +10,8 @@ $c->register(new Provider\Doctrine())
     ->register(new Provider\Slim())
     ->register(new Provider\Twig())
     ->register(new Provider\HttpClient())
-    ->register(new Provider\Twilio());
+    ->register(new Provider\Twilio())
+    ->register(new Provider\Mailgun())
+    ->register(new Provider\Email());
 
 return $c;
