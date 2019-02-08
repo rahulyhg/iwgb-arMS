@@ -46,13 +46,16 @@ class Verified extends GenericMemberAction {
         $member = $this->getMember($args['application']);
 
         // check if verified, if not redirect to /verify
+        if (!$member->isVerified()) {
+            return $response->withRedirect('/join/application/' / $member->getId() . '/verify');
+        }
 
         if (!$member->isConfirmed()) {
             $member->setConfirmed(true);
         }
         $this->em->flush();
 
-        $result = $this->sendTransactionalEmail($member->getEmail(),
+        $result = $this->email->sendTransactional($member->getEmail(),
             self::VERIFIED_EMAIL_SUBJECT,
             self::VERIFIED_EMAIL_TEXT,
             self::VERIFIED_EMAIL_HTML,
@@ -64,8 +67,7 @@ class Verified extends GenericMemberAction {
         // render page
         $membership = \JSONObject::findItem(
             \JSONObject::get(\Config::Branches, $member->getBranch())['costs'],
-            $member->getMembership()
-        );
+            $member->getMembership());
 
         return $this->render($request, $response, 'join/verified.html.twig', [
             'membership' => $membership,

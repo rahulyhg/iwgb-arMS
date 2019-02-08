@@ -35,7 +35,7 @@ class Emailer {
         $this->replyTo = $replyTo;
     }
 
-    protected function send(array $params): SendResponse {
+    public function send(array $params): SendResponse {
 
         return $this->mailgun->messages()->send($this->domain,
             array_merge([
@@ -45,7 +45,7 @@ class Emailer {
         );
     }
 
-    protected function sendTransactionalEmail(string $to, string $subject, string $text, array $htmlVars, array $params): SendResponse {
+    public function sendTransactional(string $to, string $subject, string $text, array $htmlVars, array $params): SendResponse {
         $email = $this->view->getEnvironment()->load('/email/transaction.html.twig');
         $html = $email->render(array_merge([$subject], $htmlVars));
         return $this->send([
