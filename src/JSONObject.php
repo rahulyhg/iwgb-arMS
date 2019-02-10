@@ -3,12 +3,17 @@
 class JSONObject {
 
     /**
-     * @param $config
-     * @param $name
+     * @param string $config
+     * @param string $name
+     * @param bool $wrap Wrap the item as a 1-length array of $config (can be schema-compliant)
      * @return bool|array
      */
-    public static function get($config, $name) {
-        return self::findItem(self::getAll($config), $name);
+    public static function get(string $config, string $name, bool $wrap = false) {
+        $item = self::findItem(self::getAll($config), $name);
+        if ($wrap) {
+            $item = [$config => [0 => $item]];
+        }
+        return $item;
     }
 
     /**
