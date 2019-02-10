@@ -16,6 +16,7 @@
         "bryanjhv/slim-session": "^3.6",
         "mailgun/mailgun-php": "^2.8",
         "nyholm/psr7": "^1.0",
-        "kriswallsmith/buzz": "^0.17.2"
+        "kriswallsmith/buzz": "^0.17.2",
+        "php-http/curl-client": "^1.7"
     }
 }

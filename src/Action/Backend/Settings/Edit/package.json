@@ -2,7 +2,9 @@
   "name": "iwgb-arms-config",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://localhost:80/config/edit",
   "dependencies": {
+    "json-schema-ref-parser": "^6.0.3",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-jsonschema-form": "^1.2.0",

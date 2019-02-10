@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import "./App.css";
 import Form from "react-jsonschema-form";
 
@@ -10,22 +9,34 @@ class App extends Component {
       config: window.location.search.split("config=")[1],
       formData: {},
       uiSchema: {},
-      jsonschema: {}
+      jsonschema: {},
     };
     this.load();
   }
 
   load() {
-    fetch("/admin/settings/" + this.state.config + "/data/schema").then(
-      response => this.setState({ jsonschema: response })
+    fetch("/admin/settings/" + this.state.config + "/data/schema")
+      .then(response => {
+        return response.json();
+      })
+      .then(response => {
+        var $RefParser = require("json-schema-ref-parser");
+        $RefParser
+          .dereference(response)
+          .then(function(schema) {
+            this.setState({ jsonschema: schema });
+          })
+          .catch(function(err) {
+            console.error(err);
+          });
+      });
+
+    fetch("/admin/settings/" + this.state.config + "/data/config").then(
+      response => this.setState({ formData: response }),
     );
 
-    fetch("/admin/settings/" + this.state.config + "/data/config").then(response =>
-      this.setState({ formData: response })
-    );
-
-    fetch("/admin/settings/" + this.state.config + "/data/ui").then(
-      response => this.setState({ uiSchema: response })
+    fetch("/admin/settings/" + this.state.config + "/data/ui").then(response =>
+      this.setState({ uiSchema: response }),
     );
   }
   render() {
@@ -49,10 +60,10 @@ class App extends Component {
                   method: "POST",
                   headers: {
                     Accept: "application/json",
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                   },
-                  body: JSON.stringify(json)
-                }
+                  body: JSON.stringify(json),
+                },
               );
               const content = await rawResponse.json();
 
