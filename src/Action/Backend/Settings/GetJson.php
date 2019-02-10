@@ -25,10 +25,12 @@ class GetJson extends GenericLoggedInAction {
                     return $response->withJson(\JSONObject::getSchema($args['config']));
                     break;
                 case 'config':
-                    return $response->withJson(\JSONObject::get($args['config'], $args['item']));
+                    return $response->withJson(\JSONObject::get($args['config'], $args['item'], true));
                     break;
             }
         }
         return $this->notFoundHandler;
     }
+
+
 }
