@@ -15,7 +15,7 @@
             "display": {
                 "description": "The name of the page to display",
                 "type": "object",
-                "$ref": "content.schema.json#/definitions/content"
+                "$ref": "/config/schema/content.schema.json#/definitions/content"
             },
             "elements": {
                 "description": "The elements that make up this page",
@@ -24,15 +24,15 @@
                     "oneOf": [
                         {
                             "title": "yt-embed",
-                            "$ref": "elements.schema.json#/definitions/yt-embed"
+                            "$ref": "/config/schema/elements.schema.json#/definitions/yt-embed"
                         },
                         {
                             "title": "slant-box",
-                            "$ref": "elements.schema.json#/definitions/slant-box"
+                            "$ref": "/config/schema/elements.schema.json#/definitions/slant-box"
                         },
                         {
                             "title": "tri-promo",
-                            "$ref": "elements.schema.json#/definitions/tri-promo"
+                            "$ref": "/config/schema/elements.schema.json#/definitions/tri-promo"
                         },
                         {
                             "title": "markdown-element",

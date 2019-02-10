@@ -37,7 +37,7 @@
                         "display": {
                             "description": "The label of this node in the drop-down list",
                             "type": "object",
-                            "$ref": "content.schema.json#/definitions/content"
+                            "$ref": "/config/schema/content.schema.json#/definitions/content"
                         },
                         "href": {
                             "description": "The internal link that this node points to. With internal links, you only need include from the first slash (e.g., /join rather than https://iwgb.org.uk/join)",
@@ -58,7 +58,7 @@
                         "display": {
                             "description": "The label of this node in the drop-down list",
                             "type": "object",
-                            "$ref": "content.schema.json#/definitions/content"
+                            "$ref": "/config/schema/content.schema.json#/definitions/content"
                         },
                         "href": {
                             "description": "The external link that this node points to",
@@ -93,7 +93,7 @@
                 "display": {
                     "description": "How this nav's name displays",
                     "type": "object",
-                    "$ref": "content.schema.json#/definitions/content"
+                    "$ref": "/config/schema/content.schema.json#/definitions/content"
                 },
                 "nodes": {
                     "description": "each option in the nav",

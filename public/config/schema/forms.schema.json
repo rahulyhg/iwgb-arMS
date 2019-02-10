@@ -18,7 +18,7 @@
                 "display": {
                     "description": "How this section's name displays",
                     "type": "object",
-                    "$ref": "content.schema.json#/definitions/content"
+                    "$ref": "/config/schema/content.schema.json#/definitions/content"
                 },
                 "fields": {
                     "type": "array",
@@ -37,7 +37,7 @@
             "type": "array",
             "minItems": 1,
             "items": {
-                "$ref": "field.schema.json#/definitions/field"
+                "$ref": "/config/schema/field.schema.json#/definitions/field"
             }
         },
         "form": {
@@ -52,7 +52,7 @@
                 "display": {
                     "description": "How this form's name displays",
                     "type": "object",
-                    "$ref": "content.schema.json#/definitions/content"
+                    "$ref": "/config/schema/content.schema.json#/definitions/content"
                 },
                 "sections": {
                     "description": "A section of the form, focusing on one aspect or topic",
