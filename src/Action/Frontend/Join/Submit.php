@@ -5,6 +5,7 @@ namespace Action\Frontend\Join;
 use Action\Frontend\GenericPublicAction;
 use Domain\Member;
 use Psr\Http\Message\ResponseInterface;
+use ReCaptcha\ReCaptcha;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -26,9 +27,14 @@ class Submit extends GenericPublicAction {
         }
 
         // verify captcha
+        $captcha = $this->recaptcha->verify($data['g-recaptcha-response'],
+                $request->getAttribute('ip_address'));
+
+        if (!$captcha->isSuccess()) {
+            return $response->withRedirect('/join');
+        }
 
         // save
-
 
         try {
             $member = Member::constructFromData($application);
@@ -79,7 +85,9 @@ class Submit extends GenericPublicAction {
             if (!empty($data[$field['name']])) {
                 $application['branch'][$field['name']] = $data[$field['name']];
             } else {
-                return false;
+                if ($field['required']) {
+                    return false;
+                }
             }
         }
 

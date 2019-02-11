@@ -5,6 +5,7 @@ namespace Provider;
 use McAskill\Slim\Polyglot\Polyglot;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use RKA\Middleware;
 use Slim\App;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -48,6 +49,8 @@ class Slim implements ServiceProviderInterface {
                 'lifetime' => '1 hour'
             ]));
 
+            $app->add(new Middleware\IpAddress());
+
             // routes handled by v2
 
             $app->get('/', \Action\Frontend\Home::class);
@@ -80,5 +83,7 @@ class Slim implements ServiceProviderInterface {
 
             return $app;
         };
+
+        $c['recaptcha'] = new \ReCaptcha\ReCaptcha($c['settings']['recatpcha']['secret']);
     }
 }

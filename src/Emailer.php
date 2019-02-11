@@ -74,7 +74,7 @@ class Emailer {
      * @throws Twig_Error_Runtime
      * @throws Twig_Error_Syntax
      */
-    public function sendTransactional(string $to, string $subject, string $text, array $htmlVars, array $params): SendResponse {
+    public function transactional(string $to, string $subject, string $text, array $htmlVars, array $params): SendResponse {
         $email = $this->view->getEnvironment()->load('/email/transaction.html.twig');
         $html = $email->render(array_merge([$subject], $htmlVars));
         return $this->send([

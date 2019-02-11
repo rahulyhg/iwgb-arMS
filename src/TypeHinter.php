@@ -37,4 +37,7 @@ class TypeHinter {
 
     /** @var $send \Sender */
     public $send;
+
+    /** @var $recaptcha \Recaptcha\Recaptcha */
+    public $recaptcha;
 }
