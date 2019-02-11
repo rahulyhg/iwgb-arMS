@@ -6,7 +6,7 @@
 			<h2>{{ header.getTitle()|htmlentities }}</h2>
 			<div class="meta">
 				<p class="category">{{ header.getBlog().getFriendlySingular() }}</p>
-				<p>{{ header.getTimestamp()|timeago }}</p>
+				<p>{{ header.getStringTimestamp()|timeago }}</p>
 				<p class="disqus-comment-count"
 				   data-disqus-identifier="{{ header.getId() }}-{{ header.getShortlink() }}">0 comments</p>
 			</div>
@@ -25,7 +25,7 @@
 							<h2>{{ story.getTitle()|htmlentities }}</h2>
 							<div class="meta">
 								<p class="category">{{ story.getBlog().getFriendlySingular() }}</p>
-								<p>{{ story.getTimestamp()|timeago }}</p>
+								<p>{{ story.getStringTimestamp()|timeago }}</p>
 								<p class="disqus-comment-count"
 								   data-disqus-identifier="{{ story.getId() }}-{{ story.getShortlink() }}">0 comments</p>
 							</div>

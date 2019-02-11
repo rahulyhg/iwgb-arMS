@@ -39,8 +39,11 @@ class Verified extends GenericMemberAction {
 
     /**
      * {@inheritdoc}
-     * @throws OptimisticLockException
      * @throws ORMException
+     * @throws OptimisticLockException
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function __invoke(Request $request, Response $response, $args): ResponseInterface {
         $member = $this->getMember($args['application']);

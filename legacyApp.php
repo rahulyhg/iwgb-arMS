@@ -90,12 +90,6 @@ $container->view->getEnvironment()->addGlobal('_get', $_GET);
 
 // filters
 
-$f_timeAgo = new Twig_SimpleFilter('timeago', function ($s) {
-    $timeAgo = new Westsworld\TimeAgo();
-    return $timeAgo->inWords($s);
-});
-$container['view']->getEnvironment()->addFilter($f_timeAgo);
-
 $f_nicedate = new Twig_SimpleFilter('nicedate', function ($s) {
     return date('j F o', strtotime($s));
 });

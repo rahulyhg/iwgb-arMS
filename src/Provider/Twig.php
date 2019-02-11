@@ -32,6 +32,11 @@ class Twig implements ServiceProviderInterface {
                 return (new \Parsedown())->text($s);
             }));
 
+            $env->addFilter(new \Twig_Filter('timeago', function ($s) {
+                return (new \Westsworld\Timeago())->inWords($s);
+            }));
+
+
             if ($debug) {
                 $view->addExtension(new \Slim\Views\TwigExtension(
                     $c['router'],

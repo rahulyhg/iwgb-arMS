@@ -280,6 +280,10 @@ class Post {
         return $this->timestamp;
     }
 
+    public function getStringTimestamp(): string {
+        return $this->timestamp->format(\DateTime::ATOM);
+    }
+
 
 
     /**
