@@ -3,6 +3,7 @@
 namespace Domain;
 
 use Doctrine\ORM\Mapping as ORM;
+use Slim\Container;
 
 /**
  * src/Domain/Verify
@@ -11,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  */
 class VerificationKey {
+
+    const VERIFICATION_SMS = 'Your IWGB verification key is %key%.\n\nRef: %application%';
+
     /**
      * @var int
      *
@@ -59,6 +63,12 @@ class VerificationKey {
      * @ORM\Column(name="timestamp", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
     private $timestamp = 'CURRENT_TIMESTAMP';
+
+    public function __construct(\Sender $send, Member $member, string $type) {
+        $this->member = $member;
+        $this->type = $type;
+        $this->send($send);
+    }
 
     /**
      * @return string
@@ -116,6 +126,26 @@ class VerificationKey {
         return $this->timestamp;
     }
 
+    public function send(\Sender $send, array $settings): void {
+        switch ($this->type) {
+            case \KeyType::SMS:
+                $send->twilio->messages->create($this->member->getMobile(), [
+                    'from' => $settings['twilio']['from'],
+                    'body' => self::processVerificationBody(self::VERIFICATION_SMS, [
+                        'application' => $this->member->getId(),
+                        'key' => $this->getKey(),
+                    ]),
+                ]);
+                break;
+        }
+    }
+
+    private static function processVerificationBody(string $body, array $params): string {
+        foreach ($params as $key => $value) {
+            $body = str_replace("%$key%", $value, $body);
+        }
+        return $body;
+    }
 
 
 
