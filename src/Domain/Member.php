@@ -155,7 +155,7 @@ class Member {
      */
     public static function constructFromData(array $a): self {
         return new self(
-            json_encode($a['branch']),
+            json_encode($a['branchData']),
             $a['branch'],
             $a['membership'],
             $a['firstName'],

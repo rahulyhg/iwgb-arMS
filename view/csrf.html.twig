@@ -9,11 +9,13 @@
 
 {% if _csrf is defined %}
     {# v2 route #}
+    <input type="hidden" name="csrf_mode" value="v2">
     <input type="hidden" name="{{ _csrf.keys.name }}" value="{{ _csrf.values.name }}">
     <input type="hidden" name="{{ _csrf.keys.value }}" value="{{ _csrf.values.value }}">
 
 {% else %}
     {# legacy route #}
+    <input type="hidden" name="csrf_mode" value="legacy">
     <input type="hidden" name="{{ csrfKeys.name }}" value="{{ csrfValues.name }}">
     <input type="hidden" name="{{ csrfKeys.value }}" value="{{ csrfValues.value }}">
 

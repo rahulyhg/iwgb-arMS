@@ -59,10 +59,10 @@ class Submit extends GenericPublicAction {
         $formSections = \JSONObject::get(\Config::Forms, 'join')['sections'];
         $application = [];
 
-        if (empty($application['branch'])) {
+        if (empty($data['branch'])) {
             return false;
         }
-        $branchFields = \JSONObject::get(\Config::Branches, $application['branch'])['fields'];
+        $branchFields = \JSONObject::get(\Config::Branches, $data['branch'])['fields'];
 
         foreach ($formSections as $section) {
             foreach ($section['fields'] as $line) {
@@ -82,13 +82,14 @@ class Submit extends GenericPublicAction {
 
         foreach ($branchFields as $field) {
             if (!empty($data[$field['name']])) {
-                $application['branch'][$field['name']] = $data[$field['name']];
+                $application['branchData'][$field['name']] = $data[$field['name']];
             } else {
                 if ($field['required']) {
                     return false;
                 }
             }
         }
+        $application['branch'] = $data['branch'];
 
         return $application;
     }

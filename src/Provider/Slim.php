@@ -59,6 +59,7 @@ class Slim implements ServiceProviderInterface {
             $app->group('/join', function(App $app) {
 
                 $app->get('', \Action\Frontend\Join\Join::class);
+                $app->post('', \Action\Frontend\Join\Submit::class);
                 $app->get('/{branch}', \Action\Frontend\Join\Form::class);
             });
 
@@ -85,6 +86,6 @@ class Slim implements ServiceProviderInterface {
             return $app;
         };
 
-        $c['recaptcha'] = new ReCaptcha($c['settings']['recatpcha']['secret']);
+        $c['recaptcha'] = new ReCaptcha($c['settings']['recaptcha']['secret']);
     }
 }
