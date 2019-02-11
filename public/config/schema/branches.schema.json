@@ -60,6 +60,7 @@
         },
         "branch": {
             "additionalProperties": false,
+            "type": "object",
             "properties": {
                 "name": {
                     "description": "The branch's short name, with no spaces or capitals",

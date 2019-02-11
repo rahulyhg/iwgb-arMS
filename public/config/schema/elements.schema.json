@@ -13,7 +13,9 @@
                 "kind": {
                     "description": "The type of element this is",
                     "type": "string",
-                    "enum": ["yt-embed"]
+                    "enum": [
+                        "yt-embed"
+                    ]
                 },
                 "fields": {
                     "type": "object",
@@ -23,10 +25,11 @@
                             "description": "The video ID from the YouTube URL",
                             "type": "string",
                             "pattern": ""
-
                         }
                     },
-                    "required": ["videoId"]
+                    "required": [
+                        "videoId"
+                    ]
                 }
             }
         },
@@ -48,29 +51,42 @@
                         "colour": {
                             "description": "Option: background colour",
                             "type": "string",
-                            "enum": ["dark", "light", "red"]
+                            "enum": [
+                                "dark",
+                                "light",
+                                "red"
+                            ]
                         },
                         "direction": {
                             "description": "Option: text alignment direction",
                             "type": "string",
-                            "enum": ["left", "right"]
+                            "enum": [
+                                "left",
+                                "right"
+                            ]
                         },
                         "heading": {
                             "description": "Content: heading",
                             "type": "object",
-                            "$ref": "content.schema.json/#definitions/content"
+                            "$ref": "/config/schema/content.schema.json#/definitions/content"
                         },
                         "body": {
                             "description": "Content: body",
                             "type": "object",
-                            "$ref": "content.schema.json/#definitions/content-md"
+                            "$ref": "/config/schema/content.schema.json#/definitions/content-md"
                         },
                         "image": {
                             "description": "Content: image",
                             "$ref": "#/definitions/image"
                         }
                     },
-                    "required": ["colour", "direction","heading", "body", "image"]
+                    "required": [
+                        "colour",
+                        "direction",
+                        "heading",
+                        "body",
+                        "image"
+                    ]
                 }
             }
         },
@@ -98,7 +114,9 @@
                                         "kind": {
                                             "description": "Option: background type",
                                             "type": "string",
-                                            "enum": ["image"]
+                                            "enum": [
+                                                "image"
+                                            ]
                                         },
                                         "asset": {
                                             "description": "Option: background image",
@@ -111,12 +129,18 @@
                                         "kind": {
                                             "description": "Option: background type",
                                             "type": "string",
-                                            "enum": ["colour"]
+                                            "enum": [
+                                                "colour"
+                                            ]
                                         },
                                         "asset": {
                                             "description": "Option: background colour",
                                             "type": "string",
-                                            "enum": ["dark", "light", "red"]
+                                            "enum": [
+                                                "dark",
+                                                "light",
+                                                "red"
+                                            ]
                                         }
                                     }
                                 }
@@ -125,17 +149,17 @@
                         "heading": {
                             "description": "Content: heading",
                             "type": "object",
-                            "$ref": "/config/schema/content.schema.json/#definitions/content"
+                            "$ref": "/config/schema/content.schema.json#/definitions/content"
                         },
                         "subheading": {
                             "description": "Content: subheading, optional",
                             "type": "object",
-                            "$ref": "/config/schema/content.schema.json/#definitions/content-md"
+                            "$ref": "/config/schema/content.schema.json#/definitions/content-md"
                         },
                         "intro": {
                             "description": "Content: column intro, optional",
                             "type": "object",
-                            "$ref": "/config/schema/content.schema.json/#definitions/content-md"
+                            "$ref": "/config/schema/content.schema.json#/definitions/content-md"
                         },
                         "columns": {
                             "type": "array",
@@ -146,11 +170,15 @@
                             }
                         }
                     },
-                    "required": ["background", "heading", "columns"]
+                    "required": [
+                        "background",
+                        "heading",
+                        "columns"
+                    ]
                 }
             }
         },
-        "markdown-element": {
+        "markdown": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
@@ -162,16 +190,19 @@
                     ]
                 },
                 "fields": {
-                    "display": {
-                        "description": "The text to display here",
-                        "type": "object",
-                        "$ref": "/config/schema/content.schema.json#/definitions/content-md"
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "display": {
+                            "description": "The text to display here",
+                            "type": "object",
+                            "$ref": "/config/schema/content.schema.json#/definitions/content-md"
+                        }
                     }
                 }
-            },
-
-
-            "tri-promoColumn": {
+            }
+        },
+        "tri-promoColumn": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
@@ -182,17 +213,20 @@
                 "heading": {
                     "description": "Content: column heading",
                     "type": "object",
-                    "$ref": "/config/schema/content.schema.json/#definitions/content"
+                    "$ref": "/config/schema/content.schema.json#/definitions/content"
                 },
                 "body": {
                     "description": "Content: column body",
                     "type": "object",
-                    "$ref": "/config/schema/content.schema.json/#definitions/content-md"
+                    "$ref": "/config/schema/content.schema.json#/definitions/content-md"
                 }
             },
-            "required": ["icon", "heading", "body"]
+            "required": [
+                "icon",
+                "heading",
+                "body"
+            ]
         },
-
         "image": {
             "type": "object",
             "additionalProperties": false,
@@ -205,10 +239,12 @@
                 "alt": {
                     "description": "Text describing the image for accessibility purposes",
                     "type": "object",
-                    "$ref": "/config/schema/content.schema.json/#definitions/content"
+                    "$ref": "/config/schema/content.schema.json#/definitions/content"
                 }
             },
-            "required": ["src"]
+            "required": [
+                "src"
+            ]
         }
     }
 }
