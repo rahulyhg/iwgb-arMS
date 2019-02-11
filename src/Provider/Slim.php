@@ -5,6 +5,7 @@ namespace Provider;
 use McAskill\Slim\Polyglot\Polyglot;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use ReCaptcha\ReCaptcha;
 use RKA\Middleware;
 use Slim\App;
 use Slim\Http\Request;
@@ -84,6 +85,6 @@ class Slim implements ServiceProviderInterface {
             return $app;
         };
 
-        $c['recaptcha'] = new \ReCaptcha\ReCaptcha($c['settings']['recatpcha']['secret']);
+        $c['recaptcha'] = new ReCaptcha($c['settings']['recatpcha']['secret']);
     }
 }

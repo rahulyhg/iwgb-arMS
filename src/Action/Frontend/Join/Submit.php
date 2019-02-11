@@ -5,7 +5,6 @@ namespace Action\Frontend\Join;
 use Action\Frontend\GenericPublicAction;
 use Domain\Member;
 use Psr\Http\Message\ResponseInterface;
-use ReCaptcha\ReCaptcha;
 use Slim\Http\Request;
 use Slim\Http\Response;
 

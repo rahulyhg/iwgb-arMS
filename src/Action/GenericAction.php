@@ -2,7 +2,6 @@
 
 namespace Action;
 
-use Mailgun\Model\Message\SendResponse;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
 use Slim\Http\Request;
