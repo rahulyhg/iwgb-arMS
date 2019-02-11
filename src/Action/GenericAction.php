@@ -18,7 +18,7 @@ abstract class GenericAction {
 
     protected $slim;
 
-    protected $twilio;
+    protected $send;
 
     protected $csrf;
 
@@ -27,8 +27,6 @@ abstract class GenericAction {
     protected $http;
 
     protected $settings;
-
-    protected $email;
 
     public function __construct(Container $c) {
         /* @var $c \TypeHinter */
@@ -39,7 +37,7 @@ abstract class GenericAction {
         $this->settings = $c->settings;
         $this->session = $c->session;
         $this->http = $c->http;
-        $this->email = $c->email;
+        $this->send = $c->send;
     }
 
     /**

@@ -12,6 +12,6 @@ $c->register(new Provider\Doctrine())
     ->register(new Provider\HttpClient())
     ->register(new Provider\Twilio())
     ->register(new Provider\Mailgun())
-    ->register(new Provider\Email());
+    ->register(new Provider\Send());
 
 return $c;

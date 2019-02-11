@@ -34,4 +34,7 @@ class TypeHinter {
 
     /** @var $email \Emailer */
     public $email;
+
+    /** @var $send \Sender */
+    public $send;
 }

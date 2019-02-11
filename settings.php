@@ -30,7 +30,11 @@ return [
                 'dbname'    => 'iwgb-cms',
             ], $keys['db']),
         ],
-        'twilio' => $keys['twilio'],
+        'twilio' => [
+            'sid'   => 'AC6bcc5bc5cdadd1818a7c2129684a2630',
+            'token' => $keys['twilio'],
+            'from'  => 'IWGB',
+        ],
         'twig' => [
             'templates_dir' => APP_ROOT .  '/view/',
 //            'cache_dir'     => APP_ROOT . '/var/twig',

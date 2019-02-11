@@ -58,7 +58,7 @@ class Verified extends GenericMemberAction {
         }
         $this->em->flush();
 
-        $result = $this->email->sendTransactional($member->getEmail(),
+        $result = $this->send->email->sendTransactional($member->getEmail(),
             self::VERIFIED_EMAIL_SUBJECT,
             self::VERIFIED_EMAIL_TEXT,
             self::VERIFIED_EMAIL_HTML,
