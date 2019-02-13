@@ -12,7 +12,11 @@
 	<body>
 		<div id="wrap">
 			{% block hero %} {% endblock %}
-			{% include 'nav.html.twig' %}
+			{% if _mode == 'v2' %}
+				{% include 'nav.html.twig' %}
+			{%  else %}
+				{% include 'nav-legacy.html.twig' %}
+			{% endif %}
 			{% block pad %}
 				<div class="content-pad">
 					{% block page %} {% endblock %}

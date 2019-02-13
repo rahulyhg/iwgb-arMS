@@ -75,7 +75,6 @@ class Slim implements ServiceProviderInterface {
 
             })->add(new \AuthMiddleware($c->session));
 
-
             //legacy code
 
             $c['legacy'] = require APP_ROOT . '/legacyConfig.php';

@@ -86,11 +86,9 @@ $container->view->getEnvironment()->addGlobal('csrfKeys', [
     'value' => $container['csrf']->getTokenValueKey(),
 ]);
 
-$container->view->getEnvironment()->addGlobal('_get', $_GET);
+$container->view->getEnvironment()->addGlobal('_mode', 'legacy');
 
-$container->view->getEnvironment()->addFunction(new \Twig_Function('_', function ($s) {
-    return $s;
-}));
+$container->view->getEnvironment()->addGlobal('_get', $_GET);
 
 // filters
 
