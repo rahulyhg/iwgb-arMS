@@ -88,6 +88,10 @@ $container->view->getEnvironment()->addGlobal('csrfKeys', [
 
 $container->view->getEnvironment()->addGlobal('_get', $_GET);
 
+$container->view->getEnvironment()->addFunction(new \Twig_Function('_', function ($s) {
+    return $s;
+}));
+
 // filters
 
 $f_nicedate = new Twig_SimpleFilter('nicedate', function ($s) {
