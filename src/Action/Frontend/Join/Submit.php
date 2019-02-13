@@ -15,14 +15,15 @@ class Submit extends GenericPublicAction {
      * @throws \Doctrine\ORM\ORMException
      */
     public function __invoke(Request $request, Response $response, $args): ResponseInterface {
+        $callback = $request->getQueryParam('callback');
+        $callback = empty($callback) ? '/join' : $callback;
+
         $data = $request->getParsedBody();
-        $valid = true;
 
         // verify application
-
         $application = self::validateApplication($data);
         if ($application === false) {
-            return $response->withRedirect('/join');
+            return $response->withRedirect($callback);
         }
 
         // verify captcha
@@ -30,7 +31,7 @@ class Submit extends GenericPublicAction {
                 $request->getAttribute('ip_address'));
 
         if (!$captcha->isSuccess()) {
-            return $response->withRedirect('/join');
+            return $response->withRedirect($callback);
         }
 
         // save
@@ -38,7 +39,7 @@ class Submit extends GenericPublicAction {
         try {
             $member = Member::constructFromData($application);
         } catch (\Exception $e) {
-            return $response->withRedirect('/join');
+            return $response->withRedirect($callback);
         }
 
         $this->em->persist($member);
@@ -55,7 +56,7 @@ class Submit extends GenericPublicAction {
      * @param mixed[] $data
      * @return array|bool
      */
-    private static function validateApplication($data): array {
+    private static function validateApplication($data) {
         $formSections = \JSONObject::get(\Config::Forms, 'join')['sections'];
         $application = [];
 
