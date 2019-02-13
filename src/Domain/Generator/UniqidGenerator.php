@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain;
+namespace Domain\Generator;
 
 class UniqidGenerator extends \Doctrine\ORM\Id\AbstractIdGenerator {
 

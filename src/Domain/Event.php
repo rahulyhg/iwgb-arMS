@@ -15,7 +15,7 @@ class Event {
      * @ORM\Column(name="id", type="string", length=13, nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="UniqidGenerator")
+     * @ORM\CustomIdGenerator(class="\Domain\Generator\UniqidGenerator")
      */
     private $id;
 

@@ -6,7 +6,7 @@
  * Time: 16:22
  */
 
-namespace Domain;
+namespace Domain\Generator;
 
 class AuthKeyGenerator extends \Doctrine\ORM\Id\AbstractIdGenerator {
 

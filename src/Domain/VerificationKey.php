@@ -46,7 +46,7 @@ class VerificationKey {
      *
      * @ORM\Column(name="keystr", type="string", length=23, nullable=false)
      * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="\Domain\AuthKeyGenerator")
+     * @ORM\CustomIdGenerator(class="\Domain\Generator\AuthKeyGenerator")
      */
     private $key;
 
@@ -126,11 +126,11 @@ class VerificationKey {
         return $this->timestamp;
     }
 
-    public function send(\Sender $send, array $settings): void {
+    public function send(\Sender $send): void {
         switch ($this->type) {
             case \KeyType::SMS:
                 $send->twilio->messages->create($this->member->getMobile(), [
-                    'from' => $settings['twilio']['from'],
+                    'from' => $send->twilioSettings['from'],
                     'body' => self::processVerificationBody(self::VERIFICATION_SMS, [
                         'application' => $this->member->getId(),
                         'key' => $this->getKey(),

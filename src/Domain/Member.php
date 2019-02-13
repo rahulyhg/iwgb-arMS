@@ -16,7 +16,7 @@ class Member {
      * @ORM\Column(name="id", type="string", length=13, nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="\Domain\UniqidGenerator")
+     * @ORM\CustomIdGenerator(class="\Domain\Generator\UniqidGenerator")
      */
     private $id;
 
@@ -30,14 +30,16 @@ class Member {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="timestamp", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="timestamp", type="datetime", nullable=false)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="\Domain\Generator\CurrentDateTimeGenerator")
      */
-    private $timestamp = 'CURRENT_TIMESTAMP';
+    private $timestamp;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="confirmed", type="boolean", nullable=false)
+     * @ORM\Column(name="confirmed", type="boolean", nullable=false, options={"default"="0"})
      */
     private $confirmed = '0';
 
@@ -158,9 +160,9 @@ class Member {
             json_encode($a['branchData']),
             $a['branch'],
             $a['membership'],
-            $a['firstName'],
+            $a['first-name'],
             $a['surname'],
-            strtotime($a['dob']),
+            $a['dob'],
             $a['gender'],
             $a['mobile'],
             $a['email'],
