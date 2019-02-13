@@ -39,7 +39,7 @@ class Verified extends GenericMemberAction {
     const ADMINISTRATOR_EMAIL_HTML = [
         'content' => [
             'before' => [
-                'Hey,',
+                'Hey %name%,',
                 'A new member has applied to be a member of the IWGB.',
                 "**Ref:** %application%  \r\n**Branch:** %branch%",
                 'Go to the new memberships control panel to review their application.',
@@ -57,7 +57,7 @@ class Verified extends GenericMemberAction {
         ],
     ];
 
-    const ADMINISTRATOR_EMAIL_TEXT = "Ref: %application% (%branch%)\r\n\r\nHey,\r\n\r\nA new member has applied to be a member of the IWGB. Go to the new memberships control panel to review their application: https://iwgb.org.uk/admin/member/recent\r\n\r\n—the IWGB mailer bot\r\n\r\nThis email was sent because your iwgb.org.uk account is set as a membership administrator.\r\nIndependent Workers Union of Great Britain, 12-20 Baron St, London, N1 9LL";
+    const ADMINISTRATOR_EMAIL_TEXT = "Ref: %application% (%branch%)\r\n\r\nHey %name%,\r\n\r\nA new member has applied to be a member of the IWGB. Go to the new memberships control panel to review their application: https://iwgb.org.uk/admin/member/recent\r\n\r\n—the IWGB mailer bot\r\n\r\nThis email was sent because your iwgb.org.uk account is set as a membership administrator.\r\nIndependent Workers Union of Great Britain, 12-20 Baron St, London, N1 9LL";
 
     const ADMINISTRATOR_EMAIL_SUBJECT = "New membership application";
 
@@ -91,15 +91,21 @@ class Verified extends GenericMemberAction {
                     'application'   => $member->getId(),
                 ]);
 
-            // notify administrator
-            $this->send->email->transactional('hello@guymac.eu',
-                self::ADMINISTRATOR_EMAIL_SUBJECT,
-                self::ADMINISTRATOR_EMAIL_TEXT,
-                self::ADMINISTRATOR_EMAIL_HTML,
-                [
-                    'application'   => $member->getId(),
-                    'branch'        => $member->getBranch(),
-                ]);
+            foreach ($this->em->getRepository(\Domain\User::class)
+                         ->findBy(['membershipAdministrator' => true])
+                     as $memberAdmin) {
+                /** @var $memberAdmin \Domain\User */
+                $this->send->email->transactional($memberAdmin->getEmail(),
+                    self::ADMINISTRATOR_EMAIL_SUBJECT,
+                    self::ADMINISTRATOR_EMAIL_TEXT,
+                    self::ADMINISTRATOR_EMAIL_HTML,
+                    [
+                        'name'          => $memberAdmin->getFirstName(),
+                        'application'   => $member->getId(),
+                        'branch'        => $member->getBranch(),
+                    ]);
+            }
+
 
             return $response->withRedirect('/join/application/' . $member->getId() . '/verified');
         }

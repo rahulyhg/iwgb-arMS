@@ -53,21 +53,53 @@ class User {
     private $photoId;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="firstname", type="string", length=100, nullable=false)
+     */
+    private $firstName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="surname", type="string", length=100, nullable=false)
+     */
+    private $surname;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="membership_admin", type="boolean", nullable=false)
+     */
+    private $membershipAdministrator = false;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="contributor", type="boolean", nullable=false)
+     */
+    private $contributor = false;
+
+    /**
      * User constructor.
      * @param string $email
      * @param string $pass
      * @param string $permissions
      * @param string $organisation
-     * @param string $name
      * @param string $photoId
+     * @param string $firstName
+     * @param string $surname
      */
-    public function __construct(string $email, string $pass, string $permissions, string $organisation, string $name, string $photoId) {
+    public function __construct(string $email, string $pass, string $permissions, string $organisation, string $photoId, string $firstName, string $surname) {
         $this->email = $email;
         $this->pass = password_hash($pass, PASSWORD_DEFAULT);
         $this->permissions = $permissions;
         $this->organisation = $organisation;
-        $this->name = $name;
+        $this->firstName = $firstName;
+        $this->surname = $surname;
         $this->photoId = $photoId;
+
+        $this->name = $this->firstName . $this->surname;
     }
 
     /**
@@ -152,6 +184,62 @@ class User {
      */
     public function setPhotoId(string $photoId): void {
         $this->photoId = $photoId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstName(): string {
+        return $this->firstName;
+    }
+
+    /**
+     * @param string $firstName
+     */
+    public function setFirstName(string $firstName): void {
+        $this->firstName = $firstName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSurname(): string {
+        return $this->surname;
+    }
+
+    /**
+     * @param string $surname
+     */
+    public function setSurname(string $surname): void {
+        $this->surname = $surname;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMembershipAdministrator(): bool {
+        return $this->membershipAdministrator;
+    }
+
+    /**
+     * @param bool $membershipAdministrator
+     */
+    public function setMembershipAdministrator(bool $membershipAdministrator): void {
+        $this->membershipAdministrator = $membershipAdministrator;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isContributor(): bool {
+        return $this->contributor;
+    }
+
+    /**
+     * @param bool $contributor
+     */
+    public function setContributor(bool $contributor): void {
+        $this->contributor = $contributor;
     }
 
     /**
