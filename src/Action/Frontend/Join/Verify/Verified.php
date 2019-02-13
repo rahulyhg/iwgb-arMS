@@ -24,18 +24,42 @@ class Verified extends GenericMemberAction {
             ],
             'footer' => [
                 'This email was sent because you completed an application on [iwgb.org.uk](https://iwgb.org.uk)',
-                "Independent Workers Union of Great Britain  \r\n12-20 Baron St  \r\nLondon  \r\nN1 9LL",
-            ]
+            ],
         ],
         'action' => [
-            'href' => 'https://iwgb.org.uk/join/%application%/verified',
+            'href' => 'https://iwgb.org.uk/join/application/%application%/verified',
             'display' => 'Complete payment',
         ],
     ];
 
-    const VERIFIED_EMAIL_TEXT = "Application number: %application%\r\n\r\nHey %name,\r\nWe've verified and received your application. Once you've completed the your payment, we'll be in touch confirming your membership to the IWGB!\r\n\r\nClick here to complete your payment: https://iwgb.org.uk/join/%application%/verified\r\n\r\nIf you've already set up your direct debit on our website, then feel free to ignore this email.\r\n\r\n- Your friends at the IWGB\r\n\r\nThis email was sent because you completed an application on iwgb.org.uk.\r\nIndependent Workers Union of Great Britain, 12-20 Baron St, London, N1 9LL";
+    const VERIFIED_EMAIL_TEXT = "Application number: %application%\r\n\r\nHey %name,\r\nWe've verified and received your application. Once you've completed the your payment, we'll be in touch confirming your membership to the IWGB!\r\n\r\nClick here to complete your payment: https://iwgb.org.uk/join/%application%/verified\r\n\r\nIf you've already set up your direct debit on our website, then feel free to ignore this email.\r\n\r\n— Your friends at the IWGB\r\n\r\nThis email was sent because you completed an application on iwgb.org.uk.\r\nIndependent Workers Union of Great Britain, 12-20 Baron St, London, N1 9LL";
 
     const VERIFIED_EMAIL_SUBJECT = 'Your IWGB Membership Application';
+
+    const ADMINISTRATOR_EMAIL_HTML = [
+        'content' => [
+            'before' => [
+                'Hey,',
+                'A new member has applied to be a member of the IWGB.',
+                "**Ref:** %application%  \r\n**Branch:** %branch%",
+                'Go to the new memberships control panel to review their application.',
+            ],
+            'after' => [
+                '— IWGB mailer bot',
+            ],
+            'footer' => [
+                'This email was sent because your [iwgb.org.uk](https://iwgb.org.uk) account is set as a membership administrator.',
+            ],
+        ],
+        'action' => [
+            'href'      => 'https://iwgb.org.uk/admin/member/recent',
+            'display'   => 'View recent applications',
+        ],
+    ];
+
+    const ADMINISTRATOR_EMAIL_TEXT = "Ref: %application% (%branch%)\r\n\r\nHey,\r\n\r\nA new member has applied to be a member of the IWGB. Go to the new memberships control panel to review their application: https://iwgb.org.uk/admin/member/recent\r\n\r\n—the IWGB mailer bot\r\n\r\nThis email was sent because your iwgb.org.uk account is set as a membership administrator.\r\nIndependent Workers Union of Great Britain, 12-20 Baron St, London, N1 9LL";
+
+    const ADMINISTRATOR_EMAIL_SUBJECT = "New membership application";
 
     /**
      * {@inheritdoc}
@@ -50,7 +74,7 @@ class Verified extends GenericMemberAction {
 
         // check if verified, if not redirect to /verify
         if (!$member->isVerified()) {
-            return $response->withRedirect('/join/application/' / $member->getId() . '/verify');
+            return $response->withRedirect('/join/application/' . $member->getId() . '/verify');
         }
 
         if (!$member->isConfirmed()) {
@@ -66,9 +90,19 @@ class Verified extends GenericMemberAction {
                     'name'          => $member->getFirstName(),
                     'application'   => $member->getId(),
                 ]);
+
+            // notify administrator
+            $this->send->email->transactional('hello@guymac.eu',
+                self::ADMINISTRATOR_EMAIL_SUBJECT,
+                self::ADMINISTRATOR_EMAIL_TEXT,
+                self::ADMINISTRATOR_EMAIL_HTML,
+                [
+                    'application'   => $member->getId(),
+                    'branch'        => $member->getBranch(),
+                ]);
+
+            return $response->withRedirect('/join/application/' . $member->getId() . '/verified');
         }
-
-
 
         // render page
         $membership = \JSONObject::findItem(
