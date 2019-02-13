@@ -45,8 +45,6 @@ class VerificationKey {
      * @var string
      *
      * @ORM\Column(name="keystr", type="string", length=23, nullable=false)
-     * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="\Domain\Generator\AuthKeyGenerator")
      */
     private $key;
 
@@ -72,6 +70,7 @@ class VerificationKey {
      */
     public function __construct(Member $member, string $type) {
         $this->member = $member;
+        $this->key = self::generateKey();
         $this->type = $type;
         $this->timestamp = new \DateTime();
     }
@@ -151,6 +150,10 @@ class VerificationKey {
             $body = str_replace("%$key%", $value, $body);
         }
         return $body;
+    }
+
+    private static function generateKey(): int {
+        return rand(1111, 9999);
     }
 
 
