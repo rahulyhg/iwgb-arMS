@@ -13,6 +13,6 @@ class Mailgun implements ServiceProviderInterface {
      */
     public function register(Container $c) {
         $c['mailgun'] = MailgunClient::create('key-' . $c['settings']['mailgun']['key'],
-            'https://api.eu.mailgun.net');
+            'https://api.mailgun.net');
     }
 }

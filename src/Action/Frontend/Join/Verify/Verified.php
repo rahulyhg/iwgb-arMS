@@ -20,7 +20,7 @@ class Verified extends GenericMemberAction {
             ],
             'after' => [
                 "If you've already set up your direct debit on our website, then feel free to ignore this email.",
-                "- Your friends at the IWGB",
+                "— Your friends at the IWGB",
             ],
             'footer' => [
                 'This email was sent because you completed an application on [iwgb.org.uk](https://iwgb.org.uk)',
@@ -55,17 +55,20 @@ class Verified extends GenericMemberAction {
 
         if (!$member->isConfirmed()) {
             $member->setConfirmed(true);
-        }
-        $this->em->flush();
+            $this->em->flush();
 
-        $result = $this->send->email->transactional($member->getEmail(),
-            self::VERIFIED_EMAIL_SUBJECT,
-            self::VERIFIED_EMAIL_TEXT,
-            self::VERIFIED_EMAIL_HTML,
-            [
-                'name'          => $member->getFirstName(),
-                'application'   => $member->getId(),
-            ]);
+            // send confirmation email
+            $this->send->email->transactional($member->getEmail(),
+                self::VERIFIED_EMAIL_SUBJECT,
+                self::VERIFIED_EMAIL_TEXT,
+                self::VERIFIED_EMAIL_HTML,
+                [
+                    'name'          => $member->getFirstName(),
+                    'application'   => $member->getId(),
+                ]);
+        }
+
+
 
         // render page
         $membership = \JSONObject::findItem(

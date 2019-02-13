@@ -53,7 +53,7 @@ return [
             'domain'    => 'mx.iwgb.org.uk',
             'key'       => $keys['mailgun'],
             'from'      => 'noreply@iwgb.org.uk',
-            'replyTo'   => 'office@iwgb.co.uk',
+            'replyTo'   => 'office@iwgb.org.uk',
         ],
         'cdn'   => [
             'baseUrl' => 'cdn.iwgb.org.uk',

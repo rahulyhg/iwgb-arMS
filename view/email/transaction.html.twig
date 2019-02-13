@@ -176,7 +176,14 @@
                     <table width="100%"
                            style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                         <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                            {% for paragraph in content.footer %}
+                            <td class="aligncenter content-block"
+                                style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 12px; vertical-align: top; color: #999; text-align: center; margin: 0; padding: 0 0 20px;"
+                                align="center" valign="top">
+                                <a href="https://iwgb.org.uk/page/about/privacy">Privacy Policy</a> &middot; <a href="https://iwgb.org.uk/page/about/data-protection">Data Protection Policy</a>
+                            </td>
+                        </tr>
+                        {% for paragraph in content.footer %}
+                            <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                 <td class="aligncenter content-block"
                                     style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 12px; vertical-align: top; color: #999; text-align: center; margin: 0; padding: 0 0 20px;"
                                     align="center" valign="top">
@@ -184,8 +191,8 @@
                                         {{ paragraph|htmlentities|md }}
                                     {% endautoescape %}
                                 </td>
-                            {% endfor %}
-                        </tr>
+                            </tr>
+                        {% endfor %}
                     </table>
                 </div>
             </div>
