@@ -47,9 +47,9 @@ class Post {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="timestamp", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="timestamp", type="datetime", nullable=false)
      */
-    private $timestamp = 'CURRENT_TIMESTAMP';
+    private $timestamp;
 
     /**
      * @var string
@@ -112,6 +112,7 @@ class Post {
      * @param User $author
      * @param Blog $blog
      * @param User $postedBy
+     * @throws \Exception
      */
     private function __construct(string $content, string $language, string $shortlink, string $title, string $headerImage, User $author, Blog $blog, User $postedBy) {
         $this->content = $content;
@@ -122,8 +123,20 @@ class Post {
         $this->author = $author;
         $this->blog = $blog;
         $this->postedBy = $postedBy;
+        $this->timestamp = new \DateTime();
     }
 
+    /**
+     * @param string $content
+     * @param string $language
+     * @param string $title
+     * @param User $author
+     * @param Blog $blog
+     * @param user $postedBy
+     * @param string|null $headerImage
+     * @return Post
+     * @throws \Exception
+     */
     public static function constructPost(string $content, string $language, string $title, User $author, Blog $blog, user $postedBy, string $headerImage = null): Post {
         $post = new Post(
             $content,

@@ -60,14 +60,20 @@ class VerificationKey {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="timestamp", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="timestamp", type="datetime", nullable=false)
      */
-    private $timestamp = 'CURRENT_TIMESTAMP';
+    private $timestamp;
 
-    public function __construct(\Sender $send, Member $member, string $type) {
+    /**
+     * VerificationKey constructor.
+     * @param Member $member
+     * @param string $type
+     * @throws \Exception
+     */
+    public function __construct(Member $member, string $type) {
         $this->member = $member;
         $this->type = $type;
-        $this->send($send);
+        $this->timestamp = new \DateTime();
     }
 
     /**

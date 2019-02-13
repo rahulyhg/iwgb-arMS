@@ -3,6 +3,8 @@
 namespace Domain;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\EventManager;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,8 +33,6 @@ class Member {
      * @var \DateTime
      *
      * @ORM\Column(name="timestamp", type="datetime", nullable=false)
-     * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="\Domain\Generator\CurrentDateTimeGenerator")
      */
     private $timestamp;
 
@@ -137,6 +137,7 @@ class Member {
      */
     public function __construct(string $branchData, string $branch, string $membership, string $firstName, string $surname, int $dob, string $gender, string $mobile, string $email, string $address, string $postcode) {
         $this->branchData = $branchData;
+        $this->timestamp = new \DateTime();
         $this->branch = $branch;
         $this->membership = $membership;
         $this->firstName = $firstName;
@@ -400,6 +401,5 @@ class Member {
         }
         return $unverified;
     }
-
 
 }
