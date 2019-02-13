@@ -24,16 +24,20 @@ class Twig implements ServiceProviderInterface {
 
             $env = $view->getEnvironment();
 
-            $env->addFilter(new \Twig_Filter('htmlentities', function (string $s) {
+            $env->addFilter(new \Twig_Filter('htmlentities', function (string $s): string {
                 return htmlspecialchars($s);
             }));
 
-            $env->addFilter(new \Twig_Filter('md', function ($s) {
+            $env->addFilter(new \Twig_Filter('md', function (string $s): string {
                 return (new \Parsedown())->text($s);
             }));
 
-            $env->addFilter(new \Twig_Filter('timeago', function ($s) {
+            $env->addFilter(new \Twig_Filter('timeago', function (string $s): string {
                 return (new \Westsworld\Timeago())->inWords($s);
+            }));
+
+            $env->addFunction(new \Twig_Function('_i', function (string $s) use ($c): string {
+               return 'http://' . $c['settings']['cdn']['baseUrl'] . $s;
             }));
 
 

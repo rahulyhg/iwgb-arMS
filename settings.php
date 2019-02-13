@@ -55,6 +55,9 @@ return [
             'from'      => 'noreply@iwgb.org.uk',
             'replyTo'   => 'office@iwgb.co.uk',
         ],
+        'cdn'   => [
+            'baseUrl' => 'cdn.iwgb.org.uk',
+        ],
     ],
 ];
 
