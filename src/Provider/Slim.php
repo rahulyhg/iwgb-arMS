@@ -60,6 +60,13 @@ class Slim implements ServiceProviderInterface {
 
                 $app->get('', \Action\Frontend\Join\Join::class);
                 $app->post('', \Action\Frontend\Join\Submit::class);
+
+                $app->group('/application/{application}', function (App $app) {
+
+                    $app->map(['GET', 'POST'], '/verify', \Action\Frontend\Join\Verify\Verify::class);
+                    $app->get('/verified', \Action\Frontend\Join\Verify\Verified::class);
+                });
+
                 $app->get('/{branch}', \Action\Frontend\Join\Form::class);
             });
 

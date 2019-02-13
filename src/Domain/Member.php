@@ -114,7 +114,7 @@ class Member {
     private $postcode;
 
     /**
-     * @var VerificationKey[]
+     * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="VerificationKey", mappedBy="member")
      */
@@ -358,7 +358,7 @@ class Member {
      * @return VerificationKey[]
      */
     public function getVerificationKeys(): array {
-        return $this->verificationKeys;
+        return $this->verificationKeys->toArray();
     }
 
 
@@ -386,6 +386,7 @@ class Member {
             if ($key->getKey() == $k &&
                 $key->getType() == $t) {
                 $key->setVerified(true);
+
                 $found = true;
             }
         }

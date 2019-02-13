@@ -21,7 +21,7 @@ class Sender {
      * @param array $twilioSettings
      */
     public function __construct(Emailer $emailer, \Mailgun\Mailgun $mailgun, \Twilio\Rest\Client $twilio, array $twilioSettings) {
-        $this->emailer = $emailer;
+        $this->email = $emailer;
         $this->mailgun = $mailgun;
         $this->twilio = $twilio;
         $this->twilioSettings = $twilioSettings;

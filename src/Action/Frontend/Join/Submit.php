@@ -13,6 +13,7 @@ class Submit extends GenericPublicAction {
     /**
      * {@inheritdoc}
      * @throws \Doctrine\ORM\ORMException
+     * @throws \Exception
      */
     public function __invoke(Request $request, Response $response, $args): ResponseInterface {
         $callback = $request->getQueryParam('callback');
@@ -52,7 +53,7 @@ class Submit extends GenericPublicAction {
         $key->send($this->send);
 
         // redirect
-        return $response->withRedirect("/join/$application/verify");
+        return $response->withRedirect('/join/application/' . $member->getId() . '/verify');
     }
 
     /**
@@ -61,6 +62,19 @@ class Submit extends GenericPublicAction {
      */
     private static function validateApplication($data) {
         $formSections = \JSONObject::get(\Config::Forms, 'join')['sections'];
+
+        // mandatory
+        $formSections[]['fields'] = [
+            [[
+                'name'      => 'branch',
+                'required'  => true,
+            ]],
+            [[
+                'name'      => 'membership',
+                'required'  => true,
+            ]],
+        ];
+
         $application = [];
 
         if (empty($data['branch'])) {

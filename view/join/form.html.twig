@@ -39,7 +39,7 @@
 		{% endif %}
 		<div>
 			<h2>Membership type</h2>
-			<select name="cost">
+			<select name="membership">
 				{% for cost in branch.costs %}
 					<option value="{{ cost.name }}">{{ _(cost.display) }}: £{{ cost.amount }}</option>
 				{% endfor %}

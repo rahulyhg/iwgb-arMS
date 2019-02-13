@@ -16,8 +16,8 @@
 			{% for key in member.getUnverifiedKeys() %}
 				<div>
 					<p>Type: {{ key.getType()|title }}</p>
-					<input name="keystr[{{ loop.index0 }}]" placeholder="My code">
-					<input name="type[{{ loop.index0 }}]" value="{{ key.getType() }}" type="hidden">
+					<input name="k[{{ loop.index0 }}]" placeholder="My code">
+					<input name="t[{{ loop.index0 }}]" value="{{ key.getType() }}" type="hidden">
 				</div>
 			{% endfor %}
 		</div>
