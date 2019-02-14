@@ -1,0 +1,142 @@
+@charset "utf-8";
+
+@import 'lib/system-ui-font';
+@import 'lib/normalize';
+
+$linkBlue: #007bff;
+
+$phone: "only screen and (max-width: 700px)";
+
+body {
+    margin: 0;
+    padding: 0;
+    //noinspection CssNoGenericFontName
+    font-family: 'system-ui';
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+@mixin colorAnchor($color) {
+    color: $color;
+    transition: color 0.5s;
+
+    &:hover {
+        color: darken($color, 30%);
+    }
+}
+
+@mixin underlineAnchor($color) {
+    color: $color;
+
+    &:hover {
+        color: $color;
+        text-decoration: underline;
+    }
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem;
+    background-color: #EEEEEE;
+
+    &__part {
+        display: flex;
+        align-items: center;
+    }
+
+    &__heading {
+        font-size: 1.25rem;
+        display: inline;
+        padding: 0 0.5rem;
+    }
+
+    &__list {
+        list-style: none;
+        display: inline;
+        padding: 0;
+        margin: 0;
+
+        &__item {
+            display: inline;
+            padding: 0 0.5rem;
+            text-align: center;
+        }
+    }
+
+    &__link {
+        @include colorAnchor(#555);
+
+        &--nonNavigable {
+            @include underlineAnchor($linkBlue);
+        }
+    }
+
+    &__text {
+        display: inline;
+    }
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    margin: 1.25rem;
+
+    @media #{$phone} {
+        display: block;
+    }
+
+    &__content {
+        min-width: calc(700px - 1.25rem);
+        flex-grow: 1;
+        max-width: 1000px;
+
+        @media #{$phone} {
+            min-width: unset;
+            max-width: unset;
+        }
+    }
+}
+
+.pageHeader {
+    font-size: 3rem;
+    font-weight: lighter;
+    padding: 1rem 0;
+
+    &__add {
+        @include colorAnchor(#999);
+
+        &::before {
+            content: "+";
+        }
+    }
+}
+
+.entityTable {
+    border-collapse: collapse;
+    border: 1px solid #bbb;
+    border-radius: 3px;
+
+
+    &__header {
+
+        &__link {
+            @include colorAnchor(#999);
+        }
+    }
+
+    &__field {
+        padding: 1em;
+        border: 1px solid #bbb;
+    }
+
+    &__link {
+        @include underlineAnchor($linkBlue);
+    }
+
+
+}

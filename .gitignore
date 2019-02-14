@@ -32,6 +32,7 @@ $RECYCLE.BIN/
 # compiled css
 *.css
 *.css.map
+/public/css/lib/
 
 legacyKeys.php
 keys.php

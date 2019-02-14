@@ -1,0 +1,34 @@
+{% extends '/admin/admin.html.twig' %}
+
+{% block content %}
+    <div class="pageHeader">Members
+        <a class="pageHeader__add" href="/admin/member/new"></a>
+    </div>
+
+    <table class="entityTable" width="100%">
+        <thead>
+            <tr class="entityTable__header">
+                <td class="entityTable__field"><a class="entityTable__header__link" href="/admin/member/all?sort=id&order=desc">ID</a></td>
+                <td class="entityTable__field"><a class="entityTable__header__link" href="/admin/member/all?sort=name&order=asc">Name</a></td>
+                <td class="entityTable__field"><a class="entityTable__header__link" href="/admin/member/all?sort=branch&order=asc">Branch</a></td>
+            </tr>
+        </thead>
+        <tbody class="entityTable__body">
+            <tr class="entityTable__row">
+                <td class="entityTable__field"><a class="entityTable__link" href="/admin/member/59283741">59283741</a></td>
+                <td class="entityTable__field">Guy Mac</td>
+                <td class="entityTable__field">Couriers & Logistics</td>
+            </tr>
+            <tr class="entityTable__row">
+                <td class="entityTable__field"><a class="entityTable__link" href="/admin/member/59283741">59283741</a></td>
+                <td class="entityTable__field">Guy Mac</td>
+                <td class="entityTable__field">Couriers & Logistics</td>
+            </tr>
+            <tr class="entityTable__row">
+                <td class="entityTable__field"><a class="entityTable__link" href="/admin/member/59283741">59283741</a></td>
+                <td class="entityTable__field">Guy Mac</td>
+                <td class="entityTable__field">Couriers & Logistics</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}
