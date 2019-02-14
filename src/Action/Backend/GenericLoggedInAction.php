@@ -24,6 +24,6 @@ abstract class GenericLoggedInAction extends GenericAction {
      * {@inheritdoc}
      */
     public function render(Request $request, Response $response, string $template, $vars): ResponseInterface {
-        return parent::render($request, $response, $template, $vars);
+        return parent::render($request, $response, $template, array_merge(['user' => $this->user], $vars));
     }
 }

@@ -1,34 +1,60 @@
 {% extends '/admin/admin.html.twig' %}
 
+{% from '/admin/entity-list.html.twig' import sortOrder %}
+
+{#
+    entityName:     Entity name
+    entityPlural:   Plural of entityName
+    entities:       Array of entities
+    columns:        Columns to display, ID first
+#}
+
+{% macro sortOrder(field) %}
+    {% if _get.sort == field %}
+        {% if _get.order == 'asc' %}
+            {{ "desc" }}
+        {% else %}
+            {{ "asc" }}
+        {% endif %}
+    {% else %}
+        {{ "asc" }}
+    {% endif %}
+{% endmacro %}
+
+{% block head %}
+    <title>{{ entityPlural|title }} &middot; Admin &middot; IWGB</title>
+{% endblock %}
+
 {% block content %}
-    <div class="pageHeader">Members
+    <div class="pageHeader">{{ entityPlural|title }}
         <a class="pageHeader__add" href="/admin/member/new"></a>
     </div>
 
     <table class="entityTable" width="100%">
         <thead>
-            <tr class="entityTable__header">
-                <td class="entityTable__field"><a class="entityTable__header__link" href="/admin/member/all?sort=id&order=desc">ID</a></td>
-                <td class="entityTable__field"><a class="entityTable__header__link" href="/admin/member/all?sort=name&order=asc">Name</a></td>
-                <td class="entityTable__field"><a class="entityTable__header__link" href="/admin/member/all?sort=branch&order=asc">Branch</a></td>
-            </tr>
+        <tr class="entityTable__header">
+            {% for column in columns %}
+                <td class="entityTable__field">
+                    <a class="entityTable__header__link" href="/admin/{{ entityName }}/all/0?sort={{ column }}&order={{ sortOrder(column) }}">{{ column|title }}</a>
+                </td>
+            {% endfor %}
+        </tr>
         </thead>
         <tbody class="entityTable__body">
-            <tr class="entityTable__row">
-                <td class="entityTable__field"><a class="entityTable__link" href="/admin/member/59283741">59283741</a></td>
-                <td class="entityTable__field">Guy Mac</td>
-                <td class="entityTable__field">Couriers & Logistics</td>
-            </tr>
-            <tr class="entityTable__row">
-                <td class="entityTable__field"><a class="entityTable__link" href="/admin/member/59283741">59283741</a></td>
-                <td class="entityTable__field">Guy Mac</td>
-                <td class="entityTable__field">Couriers & Logistics</td>
-            </tr>
-            <tr class="entityTable__row">
-                <td class="entityTable__field"><a class="entityTable__link" href="/admin/member/59283741">59283741</a></td>
-                <td class="entityTable__field">Guy Mac</td>
-                <td class="entityTable__field">Couriers & Logistics</td>
-            </tr>
+            {% include '/admin/tbody/member.html.twig' with {
+                'entities': entities
+            } only %}
         </tbody>
     </table>
+    <div class="pagination">
+        <span class="pagination__part">
+            {% if page > 0 %}
+                <a class="pagination__link" href="">Previous</a>
+            {% endif %}
+        </span>
+        <span class="pagination__part">
+            <a class="pagination__link">Next</a>
+        </span>
+
+    </div>
 {% endblock %}
