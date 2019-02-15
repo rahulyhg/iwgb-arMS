@@ -8,7 +8,7 @@
             <a class="entityTable__link"
                href="/admin/member/{{ member.getId() }}">{{ member.getId() }}</a>
         </td>
-        <td class="entityTable__field">{{ member.getName() }}</td>
+        <td class="entityTable__field">{{ member.getFirstName() }} {{ member.getSurname() }}</td>
         <td class="entityTable__field entityTable__field--hideMobile">{{ member.getBranch() }}
             <a class="entityTable__field__action"
                href="/admin/member/all/0?branch={{ member.getBranch() }}"><i class="fas fa-arrow-right"></i></a>

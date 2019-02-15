@@ -13,6 +13,7 @@ class ViewAll extends GenericLoggedInAction {
      * {@inheritdoc}
      */
     public function __invoke(Request $request, Response $response, $args): ResponseInterface {
+
         /** @var \Domain\MemberRepository $memberRepo */
         $memberRepo = $this->em->getRepository(\Domain\Member::class);
 

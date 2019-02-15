@@ -39,7 +39,7 @@
                     {% if loop.index > 2 %}
                         entityTable__field--hideMobile
                     {% endif %}">
-                    <a class="entityTable__header__link" href="/admin/{{ entityName }}/all/0?sort={{ column }}&order={{ sortOrder(column) }}">{{ column|title }}</a>
+                    <a class="entityTable__header__link" href="/admin/{{ entityName }}/all/{{ page }}?sort={{ column }}&order={{ sortOrder(column) }}">{{ column|title }}</a>
                 </td>
             {% endfor %}
         </tr>
