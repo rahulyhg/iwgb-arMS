@@ -19,6 +19,7 @@
         "kriswallsmith/buzz": "^0.17.2",
         "php-http/curl-client": "^1.7",
         "google/recaptcha": "^1.2",
-        "akrabat/ip-address-middleware": "^1.0"
+        "akrabat/ip-address-middleware": "^1.0",
+        "ramsey/uuid": "^3.8"
     }
 }

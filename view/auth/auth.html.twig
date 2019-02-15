@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="{{ _lang }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/css/auth.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+
+
+{% include '/auth/alerts.html.twig' %}
+
+<div class="container">
+    <div class="container__content">
+        {#<img class="logo" alt="logo" src="{{ _i('/assets/wordmark-red.png') }}">#}
+        <img class="logo" alt="logo" src="https://iwgb.org.uk/img/iwgb-red-wordmark.png">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+</body>
+</html>

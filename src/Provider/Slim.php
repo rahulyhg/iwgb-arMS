@@ -93,6 +93,13 @@ class Slim implements ServiceProviderInterface {
 
             })->add(new \AuthMiddleware($c->session));
 
+            $app->group('/auth', function (App $app) {
+
+                $app->get('/verify/{id}', \Action\Auth\Verify::class);
+
+                $app->get('/invalid', \Action\Auth\Invalid::class);
+            });
+
             //legacy code
 
             $c['legacy'] = require APP_ROOT . '/legacyConfig.php';

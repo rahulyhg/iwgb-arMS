@@ -1,0 +1,29 @@
+{% extends '/auth/auth.html.twig' %}
+
+{#
+    key: a \Domain\VerificationKey
+#}
+
+{% block head %}
+    <title>Verify &middot; IWGB</title>
+{% endblock %}
+
+{% block content %}
+    <div class="verify">
+        <div class="message">
+            <p class="message__header">Verify your identity</p>
+            <p class="message__body">To continue, check the contact details you've provided for a message from us containing a verification code or link.</p>
+        </div>
+
+        <form class="form" method="post" action="/auth/verify/{{ key.getId() }}">
+            <input name="token" value="{{ key.getToken() }}" type="hidden">
+            <span>
+                <input class="form__input form__input--attachRight" name="key" placeholder="Key" required autofocus><input class="form__input form__input__submit form__input--attachLeft" type="submit" value="Verify">
+            </span>
+        </form>
+
+        <div class="message">
+            <p class="message__body message--small">Not received anything? <a class="message__action" href="/auth/verify/{{ key.getId() }}/resend">Send again</a></p>
+        </div>
+    </div>
+{% endblock %}

@@ -3,6 +3,7 @@
 namespace Domain;
 
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Uuid;
 use Slim\Container;
 
 /**
@@ -13,33 +14,48 @@ use Slim\Container;
  */
 class VerificationKey {
 
-    const VERIFICATION_SMS = 'Your IWGB verification key is %key%.\n\nRef: %application%';
+    const VERIFICATION_SMS = 'Your IWGB verification key is %key%.';
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="incr", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $incr;
+    const VERIFICATION_EMAIL_SUBJECT = 'IWGB Verification';
 
-    /**
-     * @var Member
-     *
-     * @ORM\ManyToOne(targetEntity="Member", inversedBy="verificationKeys")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="member", referencedColumnName="id")
-     * })
-     */
-    private $member;
+    const VERIFICATION_EMAIL_HTML = [
+        'content' => [
+            'before' => [
+                'Hey there,',
+                'Your IWGB verification key is:',
+                '**%key%**',
+                'Or click the magic link below.',
+            ],
+            'after' => [
+                '— Your friends at the IWGB',
+            ],
+            'footer' => [
+                'This email was sent to enable you to verify your identity at [iwgb.org.uk](https://iwgb.org.uk).',
+            ],
+        ],
+        'action' => [
+            'href' => 'https://iwgb.org.uk/auth/verify/%id%?token=%token%',
+            'display' => 'Verify',
+        ],
+    ];
+
+    const VERIFICATION_EMAIL_TEXT = "Hey there,\r\n\r\nYour IWGB verification key is:\r\n\r\n%key%\r\n\r\nThanks!\r\n\r\n— Your friends at the IWGB";
 
     /**
      * @var string
      *
-     * @ORM\Column(name="type", type="string", length=10, nullable=false)
+     * @ORM\Column(name="id", type="string", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $type;
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="token", type="string", length=36, nullable=false)
+     */
+    private $token;
 
     /**
      * @var string
@@ -56,6 +72,13 @@ class VerificationKey {
     private $verified = 0;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="callback", type="string", nullable=false)
+     */
+    private $callback;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="timestamp", type="datetime", nullable=false)
@@ -64,29 +87,14 @@ class VerificationKey {
 
     /**
      * VerificationKey constructor.
-     * @param Member $member
-     * @param string $type
+     * @param string $callback
      * @throws \Exception
      */
-    public function __construct(Member $member, string $type) {
-        $this->member = $member;
+    public function __construct(string $callback) {
         $this->key = self::generateKey();
-        $this->type = $type;
+        $this->token = (Uuid::uuid1())->toString();
+        $this->callback = $callback;
         $this->timestamp = new \DateTime();
-    }
-
-    /**
-     * @return string
-     */
-    public function getType(): string {
-        return $this->type;
-    }
-
-    /**
-     * @param string $type
-     */
-    public function setType(string $type): void {
-        $this->type = $type;
     }
 
     /**
@@ -104,17 +112,31 @@ class VerificationKey {
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getIncr(): int {
-        return $this->incr;
+    public function getCallback(): string {
+        return $this->callback;
     }
 
     /**
-     * @return Member
+     * @param string $callback
      */
-    public function getMember(): Member {
-        return $this->member;
+    public function setCallback(string $callback): void {
+        $this->callback = $callback;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): string {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getToken(): string {
+        return $this->token;
     }
 
     /**
@@ -131,16 +153,33 @@ class VerificationKey {
         return $this->timestamp;
     }
 
-    public function send(\Sender $send): void {
-        switch ($this->type) {
+    /**
+     * @param \Sender $send
+     * @param \KeyType $type
+     * @param string $contact
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function send(\Sender $send, \KeyType $type, string $contact): void {
+        switch ($type) {
             case \KeyType::SMS:
-                $send->twilio->messages->create($this->member->getMobile(), [
+                $send->twilio->messages->create($contact, [
                     'from' => $send->twilioSettings['from'],
                     'body' => self::processVerificationBody(self::VERIFICATION_SMS, [
-                        'application' => $this->member->getId(),
                         'key' => $this->getKey(),
                     ]),
                 ]);
+                break;
+            case \KeyType::Email:
+                $send->email->transactional($contact,
+                    self::VERIFICATION_EMAIL_SUBJECT,
+                    self::VERIFICATION_EMAIL_TEXT,
+                    self::VERIFICATION_EMAIL_HTML,
+                    [
+                        'key' => $this->getKey(),
+                        'token' => $this->getToken(),
+                    ]);
                 break;
         }
     }
@@ -153,9 +192,8 @@ class VerificationKey {
     }
 
     private static function generateKey(): int {
-        return rand(1111, 9999);
+        return rand(111111, 999999);
     }
-
 
 
 }

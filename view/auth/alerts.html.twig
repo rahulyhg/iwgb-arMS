@@ -1,0 +1,23 @@
+{% if _get.m is defined %}
+	{% if _get.u is defined %}
+		<div class="alert alert--good alert--undo">
+			<span class="alert__message">
+				<i class="fas fa-check"></i>
+				{{ _get.m|htmlentities }}
+			</span>
+			<span class="alert__undo">
+				<i class="fas fa-undo"></i>
+				<a class="alert__undo__action" href="{{ _get.u|htmlentities }}">Undo</a>
+			</span>
+		</div>
+	{% else %}
+		<div class="alert alert--good">
+			<span class="alert__message"><i class="fas fa-check"></i>{{ _get.m|htmlentities }}</span>
+		</div>
+	{% endif %}
+{% endif %}
+{% if _get.e is defined %}
+		<div class="alert alert--error">
+			<span class="alert__title">Error:</span>
+			<span class="alert__message">{{ _get.e|htmlentities }}</span></div>
+{% endif %}

@@ -18,8 +18,7 @@ $desktop: "only screen and (min-width: 700px)";
 body {
     margin: 0;
     padding: 0;
-    //noinspection CssNoGenericFontName
-    font-family: 'system-ui';
+    font-family: 'system-ui', sans-serif;
 }
 
 a {

@@ -1,0 +1,150 @@
+@charset "utf-8";
+
+@import 'lib/system-ui-font';
+@import 'lib/normalize';
+
+$grey: #999;
+$linkBlue: #007bff;
+$error: #c0392b;
+$message: #2ecc71;
+
+$mobile: "only screen and (max-width: 699.98px)";
+$desktop: "only screen and (min-width: 700px)";
+
+body {
+    background-color: #f5f5f5;
+    font-family: 'system-ui', sans-serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+@mixin underlineAnchor($color) {
+    color: $color;
+
+    &:hover {
+        color: $color;
+        text-decoration: underline;
+    }
+}
+
+@mixin colorAnchor($color) {
+    color: $color;
+    transition: color 0.5s;
+
+    &:hover {
+        color: darken($color, 30%);
+    }
+}
+
+
+.container {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__content {
+        max-width: 500px;
+        margin: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        @media #{$mobile} {
+            max-width: unset;
+        }
+    }
+}
+
+.logo {
+    max-width: 50%;
+    margin: 1rem;
+}
+
+.message {
+    text-align: center;
+    padding: 1rem;
+
+    &__header {
+        font-weight: bold;
+    }
+
+    &__action {
+        @include underlineAnchor($linkBlue);
+    }
+
+    &--small {
+        font-size: 0.75rem;
+    }
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__input {
+        padding: 0.5rem;
+        border-radius: 3px;
+        border: 1px solid $grey;
+
+        &__submit {
+            background-color: initial;
+            padding: 0.5rem 0.75rem;
+            border-radius: 3px;
+            border: 1px solid $grey;
+            font-weight: bold;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        &--attachLeft {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-left: none;
+        }
+
+        &--attachRight {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+    }
+}
+
+.alert {
+    color: #fff;
+    text-align: left;
+    width: calc(100% - 2rem);
+    padding: 1rem;
+    border-radius: 3px;
+
+    &--good {
+        background-color: $message;
+    }
+
+    &--error {
+        background-color: $error;
+    }
+
+    &--undo {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__title {
+        font-weight: 700;
+    }
+
+    &__undo__action {
+        font-weight: bold;
+        @include underlineAnchor(#fff);
+    }
+}
+
+
+
