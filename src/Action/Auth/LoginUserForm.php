@@ -6,7 +6,7 @@ use Action\GenericAction;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-class LoginOfficialForm extends GenericAction {
+class LoginUserForm extends GenericAction {
 
     /**
      * {@inheritdoc}

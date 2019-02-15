@@ -19,11 +19,7 @@ class AuthMiddleware {
     public function __invoke(Request $request, Response $response, callable $next): ResponseInterface {
         $callback = $request->getUri()->getPath();
         if ($callback != '/arms/login' && !$this->session->get('loginStatus')) {
-            $query = urlencode($request->getUri()->getQuery());
-            if ($query != '') {
-                $query = '&q=' . $query;
-            }
-            return $response->withRedirect('/arms/login?e=' . self::LOGIN_REDIRECT_MESSAGE . "&callback=$callback$query", 302);
+            return $response->withRedirect('/arms/login?e=' . self::LOGIN_REDIRECT_MESSAGE . "&callback=$callback");
         }
 
         return $next($request, $response);

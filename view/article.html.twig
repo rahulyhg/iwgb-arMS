@@ -6,8 +6,8 @@
 
 {% block meta %}
 	{% include 'meta.html.twig' with {
-		'title': 	post.title + ' &middot; IWGB',
-		'url': 		'iwgb.co.uk/post/' + post.id + '/' + post.shortlink,
+		'title': 	post.title ~ ' &middot; IWGB',
+		'url': 		'iwgb.co.uk/post/' ~ post.id ~ '/' ~ post.shortlink,
 		'image':	post.header_img
 	} only %}
 {% endblock %}
