@@ -1,0 +1,29 @@
+{% extends '/auth/auth.html.twig' %}
+
+{% block head %}
+    <title>Log in &middot; Admin &middot; IWGB</title>
+{% endblock %}
+
+{% block content %}
+    <div class="login">
+        <div class="message">
+            <p class="message__header">Log in</p>
+        </div>
+        <form class="form" method="post" action="/auth/login/official?callback={{ _get.callback }}">
+            {% include 'csrf.html.twig' %}
+            <div class="form__group">
+                <span class="form__group__line">
+                    <input class="form__input form__input--fullWidth" name="user" autocomplete="email" placeholder="Email" required>
+                </span>
+            </div>
+            <div class="form__group">
+                <span class="form__group__line">
+                    <input class="form__input form__input--attachRight form__input--grow" name="pass" type="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required><input class="form__input form__input__submit form__input--attachLeft" type="submit" value="Log in">
+                </span>
+            </div>
+        </form>
+        <div class="message">
+            <p class="message__body message--small"><a class="message__action" href="/auth/login?callback={{ _get.callback }}">I am an IWGB member</a></p>
+        </div>
+    </div>
+{% endblock %}

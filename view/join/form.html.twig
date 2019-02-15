@@ -20,7 +20,6 @@
 			<div>
 				<h2>{{ _(section.display) }}</h2>
 				{% for line in section.fields %}
-					{#{% autoescape false %} {{ dump(line) }} {% endautoescape %}#}
 					<div>
 						{% include 'formsection.html.twig' with {
 							'fields': line
