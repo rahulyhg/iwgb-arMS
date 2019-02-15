@@ -2,8 +2,7 @@
 	{% if _get.u is defined %}
 		<div class="alert alert--good alert--undo">
 			<span class="alert__message">
-				<i class="fas fa-check"></i>
-				{{ _get.m|htmlentities }}
+				<i class="fas fa-check"></i>{{ _get.m|htmlentities }}
 			</span>
 			<span class="alert__undo">
 				<i class="fas fa-undo"></i>
@@ -17,7 +16,13 @@
 	{% endif %}
 {% endif %}
 {% if _get.e is defined %}
-		<div class="alert alert--error">
-			<span class="alert__title">Error:</span>
-			<span class="alert__message">{{ _get.e|htmlentities }}</span></div>
+	<div class="alert alert--error">
+		<span class="alert__title">Error:</span>
+		<span class="alert__message">{{ _get.e|htmlentities }}</span>
+	</div>
+{% endif %}
+{% if _get.w is defined %}
+	<div class="alert alert--warning">
+		<span class="alert__message"><i class="fas fa-exclamation"></i>{{ _get.w|htmlentities }}</span>
+	</div>
 {% endif %}

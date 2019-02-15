@@ -99,8 +99,14 @@ class Slim implements ServiceProviderInterface {
 
                 $app->get('/invalid', \Action\Auth\Invalid::class);
 
-                $app->get('/login', \Action\Auth\Login::class);
-                $app->get('/login/official', \Action\Auth\LoginOfficial::class);
+                $app->get('/login', \Action\Auth\LoginForm::class);
+                $app->post('/login/member', \Action\Auth\Login::class);
+                $app->get('/login/member/{event}', \Action\Auth\MemberLoginVerified::class);
+
+                $app->get('/login/official', \Action\Auth\LoginOfficialForm::class);
+//                $app->post('/login/official', \Action\Auth\LoginOfficial::class);
+
+                $app->get('/logout', \Action\Auth\Logout::class);
             });
 
             //legacy code

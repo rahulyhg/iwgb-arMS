@@ -34,7 +34,8 @@ class Submit extends GenericAction {
         }
 
         if (empty($data['key']) ||
-            $data['key'] != $key->getKey()) {
+            $data['key'] != $key->getKey() ||
+            $key->getCallback() == 'invalid') {
             return $response->withRedirect('/auth/verify/' . $key->getId() . '?token=' . $key->getToken() . '&e=Invalid key');
         }
 

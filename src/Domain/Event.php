@@ -15,7 +15,7 @@ class Event {
      * @ORM\Column(name="id", type="string", length=13, nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="\Domain\Generator\UniqidGenerator")
+     * @ORM\CustomIdGenerator(class="\Domain\UniqidGenerator")
      */
     private $id;
 
@@ -27,32 +27,72 @@ class Event {
     private $type;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="act_upon", type="string", length=100, nullable=false)
-     */
-    private $actUpon;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="act_by", type="string", length=50, nullable=false)
-     */
-    private $actBy;
-
-    /**
      * @var \DateTime
      *
-     * @ORM\Column(name="timestamp", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(name="timestamp", type="datetime", nullable=false)
      */
-    private $timestamp = 'CURRENT_TIMESTAMP';
+    private $timestamp;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="notes", type="text", length=0, nullable=false)
+     * @ORM\Column(name="who", type="string", length=200, nullable=true)
      */
-    private $notes;
+    private $who;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="data", type="string", length=65535, nullable=true)
+     */
+    private $data;
 
+    /**
+     * Event constructor.
+     * @param string $type
+     * @param string $who
+     * @param string $data
+     * @throws \Exception
+     */
+    public function __construct(string $type, string $who = null, string $data = null) {
+        $this->type = $type;
+        $this->timestamp = new \DateTime();
+        $this->who = $who;
+        $this->data = $data;
+    }
+
+    /**
+     * @return string
+     */
+    public function getId(): string {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string {
+        return $this->type;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getTimestamp(): \DateTime {
+        return $this->timestamp;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWho(): string {
+        return $this->who;
+    }
+
+    /**
+     * @return string
+     */
+    public function getData(): string {
+        return $this->data;
+    }
 }

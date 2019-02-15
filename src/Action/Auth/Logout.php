@@ -1,13 +1,14 @@
 <?php
 
-namespace Action\Backend\Auth;
+namespace Action\Auth;
 
 use Action\Backend\GenericLoggedInAction;
+use Action\GenericAction;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-class LogOut extends GenericLoggedInAction {
+class Logout extends GenericAction {
 
     /**
      * @param Request $request

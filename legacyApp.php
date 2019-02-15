@@ -1448,7 +1448,8 @@ function logIn($db, $post, $session, $ip) {
                 $session->clear()
                     ->set('user', $user['email'])
                     ->set('name', $user['name'])
-                    ->set('loginStatus', true);
+                    ->set('loginStatus', true)
+                    ->set('realm', 'user');
                 if (password_needs_rehash($user['pass'], PASSWORD_DEFAULT)) {
                     $hash = password_hash($post['pass'], PASSWORD_DEFAULT);
                     $q = $db->prepare('UPDATE users SET pass = :pass WHERE email = :user');

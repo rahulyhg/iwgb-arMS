@@ -20,13 +20,13 @@
             <input name="token" value="{{ key.getToken() }}" type="hidden">
             <div class="form__group">
                 <span class="form__group__line">
-                    <input class="form__input form__input--attachRight form__input--grow" name="key" placeholder="Key" required autofocus><input class="form__input form__input__submit form__input--attachLeft" type="submit" value="Verify">
+                    <input class="form__input form__input--attachRight" name="key" placeholder="Key" required autofocus><input class="form__input form__input__submit form__input--attachLeft" type="submit" value="Verify">
                 </span>
             </div>
         </form>
 
         <div class="message">
-            <p class="message__body message--small">Not received anything? <a class="message__action" href="/auth/verify/{{ key.getId() }}/resend">Send again</a></p>
+            <p class="message__body message--small">Not received anything? <a class="message__action" href="/auth/verify/{{ key.getId() }}/resend?token={{ key.getToken() }}">Send again</a></p>
         </div>
     </div>
 {% endblock %}

@@ -7,12 +7,12 @@ $grey: #999;
 $linkBlue: #007bff;
 $error: #c0392b;
 $message: #2ecc71;
+$warning: #ff9800;
 
 $mobile: "only screen and (max-width: 699.98px)";
 $desktop: "only screen and (min-width: 700px)";
 
 body {
-    background-color: #f5f5f5;
     font-family: 'system-ui', sans-serif;
 }
 
@@ -41,17 +41,20 @@ a {
 
 
 .container {
-    min-height: 80vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 
     &__content {
         max-width: 500px;
+        padding: 1rem;
         margin: 1rem;
         display: flex;
         flex-direction: column;
         align-items: center;
+        background-color: #f5f5f5;
+        border-radius: 5px;
 
         @media #{$mobile} {
             max-width: unset;
@@ -60,7 +63,7 @@ a {
 }
 
 .logo {
-    max-width: 50%;
+    max-width: 12rem;
     margin: 1rem;
 }
 
@@ -91,7 +94,9 @@ a {
         width: 100%;
 
         &__line {
+            text-align: center;
             display: flex;
+            justify-content: center;
         }
     }
 
@@ -138,7 +143,6 @@ a {
     text-align: left;
     width: calc(100% - 2rem);
     padding: 1rem;
-    border-radius: 3px;
 
     &--good {
         background-color: $message;
@@ -148,9 +152,17 @@ a {
         background-color: $error;
     }
 
+    &--warning {
+        background-color: $warning;
+    }
+
     &--undo {
         display: flex;
         justify-content: space-between;
+    }
+
+    &__message i {
+        padding-right: 1rem;
     }
 
     &__title {
