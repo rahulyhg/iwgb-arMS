@@ -1,0 +1,115 @@
+{% extends '/admin/admin.html.twig' %}
+
+{#
+
+#}
+
+{% block head %}
+    <title>View member &middot; Admin &middot; IWGB</title>
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:700" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+    <div class="pageHeader">
+        <span class="memberName">
+            <span class="memberName__part">{{ member.getFirstName() }}</span>
+            <span class="memberName__part">{{ member.getSurname() }}</span>
+        </span>
+        <a class="pageHeader__action pageHeader__action--small" href="/admin/member/{{ member.getId() }}/edit"><i class="fas fa-pen"></i></a>
+    </div>
+
+    <div class="member">
+        <div class="membershipCard">
+            <span class="membershipCard__name">{{ member.getFirstName() }} {{ member.getSurname() }}</span>
+            <span class="membershipCard__id">{{ member.getId() }}</span>
+        </div>
+
+        <div class="memberInfo">
+
+            <div class="memberDatum memberDatum__section memberDatum--fullWidth"></div>
+
+            <div class="memberDatum">
+                <div class="memberDatum__label">Confirmed</div>
+                <div class="memberDatum__value">
+                    {% if member.isConfirmed() %}
+                        <i class="fas fa-check"></i>
+                    {% else %}
+                        <i class="fas fa-times"></i>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="memberDatum">
+                <div class="memberDatum__label">ID</div>
+                <div class="memberDatum__value">{{ member.getID() }}</div>
+            </div>
+
+            <div class="memberDatum">
+                <div class="memberDatum__label">Born</div>
+                <div class="memberDatum__value">{{ member.getStringDob() }}</div>
+            </div>
+
+            <div class="memberDatum">
+                <div class="memberDatum__label">Gender</div>
+                <div class="memberDatum__value">{{ member.getGender() }}</div>
+            </div>
+
+            <div class="memberDatum memberDatum__section memberDatum--fullWidth">
+                <span>Contact</span>
+            </div>
+
+            <div class="memberDatum memberDatum--fullWidth">
+                <div class="memberDatum__label">mobile</div>
+                <div class="memberDatum__value">
+                    <span>{{ member.getMobile() }}</span>
+                    <span class="memberDatum__value__action">
+                        <a href="tel:{{ member.getMobile() }}"><i class="fas fa-phone"></i> Call</a>
+                    </span>
+                </div>
+            </div>
+
+            <div class="memberDatum memberDatum--fullWidth">
+                <div class="memberDatum__label">email</div>
+                <div class="memberDatum__value">
+                    <span>{{ member.getEmail() }}</span>
+                    <span class="memberDatum__value__action">
+                        <a href="mailto:{{ member.getEmail() }}"><i class="fas fa-at"></i> Compose</a>
+                    </span>
+                </div>
+            </div>
+
+            <div class="memberDatum">
+                <div class="memberDatum__label">address</div>
+                <div class="memberDatum__value">{{ member.getAddress() }}</div>
+            </div>
+
+            <div class="memberDatum">
+                <div class="memberDatum__label">postcode</div>
+                <div class="memberDatum__value">
+                    <span>{{ member.getPostcode() }}</span>
+                    <span class="memberDatum__value__action">
+                        <a target="_blank"
+                           rel="noreferrer"
+                           href="https://maps.google.com/?q={{ member.getPostcode() }}"><i class="fas fa-map-marker-alt"></i> View</a>
+                    </span>
+                </div>
+            </div>
+
+            <div class="memberDatum memberDatum__section memberDatum--fullWidth">
+                <span>Branch data</span>
+            </div>
+
+            {% for key, value in member.getBranchDataAssoc() %}
+                <div class="memberDatum">
+                    <div class="memberDatum__label">{{ key }}</div>
+                    <div class="memberDatum__value">{{ value }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+{% endblock %}
+
+

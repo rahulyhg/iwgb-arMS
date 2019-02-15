@@ -86,7 +86,9 @@ class Slim implements ServiceProviderInterface {
                         return $response->withRedirect('/admin/member/all/0');
                     });
 
-                    $app->get('/all/{page}', \Action\Backend\Member\ViewAll::class);
+                    $app->get('/all/{page}', \Action\Backend\Member\AllMembers::class);
+
+                    $app->get('/{member}', \Action\Backend\Member\Member::class);
                 });
 
             })->add(new \AuthMiddleware($c->session));

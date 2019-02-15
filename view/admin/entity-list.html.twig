@@ -28,7 +28,7 @@
 
 {% block content %}
     <div class="pageHeader">{{ entityPlural|title }}
-        <a class="pageHeader__add" href="/admin/member/new"></a>
+        <a class="pageHeader__action pageHeader__action--edit" href="/admin/member/new"></a>
     </div>
 
     <table class="entityTable" width="100%">
@@ -45,7 +45,7 @@
         </tr>
         </thead>
         <tbody class="entityTable__body">
-            {% include '/admin/tbody/member.html.twig' with {
+            {% include '/admin/tbody/' ~ entityName ~ '.html.twig' with {
                 'entities': entities
             } only %}
         </tbody>

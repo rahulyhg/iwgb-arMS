@@ -9,6 +9,13 @@
                href="/admin/member/{{ member.getId() }}">{{ member.getId() }}</a>
         </td>
         <td class="entityTable__field">{{ member.getFirstName() }} {{ member.getSurname() }}</td>
+        <td class="entityTable__field">
+            {% if member.isConfirmed() %}
+                <i class="fas fa-check"></i>
+            {% else %}
+                <i class="fas fa-times"></i>
+            {% endif %}
+        </td>
         <td class="entityTable__field entityTable__field--hideMobile">{{ member.getBranch() }}
             <a class="entityTable__field__action"
                href="/admin/member/all/0?branch={{ member.getBranch() }}"><i class="fas fa-arrow-right"></i></a>

@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-class ViewAll extends GenericLoggedInAction {
+class AllMembers extends GenericLoggedInAction {
 
     /**
      * {@inheritdoc}
@@ -21,7 +21,7 @@ class ViewAll extends GenericLoggedInAction {
             'entityName'    => 'member',
             'entityPlural'  => 'members',
             'entities'      => $memberRepo->getMembers($request->getQueryParam('branch'), $args['page']),
-            'columns'       => ['id', 'name', 'branch'],
+            'columns'       => ['id', 'name', 'confirmed', 'branch'],
             'page'          => $args['page'],
         ]);
     }

@@ -179,6 +179,10 @@ class Member {
         return $this->branchData;
     }
 
+    public function getBranchDataAssoc(): array {
+        return json_decode($this->branchData, true);
+    }
+
     /**
      * @param string $branchData
      */
@@ -261,6 +265,10 @@ class Member {
      */
     public function getDob(): \DateTime {
         return $this->dob;
+    }
+
+    public function getStringDob(): string {
+        return $this->dob->format('d-m-Y');
     }
 
     /**
@@ -352,6 +360,10 @@ class Member {
      */
     public function getTimestamp(): \DateTime {
         return $this->timestamp;
+    }
+
+    public function getStringTimestamp(): string {
+        return $this->timestamp->format('');
     }
 
     /**
