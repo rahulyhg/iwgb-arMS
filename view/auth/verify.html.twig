@@ -16,6 +16,7 @@
         </div>
 
         <form class="form" method="post" action="/auth/verify/{{ key.getId() }}">
+            {% include 'csrf.html.twig' %}
             <input name="token" value="{{ key.getToken() }}" type="hidden">
             <span>
                 <input class="form__input form__input--attachRight" name="key" placeholder="Key" required autofocus><input class="form__input form__input__submit form__input--attachLeft" type="submit" value="Verify">

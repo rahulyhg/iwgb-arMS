@@ -20,6 +20,7 @@
         "php-http/curl-client": "^1.7",
         "google/recaptcha": "^1.2",
         "akrabat/ip-address-middleware": "^1.0",
-        "ramsey/uuid": "^3.8"
+        "ramsey/uuid": "^3.8",
+        "moontoast/math": "^1.1"
     }
 }

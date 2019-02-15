@@ -1,6 +1,6 @@
 <?php
 
-namespace Action\Frontend\Join\Verify;
+namespace Action\Frontend\Join;
 
 use Action\Frontend\GenericMemberAction;
 use Doctrine\ORM\OptimisticLockException;
@@ -72,12 +72,10 @@ class Verified extends GenericMemberAction {
     public function __invoke(Request $request, Response $response, $args): ResponseInterface {
         $member = $this->getMember($args['application']);
 
-        // check if verified, if not redirect to /verify
-        if (!$member->isVerified()) {
-            return $response->withRedirect('/join/application/' . $member->getId() . '/verify');
-        }
-
         if (!$member->isConfirmed()) {
+            if ($request->getQueryParam('secret') != $member->getRecentSecret()) {
+                return $response->withRedirect('/auth/invalid');
+            }
             $member->setConfirmed(true);
             $this->em->flush();
 

@@ -63,8 +63,7 @@ class Slim implements ServiceProviderInterface {
 
                 $app->group('/application/{application}', function (App $app) {
 
-                    $app->map(['GET', 'POST'], '/verify', \Action\Frontend\Join\Verify\Verify::class);
-                    $app->get('/verified', \Action\Frontend\Join\Verify\Verified::class);
+                    $app->get('/verified', \Action\Frontend\Join\Verified::class);
                 });
 
                 $app->get('/{branch}', \Action\Frontend\Join\Form::class);
@@ -96,6 +95,7 @@ class Slim implements ServiceProviderInterface {
             $app->group('/auth', function (App $app) {
 
                 $app->get('/verify/{id}', \Action\Auth\Verify::class);
+                $app->post('/verify/{id}', \Action\Auth\Submit::class);
 
                 $app->get('/invalid', \Action\Auth\Invalid::class);
             });

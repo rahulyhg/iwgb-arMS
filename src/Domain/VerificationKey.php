@@ -14,7 +14,7 @@ use Slim\Container;
  */
 class VerificationKey {
 
-    const VERIFICATION_SMS = 'Your IWGB verification key is %key%.';
+    const VERIFICATION_SMS = 'Your IWGB verification code is %key%';
 
     const VERIFICATION_EMAIL_SUBJECT = 'IWGB Verification';
 
@@ -46,7 +46,8 @@ class VerificationKey {
      *
      * @ORM\Column(name="id", type="string", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="\Domain\UniqidGenerator")
      */
     private $id;
 
@@ -56,6 +57,13 @@ class VerificationKey {
      * @ORM\Column(name="token", type="string", length=36, nullable=false)
      */
     private $token;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="secret", type="string", length=36, nullable=false)
+     */
+    private $secret;
 
     /**
      * @var string
@@ -91,8 +99,10 @@ class VerificationKey {
      * @throws \Exception
      */
     public function __construct(string $callback) {
+        $this->id = uniqid();
         $this->key = self::generateKey();
         $this->token = (Uuid::uuid1())->toString();
+        $this->secret = (Uuid::uuid4())->toString();
         $this->callback = $callback;
         $this->timestamp = new \DateTime();
     }
@@ -147,6 +157,13 @@ class VerificationKey {
     }
 
     /**
+     * @return string
+     */
+    public function getSecret(): string {
+        return $this->secret;
+    }
+
+    /**
      * @return \DateTime
      */
     public function getTimestamp(): \DateTime {
@@ -155,13 +172,13 @@ class VerificationKey {
 
     /**
      * @param \Sender $send
-     * @param \KeyType $type
+     * @param string $type
      * @param string $contact
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function send(\Sender $send, \KeyType $type, string $contact): void {
+    public function send(\Sender $send, string $type, string $contact): void {
         switch ($type) {
             case \KeyType::SMS:
                 $send->twilio->messages->create($contact, [
@@ -184,6 +201,10 @@ class VerificationKey {
         }
     }
 
+    public function getLink(): string {
+        return '/auth/verify/' . $this->getId() . '?token=' . $this->getToken();
+    }
+
     private static function processVerificationBody(string $body, array $params): string {
         foreach ($params as $key => $value) {
             $body = str_replace("%$key%", $value, $body);
@@ -194,6 +215,8 @@ class VerificationKey {
     private static function generateKey(): int {
         return rand(111111, 999999);
     }
+
+
 
 
 }

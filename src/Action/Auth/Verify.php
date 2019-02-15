@@ -2,10 +2,11 @@
 
 namespace Action\Auth;
 
+use Action\GenericAction;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-class Verify extends GenericAuthAction {
+class Verify extends GenericAction {
 
     /**
      * {@inheritdoc}

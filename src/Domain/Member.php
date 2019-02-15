@@ -114,11 +114,11 @@ class Member {
     private $postcode;
 
     /**
-     * @var ArrayCollection
+     * @var string
      *
-     * @ORM\OneToMany(targetEntity="VerificationKey", mappedBy="member")
+     * @ORM\Column(name="recentSecret", type="string", length=36, nullable=true)
      */
-    private $verificationKeys;
+    private $recentSecret = null;
 
     /**
      * Member constructor.
@@ -135,7 +135,7 @@ class Member {
      * @param string $postcode
      * @throws \Exception
      */
-    public function __construct(string $branchData, string $branch, string $membership, string $firstName, string $surname, int $dob, string $gender, string $mobile, string $email, string $address, string $postcode) {
+    public function __construct(string $branchData, string $branch, string $membership, string $firstName, string $surname, string $dob, string $gender, string $mobile, string $email, string $address, string $postcode) {
         $this->branchData = $branchData;
         $this->timestamp = new \DateTime();
         $this->branch = $branch;
@@ -148,7 +148,6 @@ class Member {
         $this->email = $email;
         $this->address = $address;
         $this->postcode = $postcode;
-        $this->verificationKeys = new ArrayCollection();
     }
 
     /**
@@ -367,52 +366,19 @@ class Member {
     }
 
     /**
-     * @return VerificationKey[]
+     * @return string
      */
-    public function getVerificationKeys(): array {
-        return $this->verificationKeys->toArray();
-    }
-
-
-    /**
-     * @return bool Is this member's application verified
-     */
-    public function isVerified(): bool {
-        $result = true;
-        foreach ($this->getVerificationKeys() as $key) {
-            if (!$key->isVerified()) {
-                $result = false;
-            }
-        }
-        return $result;
+    public function getRecentSecret(): string {
+        return $this->recentSecret;
     }
 
     /**
-     * @param string $k
-     * @param string $t
-     * @return bool was the provided verification key found
+     * @param string $recentSecret
      */
-    public function verify(string $k, string $t): bool {
-        $found = false;
-        foreach ($this->getVerificationKeys() as $key) {
-            if ($key->getKey() == $k &&
-                $key->getType() == $t) {
-                $key->setVerified(true);
-
-                $found = true;
-            }
-        }
-        return $found;
+    public function setRecentSecret(string $recentSecret): void {
+        $this->recentSecret = $recentSecret;
     }
 
-    public function getUnverifiedKeys() {
-        $unverified = [];
-        foreach ($this->getVerificationKeys() as $key) {
-            if (!$this->isVerified()) {
-                $unverified[] = $key;
-            }
-        }
-        return $unverified;
-    }
+
 
 }
