@@ -7,6 +7,7 @@
     entityPlural:   Plural of entityName
     entities:       Array of entities
     columns:        Columns to display, ID first
+    page:           Page number
 #}
 
 {% macro sortOrder(field) %}
@@ -34,7 +35,10 @@
         <thead>
         <tr class="entityTable__header">
             {% for column in columns %}
-                <td class="entityTable__field">
+                <td class="entityTable__field
+                    {% if loop.index > 2 %}
+                        entityTable__field--hideMobile
+                    {% endif %}">
                     <a class="entityTable__header__link" href="/admin/{{ entityName }}/all/0?sort={{ column }}&order={{ sortOrder(column) }}">{{ column|title }}</a>
                 </td>
             {% endfor %}
@@ -49,11 +53,14 @@
     <div class="pagination">
         <span class="pagination__part">
             {% if page > 0 %}
-                <a class="pagination__link" href="">Previous</a>
+                <a class="pagination__link" href="/admin/member/all/{{ page - 1 }}">
+                    <i class="fas fa-arrow-left pagination__link__icon"></i>
+                    Previous</a>
             {% endif %}
         </span>
         <span class="pagination__part">
-            <a class="pagination__link">Next</a>
+            <a class="pagination__link" href="/admin/member/all/{{ page + 1 }}">Next
+                <i class="fas fa-arrow-right pagination__link__icon"></i></a>
         </span>
 
     </div>

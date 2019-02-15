@@ -13,11 +13,15 @@ class ViewAll extends GenericLoggedInAction {
      * {@inheritdoc}
      */
     public function __invoke(Request $request, Response $response, $args): ResponseInterface {
+        /** @var \Domain\MemberRepository $memberRepo */
+        $memberRepo = $this->em->getRepository(\Domain\Member::class);
+
         return $this->render($request, $response, 'admin/entity-list.html.twig', [
             'entityName'    => 'member',
             'entityPlural'  => 'members',
-            'entities'      => $this->em->getRepository(\Domain\Member::class)->findAll(),
+            'entities'      => $memberRepo->getMembers($request->getQueryParam('branch'), $args['page']),
             'columns'       => ['id', 'name', 'branch'],
+            'page'          => $args['page'],
         ]);
     }
 }

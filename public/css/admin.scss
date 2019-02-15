@@ -4,8 +4,13 @@
 @import 'lib/normalize';
 
 $linkBlue: #007bff;
+$darkGrey: #555;
+$midGrey: #999;
+$lightGrey: #bbb;
+$offWhite: #f5f5f5;
 
-$phone: "only screen and (max-width: 700px)";
+$mobile: "only screen and (max-width: 699.98px)";
+$desktop: "only screen and (min-width: 700px)";
 
 body {
     margin: 0;
@@ -37,6 +42,28 @@ a {
     }
 }
 
+@mixin hideMobile() {
+
+    @media #{$mobile} {
+
+        &--hideMobile {
+            display: none;
+            visibility: hidden;
+        }
+    }
+}
+
+@mixin hideDesktop() {
+
+    @media #{$desktop} {
+
+        &--hideDesktop {
+            display: none;
+            visibility: hidden;
+        }
+    }
+}
+
 .nav {
     display: flex;
     align-items: center;
@@ -61,15 +88,19 @@ a {
         padding: 0;
         margin: 0;
 
+        @include hideMobile();
+
         &__item {
             display: inline;
             padding: 0 0.5rem;
             text-align: center;
+
+            @include hideMobile();
         }
     }
 
     &__link {
-        @include colorAnchor(#555);
+        @include colorAnchor($darkGrey);
 
         &--nonNavigable {
             @include underlineAnchor($linkBlue);
@@ -86,7 +117,7 @@ a {
     justify-content: center;
     margin: 1.25rem;
 
-    @media #{$phone} {
+    @media #{$mobile} {
         display: block;
     }
 
@@ -95,7 +126,7 @@ a {
         flex-grow: 1;
         max-width: 1000px;
 
-        @media #{$phone} {
+        @media #{$mobile} {
             min-width: unset;
             max-width: unset;
         }
@@ -108,7 +139,7 @@ a {
     padding: 1rem 0;
 
     &__add {
-        @include colorAnchor(#999);
+        @include colorAnchor($midGrey);
 
         &::before {
             content: "+";
@@ -120,7 +151,7 @@ a {
     border-collapse: collapse;
 
     &__body {
-        border: 1px solid #ccc;
+        border: 1px solid $lightGrey;
     }
 
     &__header {
@@ -132,16 +163,15 @@ a {
 
     &__field {
         padding: 1em;
-        border: 1px solid #bbb;
+        border: 1px solid $lightGrey;
 
         &__action {
-            @include underlineAnchor($linkBlue);
+            @include colorAnchor($lightGrey);
             font-size: 0.75rem;
-
-            &::before {
-                content: "🡢";
-            }
         }
+
+        @include hideMobile();
+
     }
 
     &__link {
@@ -152,7 +182,7 @@ a {
         transition: background-color 0.2s;
 
         &:hover {
-            background-color: #f5f5f5;
+            background-color: $offWhite;
         }
     }
 }
@@ -164,7 +194,11 @@ a {
 
 
     &__link {
-        @include underlineAnchor($linkBlue);
+        @include colorAnchor($midGrey);
+
+        &__icon {
+            font-size: 0.75rem;
+        }
     }
 }
 
