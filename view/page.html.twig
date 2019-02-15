@@ -13,6 +13,7 @@
 		<div id="wrap">
 			{% block hero %} {% endblock %}
 			{% if _mode == 'v2' %}
+				{% include 'i18n.html.twig' %}
 				{% include 'nav.html.twig' %}
 			{%  else %}
 				{% include 'nav-legacy.html.twig' %}
