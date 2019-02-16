@@ -3,7 +3,7 @@
 	   class="story pinned latest"
 	   style="background: url('/img/bucket/{{ header.getHeaderImage() }}.jpg') center/cover">
 		<div>
-			<h2>{{ header.getTitle()|htmlentities }}</h2>
+			<h2>{{ header.getTitle() }}</h2>
 			<div class="meta">
 				<p class="category">{{ header.getBlog().getFriendlySingular() }}</p>
 				<p>{{ header.getStringTimestamp()|timeago }}</p>

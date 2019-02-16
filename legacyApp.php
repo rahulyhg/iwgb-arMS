@@ -1325,7 +1325,8 @@ function notFoundHandler($app, $request, $response) {
 // hat-tip to panique/php-login-minimal
 
 function isLoggedIn($session) {
-    return ($session->get('loginStatus'));
+    return ($session->get('loginStatus')) &&
+        $session->get('realm') == 'official';
 }
 
 function logIn($db, $post, $session, $ip) {

@@ -35,7 +35,7 @@ class LoginUser extends GenericAction {
                 ->set('user', $user->getEmail())
                 ->set('name', $user->getName()) //legacy
                 ->set('loginStatus', true)
-                ->set('realm', 'member');
+                ->set('realm', 'official');
         } else {
             return self::responseError($response, $callback);
         }

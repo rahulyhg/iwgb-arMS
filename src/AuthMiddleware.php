@@ -18,8 +18,10 @@ class AuthMiddleware {
 
     public function __invoke(Request $request, Response $response, callable $next): ResponseInterface {
         $callback = $request->getUri()->getPath();
-        if ($callback != '/arms/login' && !$this->session->get('loginStatus')) {
-            return $response->withRedirect('/arms/login?e=' . self::LOGIN_REDIRECT_MESSAGE . "&callback=$callback");
+        if (($callback != '/arms/login' &&
+            !$this->session->get('loginStatus')) ||
+            $this->session->get('realm') != 'official') {
+            return $response->withRedirect('/auth/login?e=' . self::LOGIN_REDIRECT_MESSAGE . "&callback=$callback");
         }
 
         return $next($request, $response);

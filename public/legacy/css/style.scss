@@ -1152,6 +1152,13 @@ p.social {
             text-decoration: underline;
         }
     }
+
+    &__label {
+
+        &--current {
+            font-weight: bold;
+        }
+    }
 }
 
 

@@ -25,8 +25,8 @@ class Twig implements ServiceProviderInterface {
             $env = $view->getEnvironment();
 
             $env->addFilter(new \Twig_Filter('htmlentities', function (string $s): string {
-                return htmlspecialchars($s);
-            }));
+                return htmlentities($s, ENT_QUOTES, "UTF-8");
+            }, ['is_safe' => ['html']]));
 
             $env->addFilter(new \Twig_Filter('md', function (string $s): string {
                 return (new \Parsedown())->text($s);

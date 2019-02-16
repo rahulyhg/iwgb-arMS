@@ -36,7 +36,7 @@ class SendReset extends GenericAction {
             $this->em->persist($event);
             $this->em->flush();
 
-            $key->setCallback('/login/official/reset/' . $event->getId());
+            $key->setCallback('/auth/login/official/reset/' . $event->getId());
 
             $this->em->flush();
         }
