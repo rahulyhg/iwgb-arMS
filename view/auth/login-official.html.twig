@@ -8,7 +8,7 @@
     <div class="login">
         <div class="message">
             <p class="message__header">Log in</p>
-            <p class="message__body message--small"><a class="message__action" href="#">Reset my password</a></p>
+            <p class="message__body message--small"><a class="message__action" href="/auth/login/official/reset/request">Reset my password</a></p>
         </div>
         <form class="form" method="post" action="/auth/login/official?callback={{ _get.callback }}">
             {% include 'csrf.html.twig' %}

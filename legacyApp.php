@@ -1389,21 +1389,7 @@ function redirectToCallbackUrl($response, $default, $params = array(), $callback
 }
 
 function logEvent($db, $type, $upon = '', $notes = '', $by = false) {
-    if (!$by) {
-        $by = 'unknown';
-    }
-    $q = $db->prepare('INSERT INTO events (id, type, act_upon, act_by, notes)
-        VALUES (:id, :type, :upon, :by, :notes);'
-    );
-    $id = uniqid();
-    $q->execute(array(
-        ':id'   => $id,
-        ':type' => $type,
-        ':upon' => $upon,
-        ':by'   => $by,
-        ':notes'=> $notes,
-    ));
-    return $id;
+
 }
 
 // SLIM

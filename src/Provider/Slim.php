@@ -96,6 +96,7 @@ class Slim implements ServiceProviderInterface {
 
                 $app->get('/verify/{id}/resend', \Action\Auth\Resend::class);
 
+                $app->get('/verify/{id}/data', \Action\Auth\Submit::class);
                 $app->get('/verify/{id}', \Action\Auth\Verify::class);
                 $app->post('/verify/{id}', \Action\Auth\Submit::class);
 
@@ -107,6 +108,13 @@ class Slim implements ServiceProviderInterface {
 
                 $app->get('/login/official', \Action\Auth\LoginUserForm::class);
                 $app->post('/login/official', \Action\Auth\LoginUser::class);
+
+                $app->get('/login/official/reset/request', \Action\Auth\SendResetForm::class);
+                $app->post('/login/official/reset/request', \Action\Auth\SendReset::class);
+                $app->get('/login/official/reset/sent', \Action\Auth\ResetSent::class);
+
+                $app->get('/login/official/reset/{id}', \Action\Auth\ResetPasswordForm::class);
+                $app->post('/login/official/reset/{id}', \Action\Auth\ResetPassword::class);
 
                 $app->get('/logout', \Action\Auth\Logout::class);
             });

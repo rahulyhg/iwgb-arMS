@@ -21,7 +21,8 @@ class Resend extends GenericAction {
 
         if (empty($key) ||
             empty($token) ||
-            $token != $key->getToken()) {
+            $token != $key->getToken() ||
+            $key->getCallback() == 'invalid') {
             return $response->withRedirect('/auth/invalid');
         }
 

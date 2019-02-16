@@ -22,17 +22,21 @@ class Submit extends GenericAction {
         /** @var VerificationKey $key */
         $key = $this->em->getRepository(VerificationKey::class)->find($args['id']);
 
-        if (empty($key) ||
-            empty($data['token']) ||
+        $data['token'] = empty($data['token']) ? $request->getQueryParam('token') : $data['token'];
+
+        if (empty($data['token']) ||
             $data['token'] != $key->getToken()) {
             return $response->withRedirect('/auth/invalid');
         }
 
         // token correct
 
-        if ($key->getTimestamp() < new \DateTime('-1 hour')) {
+        if ($key->getTimestamp() < new \DateTime('-1 hour') ||
+            $key->isVerified()) {
             return $response->withRedirect('/auth/invalid&e=That verification code has timed out.');
         }
+
+        $data['key'] = empty($data['key']) ? $request->getQueryParam('k') : $data['key'];
 
         if (empty($data['key']) ||
             $data['key'] != $key->getKey() ||

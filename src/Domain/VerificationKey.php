@@ -34,7 +34,7 @@ class VerificationKey {
             ],
         ],
         'action' => [
-            'href' => 'https://iwgb.org.uk/auth/verify/%id%?token=%token%',
+            'href' => 'https://iwgb.org.uk/auth/verify/%id%/data?token=%token%&k=%key%',
             'display' => 'Verify',
         ],
     ];
@@ -238,6 +238,7 @@ class VerificationKey {
                     self::VERIFICATION_EMAIL_TEXT,
                     self::VERIFICATION_EMAIL_HTML,
                     [
+                        'id' => $this->getId(),
                         'key' => $this->getKey(),
                         'token' => $this->getToken(),
                     ]);
