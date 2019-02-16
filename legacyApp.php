@@ -126,7 +126,7 @@ $m_accesscontrol = function (Request $request, Response $response, $next) use ($
         if ($query != '') {
             $query = '&q=' . $query;
         }
-        return $response->withRedirect("/arms/login?e=To view this page, you must log in.&callback=$callback$query", 302);
+        return $response->withRedirect("/auth/login?w=To view this page, you must log in.&callback=$callback$query", 302);
     } else {
         return $next($request, $response);
     }
@@ -385,87 +385,10 @@ $app->get('/page/{category}/{page}', function (Request $request, Response $respo
     ]);
 });
 
-$app->group('/arms/verify', function() {
-
-    $this->get('/', function (Request $request, Response $response, $args) {
-        if(empty($request->getQueryParam('k'))) {
-            return $response->withRedirect('/arms/login?e=Your verification credentials were incorrect.');
-        }
-        $key = $request->getQueryParam('k');
-        if(verifyArmsKey($this->db, $key)) {
-            logEvent($this->db, 'verify-click', $key, 'valid', $request->getAttribute('ip_address'));
-            return $this->view->render($response, 'arms-verify.html.twig', [
-                'key'       => $key,
-                'pagetitle' => 'Verify account',
-                'csrfValues'    => [
-                    'name' => $request->getAttribute($this->csrf->getTokenNameKey()),
-                    'value'=> $request->getAttribute($this->csrf->getTokenValueKey()),
-                ],
-            ]);
-        } else {
-            logEvent($this->db, 'verify-click', $key, 'invalid', $request->getAttribute('ip_address'));
-            return $response->withRedirect('/arms/login?e=Your verification credentials were incorrect.');
-        }
-    });
-
-    $this->post('/', function (Request $request, Response $response, $args) {
-        $post = $request->getParsedBody();
-        if (!empty($post['key']) && !empty($post['email']) && !empty($post['pass'])) {
-            if (verifyArmsKey($this->db, $post['key'], $post['email'])) {
-                logEvent($this->db, 'verify', $post['key'], 'success', $post['email']);
-                register($this->db, $post['email'], $post['pass']);
-                removeArmsKey($this->db, $post['key']);
-                return $response->withRedirect('/arms/login?m=Account verified successfully.');
-            } else {
-                logEvent($this->db, 'verify', $post['key'], 'unauthorised', $post['email']);
-                removeArmsKey($this->db, $post['key']);
-                return $response->withRedirect('/arms/login?e=Your verification credentials were incorrect.');
-            }
-        } else {
-
-            return $response->withRedirect('/arms/login?e=Your verification credentials were incorrect.');
-        }
-    });
-});
-
-
 $app->group('/arms', function() {
 
     $this->get('',  function (Request $request, Response $response, $args) {
 
-    });
-
-    $this->get('/login', function (Request $request, Response $response) {
-        $data = array();
-        return $this->view->render($response, 'arms-login.html.twig', [
-            'csrfValues'    => [
-                'name' => $request->getAttribute($this->csrf->getTokenNameKey()),
-                'value'=> $request->getAttribute($this->csrf->getTokenValueKey()),
-            ],
-        ]);
-    });
-
-    $this->post('/login', function (Request $request, Response $response) {
-        $post = $request->getParsedBody();
-        $login = logIn($this->db, $post, $this->session, $request->getAttribute('ip_address'));
-        if ($login === true) {
-            $url = '/arms/feed';
-            if (!empty($post['callback']) && $post['callback'] != '/arms') {
-                $url = $post['callback'];
-            }
-            if (!empty($post['query'])) {
-                $url .= '?' . $post['query'];
-            }
-            logEvent($this->db, 'login', 'iwgb', 'success');
-            return $response->withRedirect($url);
-        } else {
-            return $response->withRedirect("/arms/login?e=$login");
-        }
-    });
-
-    $this->get('/logout', function (Request $request, Response $response) {
-        logOut($this->db, $this->session);
-        return $response->withRedirect('/arms/login?m=You have been logged out.');
     });
 
     $this->get('/feed/{blog}/{page}',  function (Request $request, Response $response, $args) {
