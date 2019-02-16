@@ -33,7 +33,7 @@ class Twig implements ServiceProviderInterface {
             }));
 
             $env->addFilter(new \Twig_Filter('timeago', function (string $s): string {
-                return (new \Westsworld\Timeago())->inWords($s);
+                return (new \Westsworld\TimeAgo())->inWordsFromStrings($s);
             }));
 
             $env->addFunction(new \Twig_Function('_i', function (string $s) use ($c): string {

@@ -54,7 +54,7 @@ class Slim implements ServiceProviderInterface {
 
             // routes handled by v2
 
-            $app->get('/', \Action\Frontend\Home::class);
+            $app->get('[/]', \Action\Frontend\Home::class);
 
             $app->group('/join', function(App $app) {
 
@@ -91,6 +91,10 @@ class Slim implements ServiceProviderInterface {
                 });
 
             })->add(new \AuthMiddleware($c->session));
+
+            $app->get('/info', function (Request $request, Response $response, $args) {
+                phpinfo();
+            });
 
             $app->group('/auth', function (App $app) {
 

@@ -2,6 +2,15 @@
 
 use Slim\Container;
 
+define('APP_ROOT', __DIR__);
+
+require APP_ROOT . '/vendor/autoload.php';
+spl_autoload_register(function ($class) {
+    $file = str_replace(['\\','/'], DIRECTORY_SEPARATOR, '/src/' . $class) . '.php';
+    /** @noinspection PhpIncludeInspection */
+    include APP_ROOT . $file;
+});
+
 require_once __DIR__ . '/vendor/autoload.php';
 
 $c = new Container(require __DIR__ . '/settings.php');
