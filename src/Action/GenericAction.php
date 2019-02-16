@@ -74,6 +74,10 @@ abstract class GenericAction {
             return $dictionary->get($content);
         }));
 
+        $twigEnv->addFunction(new \Twig_Function('_a', function ($s) use ($dictionary) {
+            return $dictionary->processLink($s);
+        }));
+
 
 
         $nameKey = $this->csrf->getTokenNameKey();

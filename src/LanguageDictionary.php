@@ -61,4 +61,8 @@ class LanguageDictionary {
         file_put_contents(APP_ROOT . '/public/config/lang/dictionary.json',
             json_encode([\Config::Dictionary => $this->dictionary]));
     }
+
+    public function processLink($link) {
+        return '/' . $this->language . $link;
+    }
 }

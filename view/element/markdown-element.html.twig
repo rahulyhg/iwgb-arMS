@@ -3,6 +3,8 @@
     fields: fields conformant to elements.schema.json#/definitions/markdown-element
 #}
 
-{% autoescape false %}
-    {{ _(fields.content)|htmlentities|md }}
-{% endautoescape %}
+<div class="md">
+    {% autoescape false %}
+        {{ _(fields.display)|htmlentities|md }}
+    {% endautoescape %}
+</div>

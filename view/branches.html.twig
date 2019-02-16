@@ -6,7 +6,7 @@
 			{% if branch.joining.kind == 'external' %}
 				<a href="{{ branch.joining.href }}" target="_blank" class="story">
 			{% else %}
-				<a href="/join/{{ branch.name }}" class="story">
+				<a href="/{{ _lang }}/join/{{ branch.name }}" class="story">
 			{% endif %}
 		{% elseif branch.website.kind == "external" %}
 			<a href="//{{ branch.website.href }}" target="_blank" class="story">

@@ -12,6 +12,6 @@
 		'branches':		branches
 	} only %}
 
-	{% include 'page-element.html.twig' with joinCopy only %}
+	{% include 'page-element.html.twig' with joinCopy.elements[0] only %}
 
 {% endblock %}

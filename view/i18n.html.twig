@@ -1,4 +1,16 @@
 <div class="languages">
-    <span class="languages__lang"><a href="en{{ _uri }}">en</a></span>
-    <span class="languages__lang"><a href="es{{ _uri }}">es</a></span>
+    <span class="languages__lang">
+        {% if _lang != 'en' %}
+            <a href="/en{{ _uri }}">en</a>
+        {% else %}
+            en
+        {% endif %}
+    </span>
+    <span class="languages__lang">
+        {% if _lang != 'es' %}
+            <a href="/es{{ _uri }}">es</a>
+        {% else %}
+            es
+        {% endif %}
+    </span>
 </div>
