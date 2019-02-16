@@ -34,11 +34,13 @@ class Login extends GenericAction {
             $this->em->persist($event);
             $this->em->flush();
 
-            $key = new \Domain\VerificationKey('/auth/login/member/' . $event->getId());
+            $key = new \Domain\VerificationKey('/auth/login/member/' . $event->getId(),
+                \KeyType::SMS,
+                $member->getMobile());
             $this->em->persist($key);
             $this->em->flush();
 
-            $key->send($this->send, \KeyType::SMS, $member->getMobile());
+            $key->send($this->send);
 
             $member->setRecentSecret($key->getSecret());
             $this->em->flush();
@@ -49,7 +51,7 @@ class Login extends GenericAction {
 
         // we must take every number to verification to prevent members and non-members phone numbers being identified
         if (empty($member)) {
-            $key = new \Domain\VerificationKey('invalid');
+            $key = new \Domain\VerificationKey('invalid', \KeyType::SMS, '');
             $this->em->persist($key);
             $this->em->flush();
             return $response->withRedirect($key->getLink());

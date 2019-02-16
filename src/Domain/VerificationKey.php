@@ -82,9 +82,23 @@ class VerificationKey {
     /**
      * @var string
      *
-     * @ORM\Column(name="callback", type="string", nullable=false)
+     * @ORM\Column(name="callback", type="string", length=200, nullable=false)
      */
     private $callback;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=10, nullable=false)
+     */
+    private $type;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contact", type="string", length=100, nullable=false)
+     */
+    private $contact;
 
     /**
      * @var \DateTime
@@ -96,14 +110,18 @@ class VerificationKey {
     /**
      * VerificationKey constructor.
      * @param string $callback
+     * @param string $type
+     * @param string $contact
      * @throws \Exception
      */
-    public function __construct(string $callback) {
+    public function __construct(string $callback, string $type, string $contact) {
         $this->id = uniqid();
         $this->key = self::generateKey();
         $this->token = (Uuid::uuid1())->toString();
         $this->secret = (Uuid::uuid4())->toString();
         $this->callback = $callback;
+        $this->type = $type;
+        $this->contact = $contact;
         $this->timestamp = new \DateTime();
     }
 
@@ -136,7 +154,35 @@ class VerificationKey {
     }
 
     /**
-     * @return int
+     * @return string
+     */
+    public function getType(): string {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType(string $type): void {
+        $this->type = $type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContact(): string {
+        return $this->contact;
+    }
+
+    /**
+     * @param string $contact
+     */
+    public function setContact(string $contact): void {
+        $this->contact = $contact;
+    }
+
+    /**
+     * @return string
      */
     public function getId(): string {
         return $this->id;
@@ -172,16 +218,14 @@ class VerificationKey {
 
     /**
      * @param \Sender $send
-     * @param string $type
-     * @param string $contact
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function send(\Sender $send, string $type, string $contact): void {
-        switch ($type) {
+    public function send(\Sender $send): void {
+        switch ($this->getType()) {
             case \KeyType::SMS:
-                $send->twilio->messages->create($contact, [
+                $send->twilio->messages->create($this->contact, [
                     'from' => $send->twilioSettings['from'],
                     'body' => self::processVerificationBody(self::VERIFICATION_SMS, [
                         'key' => $this->getKey(),
@@ -189,7 +233,7 @@ class VerificationKey {
                 ]);
                 break;
             case \KeyType::Email:
-                $send->email->transactional($contact,
+                $send->email->transactional($this->contact,
                     self::VERIFICATION_EMAIL_SUBJECT,
                     self::VERIFICATION_EMAIL_TEXT,
                     self::VERIFICATION_EMAIL_HTML,

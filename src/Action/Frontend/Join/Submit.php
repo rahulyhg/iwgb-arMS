@@ -47,10 +47,12 @@ class Submit extends GenericPublicAction {
         $this->em->flush();
 
         // send text key
-        $key = new \Domain\VerificationKey('/join/application/' . $member->getId() . '/verified');
+        $key = new \Domain\VerificationKey('/join/application/' . $member->getId() . '/verified',
+            \KeyType::SMS,
+            $member->getMobile());
         $this->em->persist($key);
         $this->em->flush();
-        $key->send($this->send, \KeyType::SMS, $member->getMobile());
+        $key->send($this->send);
 
         $member->setRecentSecret($key->getSecret());
         $this->em->flush();

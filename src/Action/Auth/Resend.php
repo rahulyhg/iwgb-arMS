@@ -3,28 +3,25 @@
 namespace Action\Auth;
 
 use Action\GenericAction;
-use Doctrine\ORM\ORMException;
+use Domain\VerificationKey;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Domain\VerificationKey;
 
-class Submit extends GenericAction {
+class Resend extends GenericAction {
 
     /**
      * {@inheritdoc}
      * @throws \Exception
-     * @throws ORMException
      */
     public function __invoke(Request $request, Response $response, $args): ResponseInterface {
-        $data = $request->getParsedBody();
-
         /** @var VerificationKey $key */
         $key = $this->em->getRepository(VerificationKey::class)->find($args['id']);
+        $token = $request->getQueryParam('token');
 
         if (empty($key) ||
-            empty($data['token']) ||
-            $data['token'] != $key->getToken()) {
+            empty($token) ||
+            $token != $key->getToken()) {
             return $response->withRedirect('/auth/invalid');
         }
 
@@ -34,17 +31,11 @@ class Submit extends GenericAction {
             return $response->withRedirect('/auth/invalid&e=That verification code has timed out.');
         }
 
-        if (empty($data['key']) ||
-            $data['key'] != $key->getKey() ||
-            $key->getCallback() == 'invalid') {
-            return $response->withRedirect('/auth/verify/' . $key->getId() . '?token=' . $key->getToken() . '&e=Invalid key');
-        }
+        // token valid
 
-        // key correct
+        $key->send($this->send);
+        return $response->withRedirect($key->getLink());
 
-        $key->setVerified(true);
-        $this->em->flush();
 
-        return $response->withRedirect($key->getCallback() . '?secret=' . $key->getSecret());
     }
 }
