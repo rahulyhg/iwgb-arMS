@@ -82,6 +82,10 @@ class Event {
         return $this->timestamp;
     }
 
+    public function getStringTimestamp(): string {
+        return $this->timestamp->format('Y-m-d H:i:s');
+    }
+
     /**
      * @return string
      */

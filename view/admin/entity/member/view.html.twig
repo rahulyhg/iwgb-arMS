@@ -106,6 +106,21 @@
                     <div class="memberDatum__value">{{ value }}</div>
                 </div>
             {% endfor %}
+
+            <div class="memberDatum memberDatum__section memberDatum--fullWidth">
+                <span>Recent events</span>
+            </div>
+
+
+            <table class="events" width="100%">
+                {% for event in events %}
+                    <tr class="event">
+                        <td class="event__field">{{ event.getId() }}</td>
+                        <td class="event__field">{{ event.getType() }}</td>
+                        <td class="event__field">{{ event.getStringTimestamp() }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
         </div>
     </div>
 
