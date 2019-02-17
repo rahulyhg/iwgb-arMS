@@ -154,11 +154,11 @@ $app->get('/boycottsenatehouse[/]', function (Request $request, Response $respon
         'academics'     => 'user-graduate',
         'politicians'   => 'landmark',
         'organisations' => 'users',
-        'public figures'=> 'user',
+        'public-figures'=> 'user',
     ];
     $supporters = [];
     foreach ($categories as $category => $icon) {
-        $csv = \League\Csv\Reader::createFromPath(__DIR__ . "/config/$category.csv");
+        $csv = \League\Csv\Reader::createFromPath(__DIR__ . "/legacy/config/$category.csv");
         $csv->setHeaderOffset(0);
         $supporters[$category] = iterator_to_array($csv->getRecords());
     }
