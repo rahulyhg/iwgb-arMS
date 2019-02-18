@@ -225,7 +225,18 @@ class VerificationKey {
     public function send(\Sender $send): void {
         switch ($this->getType()) {
             case \KeyType::SMS:
-                $send->twilio->messages->create($this->contact, [
+                $to = $this->contact;
+                switch(substr($to, 0, 1)) {
+                    case '0':
+                        $to = '+44' . substr($to, 1);
+                        break;
+                    case '7':
+                        $to = '+44' . $to;
+                        break;
+                    case '+':
+                        break;
+                }
+                $send->twilio->messages->create($to, [
                     'from' => $send->twilioSettings['from'],
                     'body' => self::processVerificationBody(self::VERIFICATION_SMS, [
                         'key' => $this->getKey(),
