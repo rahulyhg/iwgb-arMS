@@ -13,7 +13,7 @@ class Shortlink extends GenericAction {
      * {@inheritdoc}
      * @return ResponseInterface|callable
      */
-    public function __invoke(Request $request, Response $response, $args) {
+    public function __invoke(Request $request, Response $response, array $args) {
         /** @var \Domain\Shortlink $shortlink */
         $shortlink = $this->em->getRepository(\Domain\Shortlink::class)
             ->find($args['shortlink']);

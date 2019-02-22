@@ -15,7 +15,7 @@ class Member extends GenericLoggedInAction {
      * @param string[] $args
      * @return mixed
      */
-    public function __invoke(Request $request, Response $response, $args): ResponseInterface {
+    public function __invoke(Request $request, Response $response, array $args): ResponseInterface {
         /** @var \Domain\Member $member */
         $member = $this->em->getRepository(\Domain\Member::class)->find($args['member']);
 

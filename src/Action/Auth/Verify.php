@@ -11,7 +11,7 @@ class Verify extends GenericAction {
     /**
      * {@inheritdoc}
      */
-    public function __invoke(Request $request, Response $response, $args) {
+    public function __invoke(Request $request, Response $response, array $args) {
 
         /** @var \Domain\VerificationKey $key */
         $key = $this->em->getRepository(\Domain\VerificationKey::class)->find($args['id']);

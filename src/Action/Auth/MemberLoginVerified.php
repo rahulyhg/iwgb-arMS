@@ -15,7 +15,7 @@ class MemberLoginVerified extends GenericAction {
      * @param string[] $args
      * @return mixed
      */
-    public function __invoke(Request $request, Response $response, $args): ResponseInterface {
+    public function __invoke(Request $request, Response $response, array $args): ResponseInterface {
 
         /** @var \Domain\Event $event */
         $event = $this->em->getRepository(\Domain\Event::class)->find($args['event']);

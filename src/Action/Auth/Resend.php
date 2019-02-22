@@ -14,7 +14,7 @@ class Resend extends GenericAction {
      * {@inheritdoc}
      * @throws \Exception
      */
-    public function __invoke(Request $request, Response $response, $args): ResponseInterface {
+    public function __invoke(Request $request, Response $response, array $args): ResponseInterface {
         /** @var VerificationKey $key */
         $key = $this->em->getRepository(VerificationKey::class)->find($args['id']);
         $token = $request->getQueryParam('token');

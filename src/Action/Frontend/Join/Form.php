@@ -13,7 +13,7 @@ class Form extends GenericPublicAction {
      * {@inheritdoc}
      * @return ResponseInterface|callable
      */
-    public function __invoke(Request $request, Response $response, $args) {
+    public function __invoke(Request $request, Response $response, array $args) {
         $branch = \JSONObject::get(\Config::Branches, $args['branch']);
         if ($branch === false) {
             return $this->notFoundHandler;

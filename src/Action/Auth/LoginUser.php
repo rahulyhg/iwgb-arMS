@@ -12,7 +12,7 @@ class LoginUser extends GenericAction {
     /**
      * {@inheritdoc}
      */
-    public function __invoke(Request $request, Response $response, $args): ResponseInterface {
+    public function __invoke(Request $request, Response $response, array $args): ResponseInterface {
         $callback = $request->getQueryParam('callback');
         $callback = empty($callback) ? '/' : $callback;
 

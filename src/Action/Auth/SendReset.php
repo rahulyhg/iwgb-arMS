@@ -13,7 +13,7 @@ class SendReset extends GenericAction {
      * {@inheritdoc}
      * @throws \Exception
      */
-    public function __invoke(Request $request, Response $response, $args): ResponseInterface {
+    public function __invoke(Request $request, Response $response, array $args): ResponseInterface {
         $data = $request->getParsedBody();
 
         if (empty($data['email'])) {

@@ -12,7 +12,7 @@ class ResetSent extends GenericAction {
     /**
      * {@inheritdoc}
      */
-    public function __invoke(Request $request, Response $response, $args): ResponseInterface {
+    public function __invoke(Request $request, Response $response, array $args): ResponseInterface {
         return $this->render($request, $response, 'auth/reset-sent.html.twig', []);
     }
 }

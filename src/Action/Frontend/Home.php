@@ -11,7 +11,7 @@ class Home extends GenericPublicAction {
     /**
      * {@inheritdoc}
      */
-    public function __invoke(Request $request, Response $response, $args): ResponseInterface {
+    public function __invoke(Request $request, Response $response, array $args): ResponseInterface {
 
         /* @var $postRepo \Domain\PostRepository */
         $postRepo = $this->em->getRepository(\Domain\Post::class);

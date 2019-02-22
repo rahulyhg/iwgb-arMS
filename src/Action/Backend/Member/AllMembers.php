@@ -12,7 +12,7 @@ class AllMembers extends GenericLoggedInAction {
     /**
      * {@inheritdoc}
      */
-    public function __invoke(Request $request, Response $response, $args): ResponseInterface {
+    public function __invoke(Request $request, Response $response, array $args): ResponseInterface {
 
         /** @var \Domain\MemberRepository $memberRepo */
         $memberRepo = $this->em->getRepository(\Domain\Member::class);

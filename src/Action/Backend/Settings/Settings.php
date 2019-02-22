@@ -13,7 +13,7 @@ class Settings extends GenericLoggedInAction {
     /**
      * {@inheritdoc}
      */
-    public function __invoke(Request $request, Response $response, $args) {
+    public function __invoke(Request $request, Response $response, array $args) {
         $configs = [];
         foreach (\Config::toArray() as $display => $config) {
             if (!in_array($config, self::IGNORE_CONFIGS)) {

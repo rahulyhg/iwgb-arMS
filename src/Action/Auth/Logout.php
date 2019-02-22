@@ -16,7 +16,7 @@ class Logout extends GenericAction {
      * @param string[] $args
      * @return mixed
      */
-    public function __invoke(Request $request, Response $response, $args): ResponseInterface {
+    public function __invoke(Request $request, Response $response, array $args): ResponseInterface {
         $this->session->clear();
         return $response->withRedirect('/auth/login?m=You have been logged out.');
     }

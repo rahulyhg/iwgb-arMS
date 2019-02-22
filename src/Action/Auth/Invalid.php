@@ -11,7 +11,7 @@ class Invalid extends GenericAction {
     /**
      * {@inheritdoc}
      */
-    public function __invoke(Request $request, Response $response, $args) {
+    public function __invoke(Request $request, Response $response, array $args) {
         return $this->render($request, $response, 'auth/invalid.html.twig', []);
     }
 }

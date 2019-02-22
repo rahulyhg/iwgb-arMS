@@ -16,7 +16,7 @@ class Submit extends GenericAction {
      * @throws \Exception
      * @throws ORMException
      */
-    public function __invoke(Request $request, Response $response, $args): ResponseInterface {
+    public function __invoke(Request $request, Response $response, array $args): ResponseInterface {
         $data = $request->getParsedBody();
 
         /** @var VerificationKey $key */
