@@ -1,6 +1,6 @@
 <?php
 
-namespace Action\Auth;
+namespace Action\Auth\Verify;
 
 use Action\GenericAction;
 use Doctrine\ORM\ORMException;

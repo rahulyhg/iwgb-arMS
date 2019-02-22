@@ -1,6 +1,6 @@
 <?php
 
-namespace Action\Auth;
+namespace Action\Auth\Member;
 
 use Action\GenericAction;
 use Slim\Http\Request;

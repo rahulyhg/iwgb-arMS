@@ -1,6 +1,6 @@
 <?php
 
-namespace Action\Auth;
+namespace Action\Auth\User;
 
 use Action\GenericAction;
 use Psr\Http\Message\ResponseInterface;

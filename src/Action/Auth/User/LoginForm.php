@@ -1,12 +1,12 @@
 <?php
 
-namespace Action\Auth;
+namespace Action\Auth\User;
 
 use Action\GenericAction;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-class LoginUserForm extends GenericAction {
+class LoginForm extends GenericAction {
 
     /**
      * {@inheritdoc}

@@ -111,23 +111,23 @@ class Slim implements ServiceProviderInterface {
                 
                 $app->group('/login', function (App $app) {
 
-                    $app->get('', \Action\Auth\LoginForm::class);
-                    $app->post('/member', \Action\Auth\Login::class);
-                    $app->get('/member/{event}', \Action\Auth\MemberLoginVerified::class);
+                    $app->get('', \Action\Auth\Member\LoginForm::class);
+                    $app->post('/member', \Action\Auth\Member\Login::class);
+                    $app->get('/member/{event}', \Action\Auth\Member\LoginVerified::class);
                     
                     $app->group('/official', function (App $app) {
 
-                        $app->get('', \Action\Auth\LoginUserForm::class);
-                        $app->post('', \Action\Auth\LoginUser::class);
+                        $app->get('', \Action\Auth\User\LoginForm::class);
+                        $app->post('', \Action\Auth\User\Login::class);
 
                         $app->group('/reset', function (App $app) {
 
-                            $app->get('/request', \Action\Auth\SendResetForm::class);
-                            $app->post('/request', \Action\Auth\SendReset::class);
-                            $app->get('/sent', \Action\Auth\ResetSent::class);
+                            $app->get('/request', \Action\Auth\User\SendResetForm::class);
+                            $app->post('/request', \Action\Auth\User\SendReset::class);
+                            $app->get('/sent', \Action\Auth\User\ResetSent::class);
 
-                            $app->get('/{id}', \Action\Auth\ResetPasswordForm::class);
-                            $app->post('/{id}', \Action\Auth\ResetPassword::class);
+                            $app->get('/{id}', \Action\Auth\User\ResetPasswordForm::class);
+                            $app->post('/{id}', \Action\Auth\User\ResetPassword::class);
                         });
                     });
                 });

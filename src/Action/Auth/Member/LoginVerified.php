@@ -1,13 +1,13 @@
 <?php
 
-namespace Action\Auth;
+namespace Action\Auth\Member;
 
 use Action\GenericAction;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-class MemberLoginVerified extends GenericAction {
+class LoginVerified extends GenericAction {
 
     /**
      * @param Request $request
