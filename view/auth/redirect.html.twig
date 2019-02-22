@@ -1,0 +1,16 @@
+{% extends '/auth/auth.html.twig' %}
+
+{% block head %}
+    <title>Redirecting &middot; IWGB</title>
+    <meta http-equiv="refresh" content="3; URL='{{ href }}'">
+{% endblock %}
+
+{% block content %}
+    <div class="verify">
+        <div class="message">
+            <p class="message__header">Redirecting</p>
+            <p class="message__body"><i class="fas fa-spinner fa-spin"></i></p>
+            <p class="message__body">If you&rsquo;re not redirected shortly, <a class="message__action" href="{{ href }}">click here</a>.</p>
+        </div>
+    </div>
+{% endblock %}

@@ -4,7 +4,7 @@ use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-class AuthMiddleware {
+class UserAuthMiddleware {
 
     const LOGIN_REDIRECT_MESSAGE = 'To view this page, you must log in.';
 

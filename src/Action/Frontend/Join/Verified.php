@@ -3,13 +3,14 @@
 namespace Action\Frontend\Join;
 
 use Action\Frontend\GenericMemberAction;
+use Action\Frontend\GenericPublicAction;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-class Verified extends GenericMemberAction {
+class Verified extends GenericPublicAction {
 
     const VERIFIED_EMAIL_HTML= [
         'content' => [
@@ -69,8 +70,12 @@ class Verified extends GenericMemberAction {
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function __invoke(Request $request, Response $response, $args): ResponseInterface {
-        $member = $this->getMember($args['application']);
+    public function __invoke(Request $request, Response $response, $args) {
+        /** @var \Domain\Member $member */
+        $member = $this->em->getRepository(\Domain\Member::class)->find($args['application']);
+        if (empty($member)) {
+            return $this->notFoundHandler;
+        }
 
         if (!$member->isConfirmed()) {
             if ($request->getQueryParam('secret') != $member->getRecentSecret()) {

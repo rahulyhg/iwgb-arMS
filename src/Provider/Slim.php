@@ -90,11 +90,13 @@ class Slim implements ServiceProviderInterface {
                     $app->get('/{member}', \Action\Backend\Member\Member::class);
                 });
 
-            })->add(new \AuthMiddleware($c->session));
+            })->add(new \UserAuthMiddleware($c->session));
 
             $app->get('/info', function (Request $request, Response $response, $args) {
                 phpinfo();
             });
+
+            $app->get('/s/{shortlink}', \Action\Frontend\Shortlink::class);
 
             $app->group('/auth', function (App $app) {
 
@@ -105,22 +107,30 @@ class Slim implements ServiceProviderInterface {
                 $app->post('/verify/{id}', \Action\Auth\Submit::class);
 
                 $app->get('/invalid', \Action\Auth\Invalid::class);
-
-                $app->get('/login', \Action\Auth\LoginForm::class);
-                $app->post('/login/member', \Action\Auth\Login::class);
-                $app->get('/login/member/{event}', \Action\Auth\MemberLoginVerified::class);
-
-                $app->get('/login/official', \Action\Auth\LoginUserForm::class);
-                $app->post('/login/official', \Action\Auth\LoginUser::class);
-
-                $app->get('/login/official/reset/request', \Action\Auth\SendResetForm::class);
-                $app->post('/login/official/reset/request', \Action\Auth\SendReset::class);
-                $app->get('/login/official/reset/sent', \Action\Auth\ResetSent::class);
-
-                $app->get('/login/official/reset/{id}', \Action\Auth\ResetPasswordForm::class);
-                $app->post('/login/official/reset/{id}', \Action\Auth\ResetPassword::class);
-
                 $app->get('/logout', \Action\Auth\Logout::class);
+                
+                $app->group('/login', function (App $app) {
+
+                    $app->get('', \Action\Auth\LoginForm::class);
+                    $app->post('/member', \Action\Auth\Login::class);
+                    $app->get('/member/{event}', \Action\Auth\MemberLoginVerified::class);
+                    
+                    $app->group('/official', function (App $app) {
+
+                        $app->get('', \Action\Auth\LoginUserForm::class);
+                        $app->post('', \Action\Auth\LoginUser::class);
+
+                        $app->group('/reset', function (App $app) {
+
+                            $app->get('/request', \Action\Auth\SendResetForm::class);
+                            $app->post('/request', \Action\Auth\SendReset::class);
+                            $app->get('/sent', \Action\Auth\ResetSent::class);
+
+                            $app->get('/{id}', \Action\Auth\ResetPasswordForm::class);
+                            $app->post('/{id}', \Action\Auth\ResetPassword::class);
+                        });
+                    });
+                });
             });
 
             //legacy code

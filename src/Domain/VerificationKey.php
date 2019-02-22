@@ -4,7 +4,6 @@ namespace Domain;
 
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
-use Slim\Container;
 
 /**
  * src/Domain/Verify

@@ -127,7 +127,7 @@ class Member {
      * @param string $membership
      * @param string $firstName
      * @param string $surname
-     * @param int $dob
+     * @param string $dob
      * @param string $gender
      * @param string $mobile
      * @param string $email
@@ -135,7 +135,7 @@ class Member {
      * @param string $postcode
      * @throws \Exception
      */
-    public function __construct(string $branchData, string $branch, string $membership, string $firstName, string $surname, string $dob, string $gender, string $mobile, string $email, string $address, string $postcode) {
+    public function __construct(string $branchData, string $branch, string $membership, string $firstName, string $surname, string $dob, string $gender, string $mobile, string $email, string $address = 'did-not-supply', string $postcode = 'did-not-supply') {
         $this->branchData = $branchData;
         $this->timestamp = new \DateTime();
         $this->branch = $branch;
@@ -156,6 +156,13 @@ class Member {
      * @throws \Exception If $dob is invalid.
      */
     public static function constructFromData(array $a): self {
+        if (empty($a['address'])) {
+            $a['address'] = '';
+        }
+        if (empty($a['postcode'])) {
+            $a['postcode'] = '';
+        }
+
         return new self(
             json_encode($a['branchData']),
             $a['branch'],
