@@ -100,15 +100,25 @@ class Slim implements ServiceProviderInterface {
 
             $app->group('/auth', function (App $app) {
 
-                $app->get('/verify/{id}/resend', \Action\Auth\Verify\Resend::class);
-
-                $app->get('/verify/{id}/data', \Action\Auth\Verify\Submit::class);
-                $app->get('/verify/{id}', \Action\Auth\Verify\Verify::class);
-                $app->post('/verify/{id}', \Action\Auth\Verify\Submit::class);
-
                 $app->get('/invalid', \Action\Auth\Invalid::class);
                 $app->get('/logout', \Action\Auth\Logout::class);
-                
+
+                $app->group('/verify', function (App $app) {
+
+                    $app->get('/{id}/resend', \Action\Auth\Verify\Resend::class);
+                    $app->get('/{id}/data', \Action\Auth\Verify\Submit::class);
+                    $app->get('/{id}', \Action\Auth\Verify\Verify::class);
+                    $app->post('/{id}', \Action\Auth\Verify\Submit::class);
+
+                });
+
+                $app->group('/sso', function (App $app) {
+
+                    $app->get('', \Action\Auth\SSO\Authorise::class);
+                    $app->get('/{id}/redirect', \Action\Auth\SSO\Redirect::class);
+
+                });
+
                 $app->group('/login', function (App $app) {
 
                     $app->get('', \Action\Auth\Member\LoginForm::class);
