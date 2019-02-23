@@ -49,14 +49,10 @@
             text-align: center;
 
             @include hideMobile();
-        }
 
-        @media #{$mobile} {
+            @media #{$mobile} {
 
-            &--collapse {
-                position: relative;
-
-                .nav__list__item {
+                &--collapse {
                     display: block;
                     padding: 0.5rem;
                 }

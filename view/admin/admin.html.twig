@@ -19,10 +19,10 @@
                     <span class="menuArrow__hand menuArrow__hand--bottom"></span>
                 </button>
                 <ul class="nav__list nav__list--hideMobile nav__list--collapse">
-                    <li class="nav__list__item">
+                    <li class="nav__list__item nav__list__item--collapse">
                         <a class="nav__link" href="/admin/dashboard">Dashboard</a>
                     </li>
-                    <li class="nav__list__item">
+                    <li class="nav__list__item nav__list__item--collapse">
                         <a class="nav__link" href="/admin/member/all">Members</a>
                     </li>
                 </ul>
@@ -66,7 +66,13 @@
                     case 'navCollapse':
                         let targetNav = $('.nav');
                         targetNav.find(".nav__part--hideOnUncollapse").toggleClass("nav__part--uncollapsed");
-                        targetNav.find(".nav__list--collapse").slideToggle("");
+                        let collapsibleNavList = targetNav.find(".nav__list--collapse");
+                        collapsibleNavList.slideToggle("");
+                        break;
+
+                    case 'entityMenuCollapse':
+                        let entityNav = $('.nav__list--standalone');
+                        entityNav.slideToggle("");
                         break;
                 }
             });
