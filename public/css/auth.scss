@@ -5,9 +5,7 @@
 
 $grey: #999;
 $linkBlue: #007bff;
-$error: #c0392b;
-$message: #2ecc71;
-$warning: #ff9800;
+
 
 $mobile: "only screen and (max-width: 699.98px)";
 $desktop: "only screen and (min-width: 700px)";
@@ -142,43 +140,3 @@ a {
         }
     }
 }
-
-.alert {
-    color: #fff;
-    text-align: left;
-    width: calc(100% - 2rem);
-    padding: 1rem;
-
-    &--good {
-        background-color: $message;
-    }
-
-    &--error {
-        background-color: $error;
-    }
-
-    &--warning {
-        background-color: $warning;
-    }
-
-    &--undo {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    &__message i {
-        padding-right: 1rem;
-    }
-
-    &__title {
-        font-weight: 700;
-    }
-
-    &__undo__action {
-        font-weight: bold;
-        @include underlineAnchor(#fff);
-    }
-}
-
-
-

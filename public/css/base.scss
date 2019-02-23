@@ -1,0 +1,98 @@
+@charset "utf-8";
+
+@import 'lib/system-ui-font';
+@import 'lib/normalize';
+
+$linkBlue: #007bff;
+$darkGrey: #555;
+$midGrey: #999;
+$lightGrey: #bbb;
+$offWhite: #f5f5f5;
+$iwgbRed: #c0392b;
+$iwgbGreen: #27ae60;
+$iwgbRedLight: #f1c3bf;
+$alertError: #c0392b;
+$alertMessage: #2ecc71;
+$alertWarning: #ff9800;
+
+$mobile: "only screen and (max-width: 699.98px)";
+$desktop: "only screen and (min-width: 700px)";
+
+@mixin colorAnchor($color) {
+    color: $color;
+    transition: color 0.5s;
+
+    &:hover {
+        color: darken($color, 30%);
+    }
+}
+
+@mixin underlineAnchor($color) {
+    color: $color;
+
+    &:hover {
+        color: $color;
+        text-decoration: underline;
+    }
+}
+
+@mixin hideMobile() {
+
+    @media #{$mobile} {
+
+        &--hideMobile {
+            display: none;
+            visibility: hidden;
+        }
+    }
+}
+
+@mixin hideDesktop() {
+
+    @media #{$desktop} {
+
+        &--hideDesktop {
+            display: none;
+            visibility: hidden;
+        }
+    }
+}
+
+// Alerts
+
+.alert {
+    color: #fff;
+    text-align: left;
+    width: calc(100% - 2rem);
+    padding: 1rem 1.75rem;
+
+    &--message {
+        background-color: $alertMessage;
+    }
+
+    &--error {
+        background-color: $alertError;
+    }
+
+    &--warning {
+        background-color: $alertWarning;
+    }
+
+    &--undo {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__message i {
+        padding-right: 1rem;
+    }
+
+    &__title {
+        font-weight: 700;
+    }
+
+    &__undo__action {
+        font-weight: bold;
+        @include underlineAnchor(#fff);
+    }
+}
