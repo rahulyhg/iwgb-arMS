@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="/css/admin.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
         {% block head %}
+            <title>Admin &middot; IWGB</title>
         {% endblock %}
     </head>
     <body>
@@ -13,7 +14,11 @@
         <div class="nav">
             <div class="nav__part">
                 <span class="nav__heading">árMS</span>
-                <ul class="nav__list nav__list--hideMobile">
+                <button id="navCollapse" class="menuArrow menuArrow--hideDesktop" type="button">
+                    <span class="menuArrow__hand menuArrow__hand--top"></span>
+                    <span class="menuArrow__hand menuArrow__hand--bottom"></span>
+                </button>
+                <ul class="nav__list nav__list--hideMobile nav__list--collapse">
                     <li class="nav__list__item">
                         <a class="nav__link" href="/admin/dashboard">Dashboard</a>
                     </li>
@@ -22,7 +27,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="nav__part">
+            <div class="nav__part nav__part--hideOnUncollapse">
                 <ul class="nav__list">
                     <li class="nav__list__item nav__list__item--hideMobile">
                         <a class="nav__link" href="/arms/feed">Return to legacy</a>
@@ -48,6 +53,23 @@
         </div>
 
 
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        {% block scripts %}
+        {% endblock %}
+        <script>
+            $("button.menuArrow").on('click',function(e){
+                let target = $(this);
+
+                target.find(".menuArrow__hand--top").toggleClass("menuArrow__hand--top--open");
+                target.find(".menuArrow__hand--bottom").toggleClass("menuArrow__hand--bottom--open");
+                switch (target.attr('id')) {
+                    case 'navCollapse':
+                        let targetNav = $('.nav');
+                        targetNav.find(".nav__part--hideOnUncollapse").toggleClass("nav__part--uncollapsed");
+                        targetNav.find(".nav__list--collapse").slideToggle("");
+                        break;
+                }
+            });
+        </script>
     </body>
 </html>
