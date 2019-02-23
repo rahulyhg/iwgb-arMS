@@ -3,7 +3,6 @@
 namespace Action\Auth\SSO;
 
 use Action\Frontend\GenericMemberAction;
-use Action\GenericAction;
 use Domain\Event;
 use Slim\Http\Request;
 use Slim\Http\Response;

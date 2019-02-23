@@ -92,10 +92,6 @@ class Slim implements ServiceProviderInterface {
 
             })->add(new \UserAuthMiddleware($c->session));
 
-            $app->get('/info', function (Request $request, Response $response, $args) {
-                phpinfo();
-            });
-
             $app->get('/s/{shortlink}', \Action\Frontend\Shortlink::class);
 
             $app->group('/auth', function (App $app) {
