@@ -114,8 +114,8 @@ class Slim implements ServiceProviderInterface {
 
                 $app->group('/sso', function (App $app) {
 
-                    $app->get('', \Action\Auth\SSO\Authorise::class);
-                    $app->get('/{id}/redirect', \Action\Auth\SSO\Redirect::class);
+                    $app->get('/redirect/{id}', \Action\Auth\SSO\Redirect::class);
+                    $app->get('/{client}', \Action\Auth\SSO\Authorise::class);
 
                 });
 

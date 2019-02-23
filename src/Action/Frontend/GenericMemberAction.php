@@ -3,6 +3,7 @@
 namespace Action\Frontend;
 
 use Action\GenericAction;
+use Domain\Member;
 use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -14,9 +15,12 @@ abstract class GenericMemberAction extends GenericAction {
 
     public function __construct(Container $c) {
         parent::__construct($c);
-        $this->member = $this->em
-            ->getRepository(\Domain\Member::class)
+
+        /** @var Member $member */
+        $member = $this->em
+            ->getRepository(Member::class)
             ->find($this->session->get('user'));
+        $this->member = $member;
     }
 
     /**

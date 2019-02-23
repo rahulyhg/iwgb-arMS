@@ -56,6 +56,9 @@ return [
         'cdn'   => [
             'baseUrl' => 'cdn.iwgb.org.uk',
         ],
+        'sso' => [
+            'signature' => $keys['sso'],
+        ]
     ],
 ];
 
