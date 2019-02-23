@@ -19,7 +19,8 @@ class Redirect extends GenericMemberAction {
             ->find($args['id']);
 
         if (empty($event) ||
-            !$this->session->get('loginStatus')) {
+            !$this->session->get('loginStatus') ||
+            $event->getData() == null) {
             return $response->withRedirect('/auth/invalid');
         }
 
@@ -39,6 +40,8 @@ class Redirect extends GenericMemberAction {
                     'sso' => $payload,
                     'sig' => hash_hmac('sha256', $payload, $this->settings['sso']['signature']),
                 ]);
+
+                $event->setData(null);
 
                 break;
             default:
