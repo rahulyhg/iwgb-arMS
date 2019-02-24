@@ -1,6 +1,10 @@
+{% if _a is defined %}
+	{% set _get = _get|merge(_a) %}
+{% endif %}
+
 {% if _get.m is defined %}
 	{% if _get.u is defined %}
-		<div class="alert alert--good alert--undo">
+		<div class="alert alert--message alert--undo">
 			<span class="alert__message">
 				<i class="fas fa-check"></i>{{ _get.m|htmlentities }}
 			</span>

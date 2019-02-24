@@ -11,13 +11,27 @@
 
 {% block content %}
 
-    <div class="pageHeader">
-        <span class="memberName">
-            <span class="memberName__part">{{ member.getFirstName() }}</span>
-            <span class="memberName__part">{{ member.getSurname() }}</span>
-        </span>
-        <a class="pageHeader__action pageHeader__action--small" href="/admin/member/{{ member.getId() }}/edit"><i class="fas fa-pen"></i></a>
+    <div class="pageHeader pageHeader--multipart">
+        <div class="pageHeader__part">
+            <span class="memberName">
+                <span class="memberName__part">{{ member.getFirstName() }}</span>
+                <span class="memberName__part">{{ member.getSurname() }}</span>
+            </span>
+            <a class="pageHeader__action pageHeader__action--small" href="/admin/member/{{ member.getId() }}/edit"><i class="fas fa-pen"></i></a>
+        </div>
+        <div class="pageHeader__part">
+            <button id="entityMenuCollapse" class="menuArrow" type="button">
+                <span class="menuArrow__hand menuArrow__hand--top"></span>
+                <span class="menuArrow__hand menuArrow__hand--bottom"></span>
+            </button>
+        </div>
     </div>
+
+    <ul class="nav__list nav__list--standalone nav__list--hide">
+        <li class="nav__list__item nav__list__item--collapse">
+            <a href="#" class="nav__link--nonNavigable nav__link--"><i class="fas fa-copy"></i> Copy data to clipboard</a>
+        </li>
+    </ul>
 
     <div class="member">
         <div class="membershipCard">
@@ -29,10 +43,10 @@
 
             <div class="memberDatum memberDatum__section memberDatum--fullWidth"></div>
 
-            <div class="memberDatum">
-                <div class="memberDatum__label">Confirmed</div>
+            <div class="memberDatum memberDatum--tight">
+                <div class="memberDatum__label">Verified</div>
                 <div class="memberDatum__value">
-                    {% if member.isConfirmed() %}
+                    {% if member.isVerified() %}
                         <i class="fas fa-check"></i>
                     {% else %}
                         <i class="fas fa-times"></i>
@@ -40,9 +54,24 @@
                 </div>
             </div>
 
-            <div class="memberDatum">
+            <div class="memberDatum memberDatum--tight">
+                <div class="memberDatum__label">Confirmed</div>
+                <div class="memberDatum__value">
+                    {% if member.isConfirmed() %}
+                        <i class="fas fa-check"></i>
+                    {% else %}
+                        <span><i class="fas fa-times"></i></span>
+                        <span class="memberDatum__value__action">
+                            <i class="fas fa-thumbs-up"></i>
+                            <a href="/admin/member/{{ member.getId() }}/confirm">Confirm</a>
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="memberDatum memberDatum--tight">
                 <div class="memberDatum__label">ID</div>
-                <div class="memberDatum__value">{{ member.getID() }}</div>
+                <div class="memberDatum__value">{{ member.getId() }}</div>
             </div>
 
             <div class="memberDatum">

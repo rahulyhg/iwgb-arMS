@@ -13,10 +13,10 @@ class MemberRepository extends EntityRepository {
         $qb = $this->getEntityManager()->createQueryBuilder();
 
         $where = $qb->expr()
-            ->eq('m.confirmed', ':confirmed');
+            ->eq('m.verified', ':verified');
 
         $params = [
-            'confirmed' => true,
+            'verified' => true,
         ];
 
         if ($branch &&

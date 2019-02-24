@@ -88,6 +88,8 @@ class Slim implements ServiceProviderInterface {
                     $app->get('/all/{page}', \Action\Backend\Member\AllMembers::class);
 
                     $app->get('/{member}', \Action\Backend\Member\Member::class);
+
+                    $app->get('/{member}/confirm', \Action\Backend\Member\Confirm::class);
                 });
 
             })->add(new \UserAuthMiddleware($c->session));

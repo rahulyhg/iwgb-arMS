@@ -77,11 +77,11 @@ class Verified extends GenericPublicAction {
             return $this->notFoundHandler;
         }
 
-        if (!$member->isConfirmed()) {
+        if (!$member->isVerified()) {
             if ($request->getQueryParam('secret') != $member->getRecentSecret()) {
                 return $response->withRedirect('/auth/invalid');
             }
-            $member->setConfirmed(true);
+            $member->setVerified(true);
             $this->em->flush();
 
             // send confirmation email

@@ -2,6 +2,7 @@
 
 namespace Domain;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\EventManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -30,7 +31,7 @@ class Member {
     private $branchData;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="timestamp", type="datetime", nullable=false)
      */
@@ -39,9 +40,16 @@ class Member {
     /**
      * @var bool
      *
+     * @ORM\Column(name="verified", type="boolean", nullable=false, options={"default"="0"})
+     */
+    private $verified = false;
+
+    /**
+     * @var bool
+     *
      * @ORM\Column(name="confirmed", type="boolean", nullable=false, options={"default"="0"})
      */
-    private $confirmed = '0';
+    private $confirmed = false;
 
     /**
      * @var string
@@ -72,7 +80,7 @@ class Member {
     private $surname;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="dob", type="date", nullable=false)
      */
@@ -137,12 +145,12 @@ class Member {
      */
     public function __construct(string $branchData, string $branch, string $membership, string $firstName, string $surname, string $dob, string $gender, string $mobile, string $email, string $address = 'did-not-supply', string $postcode = 'did-not-supply') {
         $this->branchData = $branchData;
-        $this->timestamp = new \DateTime();
+        $this->timestamp = new DateTime();
         $this->branch = $branch;
         $this->membership = $membership;
         $this->firstName = $firstName;
         $this->surname = $surname;
-        $this->dob = new \DateTime($dob);
+        $this->dob = new DateTime($dob);
         $this->gender = $gender;
         $this->mobile = $mobile;
         $this->email = $email;
@@ -194,6 +202,20 @@ class Member {
      */
     public function setBranchData(string $branchData): void {
         $this->branchData = $branchData;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isVerified(): bool {
+        return $this->verified;
+    }
+
+    /**
+     * @param bool $verified
+     */
+    public function setVerified(bool $verified): void {
+        $this->verified = $verified;
     }
 
     /**
@@ -267,9 +289,9 @@ class Member {
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getDob(): \DateTime {
+    public function getDob(): DateTime {
         return $this->dob;
     }
 
@@ -278,9 +300,9 @@ class Member {
     }
 
     /**
-     * @param \DateTime $dob
+     * @param DateTime $dob
      */
-    public function setDob(\DateTime $dob): void {
+    public function setDob(DateTime $dob): void {
         $this->dob = $dob;
     }
 
@@ -362,9 +384,9 @@ class Member {
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getTimestamp(): \DateTime {
+    public function getTimestamp(): DateTime {
         return $this->timestamp;
     }
 

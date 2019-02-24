@@ -10,10 +10,7 @@ use Slim\Http\Response;
 class Member extends GenericLoggedInAction {
 
     /**
-     * @param Request $request
-     * @param Response $response
-     * @param string[] $args
-     * @return mixed
+     * {@inheritdoc}
      */
     public function __invoke(Request $request, Response $response, array $args): ResponseInterface {
         /** @var \Domain\Member $member */
@@ -22,6 +19,7 @@ class Member extends GenericLoggedInAction {
         return $this->render($request, $response, 'admin/entity/member/view.html.twig', [
             'member' => $member,
             'events' => $this->em->getRepository(\Domain\Event::class)->findBy(['who' => $member->getId()], null, 10),
+            '_a'     => ['w' => 'Member information on árMS is currently immutable and so may be outdated'],
         ]);
     }
 }

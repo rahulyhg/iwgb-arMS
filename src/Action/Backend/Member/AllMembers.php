@@ -21,8 +21,21 @@ class AllMembers extends GenericLoggedInAction {
             'entityName'    => 'member',
             'entityPlural'  => 'members',
             'entities'      => $memberRepo->getMembers($request->getQueryParam('branch'), $args['page']),
-            'columns'       => ['id', 'name', 'confirmed', 'branch'],
+            'columns'       => ['id', 'name', 'verified', 'confirmed', 'branch'],
             'page'          => $args['page'],
+            '_a'            => ['w' => 'Member information on árMS is currently immutable and so may be outdated'],
+            'subnav'        => [
+                [
+                    'display' => 'View unverified',
+                    'href' => '#',
+                    'icon' => 'fas fa-filter',
+                ],
+                [
+                    'display' => 'View confirmed',
+                    'href' => '#',
+                    'icon' => 'fas fa-filter',
+                ],
+            ],
         ]);
     }
 }
