@@ -6,7 +6,7 @@
 
 {% block head %}
     <title>View member &middot; Admin &middot; IWGB</title>
-    <link href="https://fonts.googleapis.com/css?family=Merriweather:700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400|400italic" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -29,7 +29,10 @@
 
     <ul class="nav__list nav__list--standalone nav__list--hide">
         <li class="nav__list__item nav__list__item--collapse">
-            <a href="#" class="nav__link--nonNavigable nav__link--"><i class="fas fa-copy"></i> Copy data to clipboard</a>
+            <a id="copy" href="#" class="nav__link--nonNavigable nav__link--">
+                <i class="fas fa-copy"></i>
+                <span>Copy data to clipboard</span>
+            </a>
         </li>
     </ul>
 
@@ -62,7 +65,7 @@
 
             <div class="memberDatum memberDatum--tight">
                 <div class="memberDatum__label">Verified</div>
-                <div class="memberDatum__value">
+                <div class="memberDatum__value" title="{{ member.getStringTimestamp() }}">
                     {% if member.isVerified() %}
                         <i class="fas fa-check"></i>
                     {% else %}
@@ -88,17 +91,23 @@
 
             <div class="memberDatum memberDatum--tight">
                 <div class="memberDatum__label">ID</div>
-                <div class="memberDatum__value">{{ member.getId() }}</div>
+                <div class="memberDatum__value">
+                    <span>{{ member.getId() }}</span>
+                </div>
             </div>
 
             <div class="memberDatum">
                 <div class="memberDatum__label">Born</div>
-                <div class="memberDatum__value">{{ member.getStringDob() }}</div>
+                <div class="memberDatum__value">
+                    <span>{{ member.getStringDob() }}</span>
+                </div>
             </div>
 
             <div class="memberDatum">
                 <div class="memberDatum__label">Gender</div>
-                <div class="memberDatum__value">{{ member.getGender() }}</div>
+                <div class="memberDatum__value">
+                    <span>{{ member.getGender() }}</span>
+                </div>
             </div>
 
             <div class="memberDatum memberDatum__section memberDatum--fullWidth">
@@ -110,7 +119,10 @@
                 <div class="memberDatum__value">
                     <span>{{ member.getMobile() }}</span>
                     <span class="memberDatum__value__action">
-                        <a href="tel:{{ member.getMobile() }}"><i class="fas fa-phone"></i> Call</a>
+                        <a href="tel:{{ member.getMobile() }}">
+                            <i class="fas fa-phone"></i>
+                            <span>Call</span>
+                        </a>
                     </span>
                 </div>
             </div>
@@ -120,14 +132,19 @@
                 <div class="memberDatum__value">
                     <span>{{ member.getEmail() }}</span>
                     <span class="memberDatum__value__action">
-                        <a href="mailto:{{ member.getEmail() }}"><i class="fas fa-at"></i> Compose</a>
+                        <a href="mailto:{{ member.getEmail() }}">
+                            <i class="fas fa-at"></i>
+                            <span>Compose</span>
+                        </a>
                     </span>
                 </div>
             </div>
 
             <div class="memberDatum">
                 <div class="memberDatum__label">address</div>
-                <div class="memberDatum__value">{{ member.getAddress() }}</div>
+                <div class="memberDatum__value">
+                    <span>{{ member.getAddress() }}</span>
+                </div>
             </div>
 
             <div class="memberDatum">
@@ -137,7 +154,10 @@
                     <span class="memberDatum__value__action">
                         <a target="_blank"
                            rel="noreferrer"
-                           href="https://maps.google.com/?q={{ member.getPostcode() }}"><i class="fas fa-map-marker-alt"></i> View</a>
+                           href="https://maps.google.com/?q={{ member.getPostcode() }}">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>View</span>
+                        </a>
                     </span>
                 </div>
             </div>
@@ -149,7 +169,9 @@
             {% for key, value in member.getBranchDataAssoc() %}
                 <div class="memberDatum">
                     <div class="memberDatum__label">{{ key }}</div>
-                    <div class="memberDatum__value">{{ value }}</div>
+                    <div class="memberDatum__value">
+                        <span>{{ value }}</span>
+                    </div>
                 </div>
             {% endfor %}
 
@@ -169,7 +191,37 @@
             </table>
         </div>
     </div>
+{% endblock %}
 
+{% block scripts %}
+
+    <script>
+        $('#copy').on('click', function (e) {
+            let s = '';
+            $('.memberDatum').each(function(i, el) {
+                if (!$(el).hasClass('memberDatum__section')) {
+                    s += $(el).find('.memberDatum__label').text() + ": ";
+                    s += $(el).find('.memberDatum__value').find('span').first().text() + ",\n";
+                }
+            });
+
+            const el = document.createElement('textarea');
+            el.value = s;
+            el.setAttribute('readonly', '');
+            el.style.position = 'absolute';
+            el.style.left = '-9999px';
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            $(this).find('span').text('Copied!');
+            setTimeout(reset, 3000);
+        });
+
+        function reset() {
+            $('#copy').find('span').text('Copy to clipboard');
+        }
+    </script>
 
 {% endblock %}
 

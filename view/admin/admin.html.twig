@@ -1,81 +1,81 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="/css/admin.css">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
-        {% block head %}
-            <title>Admin &middot; IWGB</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    {% block head %}
+        <title>Admin &middot; IWGB</title>
+    {% endblock %}
+</head>
+<body>
+
+<div class="nav">
+    <div class="nav__part">
+        <span class="nav__heading">árMS</span>
+        <button id="navCollapse" class="menuArrow menuArrow--hideDesktop" type="button">
+            <span class="menuArrow__hand menuArrow__hand--top"></span>
+            <span class="menuArrow__hand menuArrow__hand--bottom"></span>
+        </button>
+        <ul class="nav__list nav__list--hideMobile nav__list--collapse">
+            <li class="nav__list__item nav__list__item--collapse">
+                <a class="nav__link" href="/admin/dashboard">Dashboard</a>
+            </li>
+            <li class="nav__list__item nav__list__item--collapse">
+                <a class="nav__link" href="/admin/member/all">Members</a>
+            </li>
+        </ul>
+    </div>
+    <div class="nav__part nav__part--hideOnUncollapse">
+        <ul class="nav__list">
+            <li class="nav__list__item nav__list__item--hideMobile">
+                <a class="nav__link" href="/arms/feed">Return to legacy</a>
+            </li>
+            <li class="nav__list__item">
+                <span class="nav__text">{{ user.getFirstName() }} {{ user.getSurname() }}</span>
+            </li>
+            <li class="nav__list__item">
+                <a class="nav__link--nonNavigable" href="/auth/logout">Log out</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+{% include '/alerts.html.twig' %}
+
+<div class="container">
+    <div class="container__content">
+        {% block content %}
+
         {% endblock %}
-    </head>
-    <body>
-
-        <div class="nav">
-            <div class="nav__part">
-                <span class="nav__heading">árMS</span>
-                <button id="navCollapse" class="menuArrow menuArrow--hideDesktop" type="button">
-                    <span class="menuArrow__hand menuArrow__hand--top"></span>
-                    <span class="menuArrow__hand menuArrow__hand--bottom"></span>
-                </button>
-                <ul class="nav__list nav__list--hideMobile nav__list--collapse">
-                    <li class="nav__list__item nav__list__item--collapse">
-                        <a class="nav__link" href="/admin/dashboard">Dashboard</a>
-                    </li>
-                    <li class="nav__list__item nav__list__item--collapse">
-                        <a class="nav__link" href="/admin/member/all">Members</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="nav__part nav__part--hideOnUncollapse">
-                <ul class="nav__list">
-                    <li class="nav__list__item nav__list__item--hideMobile">
-                        <a class="nav__link" href="/arms/feed">Return to legacy</a>
-                    </li>
-                    <li class="nav__list__item">
-                        <span class="nav__text">{{ user.getFirstName() }} {{ user.getSurname() }}</span>
-                    </li>
-                    <li class="nav__list__item">
-                        <a class="nav__link--nonNavigable" href="/auth/logout">Log out</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        {% include '/alerts.html.twig' %}
-
-        <div class="container">
-            <div class="container__content">
-                {% block content %}
-
-                {% endblock %}
-            </div>
-        </div>
+    </div>
+</div>
 
 
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        {% block scripts %}
-        {% endblock %}
-        <script>
-            $("button.menuArrow").on('click',function(e){
-                let target = $(this);
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+{% block scripts %}
+{% endblock %}
+<script>
+    $("button.menuArrow").on('click', function (e) {
+        let target = $(this);
 
-                target.find(".menuArrow__hand--top").toggleClass("menuArrow__hand--top--open");
-                target.find(".menuArrow__hand--bottom").toggleClass("menuArrow__hand--bottom--open");
-                switch (target.attr('id')) {
-                    case 'navCollapse':
-                        let targetNav = $('.nav');
-                        targetNav.find(".nav__part--hideOnUncollapse").toggleClass("nav__part--uncollapsed");
-                        let collapsibleNavList = targetNav.find(".nav__list--collapse");
-                        collapsibleNavList.slideToggle("");
-                        break;
+        target.find(".menuArrow__hand--top").toggleClass("menuArrow__hand--top--open");
+        target.find(".menuArrow__hand--bottom").toggleClass("menuArrow__hand--bottom--open");
+        switch (target.attr('id')) {
+            case 'navCollapse':
+                let targetNav = $('.nav');
+                targetNav.find(".nav__part--hideOnUncollapse").toggleClass("nav__part--uncollapsed");
+                let collapsibleNavList = targetNav.find(".nav__list--collapse");
+                collapsibleNavList.slideToggle("");
+                break;
 
-                    case 'entityMenuCollapse':
-                        let entityNav = $('.nav__list--standalone');
-                        entityNav.slideToggle("");
-                        break;
-                }
-            });
-        </script>
-    </body>
+            case 'entityMenuCollapse':
+                let entityNav = $('.nav__list--standalone');
+                entityNav.slideToggle("");
+                break;
+        }
+    });
+</script>
+</body>
 </html>

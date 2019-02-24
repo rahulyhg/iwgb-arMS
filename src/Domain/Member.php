@@ -391,7 +391,7 @@ class Member {
     }
 
     public function getStringTimestamp(): string {
-        return $this->timestamp->format('');
+        return $this->timestamp->format(DateTime::ATOM);
     }
 
     /**
