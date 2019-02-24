@@ -35,8 +35,25 @@
 
     <div class="member">
         <div class="membershipCard">
-            <span class="membershipCard__name">{{ member.getFirstName() }} {{ member.getSurname() }}</span>
-            <span class="membershipCard__id">{{ member.getId() }}</span>
+            <div class="membershipCard__container">
+                <div class="membershipCard__part">
+                    <img class="membershipCard__logo" src="https://cdn.iwgb.org.uk/img/roundel-colour.png" alt="IWGB logo">
+                    <img class="membershipCard__wordmark" src="https://cdn.iwgb.org.uk/img/wordmark-white.png" alt="IWGB wordmark">
+                </div>
+                <div class="membershipCard__part membershipCard__data">
+                    <div class="membershipCard__data__field">
+                        <span class="membershipCard__header">Independent Workers&rsquo; Union of Great Britain</span>
+                    </div>
+                    <div class="membershipCard__data__field">
+                        <span class="membershipCard__title">Membership Card</span>
+                    </div>
+                    <div class="membershipCard__data__field">
+                        <div class="membershipCard__name">{{ member.getFirstName() }} {{ member.getSurname() }}</div>
+                        <div class="membershipCard__id">{{ member.getId() }}</div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <div class="memberInfo">

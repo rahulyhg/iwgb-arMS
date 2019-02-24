@@ -247,29 +247,71 @@
 }
 
 .membershipCard {
-    display: flex;
-    justify-content: flex-end;
-    flex-direction: column;
     height: 12.5rem;
     min-width: 21.88rem;
     background-color: $iwgbRed;
     border-radius: 5px;
     color: #fff;
-    padding: 1rem;
     margin: 0 1rem 0 0;
+    background-image: url(https://cdn.iwgb.org.uk/img/roundel-colour.png);
+    background-position: right;
+    //noinspection CssInvalidPropertyValue
+    background-position-x: right -4rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    &__container {
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        height: calc(100% - 2rem);
+        background-color: rgba(192, 57, 43, 0.9);
+        padding: 1rem;
+    }
 
     @media #{$mobile} {
         display: none;
     }
 
+    &__part {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    &__data {
+        text-align: right;
+        font-family: "Merriweather", sans-serif;
+        font-weight: 400;
+    }
+
+    &__logo {
+        width: 7rem;
+    }
+
+    &__wordmark {
+        width: 7rem;
+    }
+
+    &__header {
+        font-size: 1.3rem;
+    }
+
+    &__title {
+        color: #000;
+        font-size: 1.3rem;
+        font-style: italic;
+    }
+
     &__name {
         font-family: "Merriweather", sans-serif;
         font-weight: 700;
-        font-size: 1.5rem;
     }
 
     &__id {
         text-transform: uppercase;
+        font-family: 'system-ui', sans-serif;
+        font-size: 0.8rem;
     }
 }
 
