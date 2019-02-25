@@ -24,10 +24,13 @@
 {% if _get.e is defined %}
 	<div class="alert alert--error">
 		<span class="alert__message">
-			<span class="alert__title">
+			<span class="alert__message__title">
 				<i class="fas fa-times"></i>
 			</span>
-			<span class="alert__message">{{ _get.e|escape }}</span>
+			<span class="alert__message__text">
+				<span class="alert__message__text__prefix">Error: </span>
+				<span>{{ _get.e|escape }}</span>
+			</span>
 		</span>
 		<span class="alert__action"></span>
 	</div>

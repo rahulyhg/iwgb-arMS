@@ -102,6 +102,10 @@ a {
         &__title {
             padding-right: 1rem;
         }
+
+        &__text__prefix {
+            font-weight: 700;
+        }
     }
 
     &__action {
