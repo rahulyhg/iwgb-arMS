@@ -1,7 +1,5 @@
 {% extends '/admin/admin.html.twig' %}
 
-{% from '/admin/entity-list.html.twig' import sortOrder %}
-
 {#
     entityName:     Entity name
     entityPlural:   Plural of entityName
@@ -9,18 +7,6 @@
     columns:        Columns to display, ID first
     page:           Page number
 #}
-
-{% macro sortOrder(field) %}
-    {% if _get.sort == field %}
-        {% if _get.order == 'asc' %}
-            {{ "desc" }}
-        {% else %}
-            {{ "asc" }}
-        {% endif %}
-    {% else %}
-        {{ "asc" }}
-    {% endif %}
-{% endmacro %}
 
 {% block head %}
     <title>{{ entityPlural|title }} &middot; Admin &middot; IWGB</title>
