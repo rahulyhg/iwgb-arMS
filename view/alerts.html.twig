@@ -3,30 +3,44 @@
 {% endif %}
 
 {% if _get.m is defined %}
-	{% if _get.u is defined %}
-		<div class="alert alert--message alert--undo">
-			<span class="alert__message">
-				<i class="fas fa-check"></i>{{ _get.m|htmlentities }}
+	<div class="alert alert--message">
+		<span class="alert__message">
+			<span class="alert__message__title">
+				<i class="fas fa-check"></i>
 			</span>
-			<span class="alert__undo">
-				<i class="fas fa-undo"></i>
-				<a class="alert__undo__action" href="{{ _get.u|htmlentities }}">Undo</a>
-			</span>
-		</div>
-	{% else %}
-		<div class="alert alert--message">
-			<span class="alert__message"><i class="fas fa-check"></i>{{ _get.m|htmlentities }}</span>
-		</div>
-	{% endif %}
-{% endif %}
-{% if _get.e is defined %}
-	<div class="alert alert--error">
-		<span class="alert__title">Error:</span>
-		<span class="alert__message">{{ _get.e|htmlentities }}</span>
+			<span class="alert__message__text">{{ _get.m|escape }}</span>
+		</span>
+		<span class="alert__action">
+			{% if _get.u is defined %}
+				<a href="{{ _get.u|escape }}">
+					<i class="fas fa-undo"></i>
+					<span>Undo</span>
+				</a>
+			{% endif %}
+		</span>
 	</div>
 {% endif %}
+
+{% if _get.e is defined %}
+	<div class="alert alert--error">
+		<span class="alert__message">
+			<span class="alert__title">
+				<i class="fas fa-times"></i>
+			</span>
+			<span class="alert__message">{{ _get.e|escape }}</span>
+		</span>
+		<span class="alert__action"></span>
+	</div>
+{% endif %}
+
 {% if _get.w is defined %}
 	<div class="alert alert--warning">
-		<span class="alert__message"><i class="fas fa-exclamation"></i>{{ _get.w|htmlentities }}</span>
+		<span class="alert__message">
+			<span class="alert__message__title">
+				<i class="fas fa-exclamation"></i>
+			</span>
+			<span class="alert__message__text">{{ _get.w|htmlentities }}</span>
+		</span>
+		<span class="alert__action"></span>
 	</div>
 {% endif %}

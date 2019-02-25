@@ -78,6 +78,9 @@ a {
     text-align: left;
     width: calc(100% - 3.5rem);
     padding: 1rem 1.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     &--message {
         background-color: $alertMessage;
@@ -91,21 +94,19 @@ a {
         background-color: $alertWarning;
     }
 
-    &--undo {
+    &__message {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
+        align-items: center;
+
+        &__title {
+            padding-right: 1rem;
+        }
     }
 
-    &__message i {
-        padding-right: 1rem;
-    }
-
-    &__title {
-        font-weight: 700;
-    }
-
-    &__undo__action {
+    &__action {
         font-weight: bold;
         @include underlineAnchor(#fff);
+        text-align: center;
     }
 }
