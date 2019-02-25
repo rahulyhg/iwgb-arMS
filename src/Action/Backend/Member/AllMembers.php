@@ -2,12 +2,12 @@
 
 namespace Action\Backend\Member;
 
-use Action\Backend\GenericLoggedInAction;
+use Action\Backend\GenericEntityListAction;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-class AllMembers extends GenericLoggedInAction {
+class AllMembers extends GenericEntityListAction {
 
     /**
      * {@inheritdoc}
