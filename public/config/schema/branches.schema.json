@@ -77,6 +77,11 @@
                     "type": "object",
                     "$ref": "/config/schema/content.schema.json#/definitions/content"
                 },
+                "welcome": {
+                    "description": "A paragraph sent to your new members when their application is confirmed",
+                    "type": "object",
+                    "$ref": "/config/schema/content.schema.json#/definitions/content-md"
+                },
                 "website": {
                     "description": "Your branch's website. At the moment, this can only be 'external'",
                     "type": "object",
@@ -143,6 +148,7 @@
                 "name",
                 "display",
                 "description",
+                "welcome",
                 "website",
                 "joining",
                 "costs"
