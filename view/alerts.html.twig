@@ -1,5 +1,5 @@
 {% if _a is defined %}
-	{% set _get = _get|merge(_a) %}
+	{% set _get = _a|merge(_get) %}
 {% endif %}
 
 {% if _get.m is defined %}
@@ -44,6 +44,13 @@
 			</span>
 			<span class="alert__message__text">{{ _get.w|htmlentities }}</span>
 		</span>
-		<span class="alert__action"></span>
+		<span class="alert__action">
+			{% if _get.c is defined %}
+				<a href="{{ _get.c|escape }}">
+					<i class="fas fa-check-double"></i>
+					<span>Confirm</span>
+				</a>
+			{% endif %}
+		</span>
 	</div>
 {% endif %}

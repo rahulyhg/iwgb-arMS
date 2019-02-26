@@ -53,12 +53,12 @@ class Verified extends GenericPublicAction {
             ],
         ],
         'action' => [
-            'href'      => 'https://iwgb.org.uk/admin/member/recent',
+            'href'      => 'https://iwgb.org.uk/admin/member/all',
             'display'   => 'View recent applications',
         ],
     ];
 
-    const ADMINISTRATOR_EMAIL_TEXT = "Ref: %application% (%branch%)\r\n\r\nHey %name%,\r\n\r\nA new member has applied to be a member of the IWGB. Go to the new memberships control panel to review their application: https://iwgb.org.uk/admin/member/recent\r\n\r\n—the IWGB mailer bot\r\n\r\nThis email was sent because your iwgb.org.uk account is set as a membership administrator.\r\nIndependent Workers Union of Great Britain, 12-20 Baron St, London, N1 9LL";
+    const ADMINISTRATOR_EMAIL_TEXT = "Ref: %application% (%branch%)\r\n\r\nHey %name%,\r\n\r\nA new member has applied to be a member of the IWGB. Go to the new memberships control panel to review their application: https://iwgb.org.uk/admin/member/all\r\n\r\n—the IWGB mailer bot\r\n\r\nThis email was sent because your iwgb.org.uk account is set as a membership administrator.\r\nIndependent Workers Union of Great Britain, 12-20 Baron St, London, N1 9LL";
 
     const ADMINISTRATOR_EMAIL_SUBJECT = "New membership application";
 
