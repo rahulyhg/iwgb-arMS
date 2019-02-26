@@ -4,6 +4,7 @@ namespace Domain;
 
 use Doctrine\ORM\EntityRepository;
 use Exception;
+use JSONObject;
 
 class MemberRepository extends EntityRepository {
 
@@ -54,7 +55,13 @@ class MemberRepository extends EntityRepository {
 
     }
 
-    public function getMembers($branch = null, int $page = 0, int $n = self::DEFAULT_LIMIT) {
+    public function getMembers($branch = null,
+                               int $page = 0,
+                               string $sort = 'timestamp',
+                               string $order = 'asc',
+                               bool $confirmed = false,
+                               bool $unverified = false,
+                               int $n = self::DEFAULT_LIMIT) {
 
         $qb = $this->getEntityManager()->createQueryBuilder();
 
@@ -62,18 +69,28 @@ class MemberRepository extends EntityRepository {
             ->eq('m.verified', ':verified');
 
         $params = [
-            'verified' => true,
+            'verified' => !$unverified,
         ];
 
         if ($branch &&
-            \JSONObject::get('branches', $branch) !== false) {
+            JSONObject::get('branches', $branch) !== false) {
 
             $where = $qb->expr()->andX(
                 $qb->expr()
                     ->eq('m.branch', ':branch'),
                 $where);
             $params = array_merge([
-                'branch' => $branch
+                'branch' => $branch,
+            ], $params);
+        }
+
+        if ($confirmed) {
+            $where = $qb->expr()->andX(
+                $qb->expr()
+                    ->eq('m.confirmed', ':confirmed'),
+                $where);
+            $params = array_merge([
+                'confirmed' => true,
             ], $params);
         }
 
@@ -82,16 +99,13 @@ class MemberRepository extends EntityRepository {
             ->select('m')
             ->from(Member::class, 'm')
             ->where($where)
-            ->orderBy('m.timestamp', 'DESC')
+            ->orderBy("m.$sort", $order)
             ->getQuery()
             ->setParameters($params)
             ->setFirstResult($page * self::DEFAULT_LIMIT)
             ->setMaxResults($n)
         )->execute();
     }
-
-
-
 
 
 }

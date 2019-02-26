@@ -17,23 +17,34 @@ class AllMembers extends GenericEntityListAction {
         /** @var \Domain\MemberRepository $memberRepo */
         $memberRepo = $this->em->getRepository(\Domain\Member::class);
 
+        $members = $memberRepo->getMembers($request->getQueryParam('branch'),
+            $args['page'],
+            $request->getQueryParam('sort') ?? 'timestamp',
+            $request->getQueryParam('order') ?? 'asc',
+            $request->getQueryParam('confirmed') ?? false,
+            $request->getQueryParam('verified') ?? false);
+
         return $this->render($request, $response, 'admin/entity-list.html.twig', [
             'entityName'    => 'member',
-            'entityPlural'  => 'members',
-            'entities'      => $memberRepo->getMembers($request->getQueryParam('branch'), $args['page']),
+            'entityPlural'  => 'applications',
+            'entities'      => $members,
             'columns'       => ['id', 'name', 'verified', 'confirmed', 'branch'],
             'page'          => $args['page'],
             '_a'            => ['w' => 'Member information on árMS is currently immutable and so may be outdated'],
             'subnav'        => [
                 [
-                    'display' => 'View unverified',
-                    'href' => '#',
-                    'icon' => 'fas fa-filter',
+                    'display'   => 'View unverified',
+                    'param'     => [
+                        'unverified' => 1,
+                    ],
+                    'icon'      => 'fas fa-filter',
                 ],
                 [
-                    'display' => 'View confirmed',
-                    'href' => '#',
-                    'icon' => 'fas fa-filter',
+                    'display'   => 'View confirmed',
+                    'param'     => [
+                        'confirmed' => 1,
+                    ],
+                    'icon'      => 'fas fa-filter',
                 ],
             ],
         ]);

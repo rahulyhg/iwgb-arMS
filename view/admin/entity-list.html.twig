@@ -32,9 +32,17 @@
         <li class="nav__list__item nav__list__item--collapse">
             <a href="#" class="nav__link--nonNavigable nav__link--"><i class="fas fa-sort"></i> Reset sort</a>
         </li>
+        <li class="nav__list__item nav__list__item--collapse">
+            <a href="#" class="nav__link--nonNavigable nav__link--"><i class="fas fa-filter"></i> Reset filter</a>
+        </li>
         {% for action in subnav %}
             <li class="nav__list__item nav__list__item--collapse">
-                <a href="{{ action.href }}" class="nav__link--nonNavigable">
+                {% if action.href is defined %}
+                    {% set href = action.href %}
+                {% else %}
+                    {% set href = generateLink(_uri, action.param) %}
+                {% endif %}
+                <a href="{{ href }}" class="nav__link--nonNavigable">
                     {% if action.icon is defined %}
                         <i class="{{ action.icon }}"></i>
                     {% endif %}
