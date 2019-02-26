@@ -20,7 +20,7 @@ class AllMembers extends GenericEntityListAction {
         $members = $memberRepo->getMembers($request->getQueryParam('branch'),
             $args['page'],
             $request->getQueryParam('sort') ?? 'timestamp',
-            $request->getQueryParam('order') ?? 'asc',
+            $request->getQueryParam('order') ?? 'desc',
             $request->getQueryParam('confirmed') ?? false,
             $request->getQueryParam('verified') ?? false);
 
@@ -30,7 +30,7 @@ class AllMembers extends GenericEntityListAction {
             'entities'      => $members,
             'columns'       => ['id', 'name', 'verified', 'confirmed', 'branch'],
             'page'          => $args['page'],
-            '_a'            => ['w' => 'Member information on árMS is currently immutable and so may be outdated'],
+            '_a'            => ['w' => 'This contains data on membership applications - data is immutable and so may be outdated'],
             'subnav'        => [
                 [
                     'display'   => 'View unverified',

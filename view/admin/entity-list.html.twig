@@ -30,10 +30,10 @@
 
     <ul class="nav__list nav__list--standalone nav__list--hide">
         <li class="nav__list__item nav__list__item--collapse">
-            <a href="#" class="nav__link--nonNavigable nav__link--"><i class="fas fa-sort"></i> Reset sort</a>
+            <a href="{{ resetSort(_uri) }}" class="nav__link nav__link--nonNavigable"><i class="fas fa-sort"></i> Reset sort</a>
         </li>
         <li class="nav__list__item nav__list__item--collapse">
-            <a href="#" class="nav__link--nonNavigable nav__link--"><i class="fas fa-filter"></i> Reset filter</a>
+            <a href="{{ resetFilters(_uri) }}" class="nav__link nav__link--nonNavigable"><i class="fas fa-filter"></i> Reset filter</a>
         </li>
         {% for action in subnav %}
             <li class="nav__list__item nav__list__item--collapse">

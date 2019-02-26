@@ -35,7 +35,22 @@ abstract class GenericEntityListAction extends GenericLoggedInAction {
                 $q['sort'] = $column;
                 $q['order'] = 'asc';
             }
-            return $parts[0] . '?' . http_build_query($q);
+            return self::buildQuery($parts[0], $q);
+        }));
+
+        $twigEnv->addFunction(new Twig_Function('resetSort', function (string $uri) {
+            $parts = explode('?', $uri);
+            $q = self::getAssocQuery($parts[1] ?? '');
+            unset($q['sort']);
+            unset($q['order']);
+            return self::buildQuery($parts[0], $q);
+        }));
+
+        $twigEnv->addFunction(new Twig_Function('resetFilters', function (string $uri) {
+            $parts = explode('?', $uri);
+            $q = self::getAssocQuery($parts[1] ?? '');
+            $q = array_intersect_key($q, ['sort' => null, 'order' => null]);
+            return self::buildQuery($parts[0], $q);
         }));
     }
 
@@ -43,5 +58,9 @@ abstract class GenericEntityListAction extends GenericLoggedInAction {
         $vars = [];
         parse_str($query, $vars);
         return $vars;
+    }
+
+    private static function buildQuery(string $uri, array $query): string {
+        return $uri . '?' . http_build_query($query);
     }
 }
