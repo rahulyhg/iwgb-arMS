@@ -50,8 +50,10 @@ class Verified extends GenericPublicAction {
      * @throws \Twig_Error_Syntax
      */
     public function __invoke(Request $request, Response $response, array $args) {
-        /** @var \Domain\Member $member */
-        $member = $this->em->getRepository(\Domain\Member::class)->find($args['application']);
+        /** @var MemberRepository $memberRepo */
+        $memberRepo = $this->em->getRepository(Member::class);
+        /** @var Member $member */
+        $member = $memberRepo->find($args['application'], null, null, true);
         if (empty($member)) {
             return $this->notFoundHandler;
         }
