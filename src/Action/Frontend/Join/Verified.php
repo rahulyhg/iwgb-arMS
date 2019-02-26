@@ -6,36 +6,15 @@ use Action\Frontend\GenericMemberAction;
 use Action\Frontend\GenericPublicAction;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use Domain\Member;
+use Domain\MemberRepository;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
 class Verified extends GenericPublicAction {
 
-    const VERIFIED_EMAIL_HTML= [
-        'content' => [
-            'before' => [
-                'Application number: %application%',
-                'Hey %name%,',
-                "We've verified and received your application. Once you've completed the your payment, we'll be in touch confirming your membership to the IWGB!",
-            ],
-            'after' => [
-                "If you've already set up your direct debit on our website, then feel free to ignore this email.",
-                "— Your friends at the IWGB",
-            ],
-            'footer' => [
-                'This email was sent because you completed an application on [iwgb.org.uk](https://iwgb.org.uk)',
-            ],
-        ],
-        'action' => [
-            'href' => 'https://iwgb.org.uk/join/application/%application%/verified',
-            'display' => 'Complete payment',
-        ],
-    ];
-
-    const VERIFIED_EMAIL_TEXT = "Application number: %application%\r\n\r\nHey %name,\r\nWe've verified and received your application. Once you've completed the your payment, we'll be in touch confirming your membership to the IWGB!\r\n\r\nClick here to complete your payment: https://iwgb.org.uk/join/%application%/verified\r\n\r\nIf you've already set up your direct debit on our website, then feel free to ignore this email.\r\n\r\n— Your friends at the IWGB\r\n\r\nThis email was sent because you completed an application on iwgb.org.uk.\r\nIndependent Workers Union of Great Britain, 12-20 Baron St, London, N1 9LL";
-
-    const VERIFIED_EMAIL_SUBJECT = 'Your IWGB Membership Application';
+    const ADMIN_EMAIL_ENABLED = false;
 
     const ADMINISTRATOR_EMAIL_HTML = [
         'content' => [
@@ -84,29 +63,21 @@ class Verified extends GenericPublicAction {
             $member->setVerified(true);
             $this->em->flush();
 
-            // send confirmation email
-            $this->send->email->transactional($member->getEmail(),
-                self::VERIFIED_EMAIL_SUBJECT,
-                self::VERIFIED_EMAIL_TEXT,
-                self::VERIFIED_EMAIL_HTML,
-                [
-                    'name'          => $member->getFirstName(),
-                    'application'   => $member->getId(),
-                ]);
-
-            foreach ($this->em->getRepository(\Domain\User::class)
-                         ->findBy(['membershipAdministrator' => true])
-                     as $memberAdmin) {
-                /** @var $memberAdmin \Domain\User */
-                $this->send->email->transactional($memberAdmin->getEmail(),
-                    self::ADMINISTRATOR_EMAIL_SUBJECT,
-                    self::ADMINISTRATOR_EMAIL_TEXT,
-                    self::ADMINISTRATOR_EMAIL_HTML,
-                    [
-                        'name'          => $memberAdmin->getFirstName(),
-                        'application'   => $member->getId(),
-                        'branch'        => $member->getBranch(),
-                    ]);
+            if (self::ADMIN_EMAIL_ENABLED) {
+                foreach ($this->em->getRepository(\Domain\User::class)
+                             ->findBy(['membershipAdministrator' => true])
+                         as $memberAdmin) {
+                    /** @var $memberAdmin \Domain\User */
+                    $this->send->email->transactional($memberAdmin->getEmail(),
+                        self::ADMINISTRATOR_EMAIL_SUBJECT,
+                        self::ADMINISTRATOR_EMAIL_TEXT,
+                        self::ADMINISTRATOR_EMAIL_HTML,
+                        [
+                            'name' => $memberAdmin->getFirstName(),
+                            'application' => $member->getId(),
+                            'branch' => $member->getBranch(),
+                        ]);
+                }
             }
 
 
