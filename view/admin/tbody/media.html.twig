@@ -1,0 +1,26 @@
+{#
+    entities: array of objects
+#}
+
+{% for object in entities %}
+    <tr class="entityTable__row">
+        <td class="entityTable__field">
+            {% if object.type == 'folders' %}
+                <a href="/admin/media/all?folder={{ object.key }}" class="entityTable__link">
+                    {% if object.type == 'folders' %}
+                        <i class="fas fa-folder-open"></i>
+                    {% endif %}
+                    <span>{{ object.name }}</span>
+                </a>
+            {% else %}
+                <a href="https://cdn.iwgb.org.uk/{{ object.key }}" class="entityTable__link" target="_blank">
+                    <span>{{ object.name }}</span>
+                </a>
+                <a class="entityTable__field__action" href="#"><i class="fas fa-copy"></i></a>
+            {% endif %}
+            <a class="entityTable__field__action"
+               href="/admin/media/delete?k={{ object.key }}"><i class="fas fa-trash"></i></a>
+        </td>
+        <td class="entityTable__field">{{ object.modified|timeago }}</td>
+    </tr>
+{% endfor %}

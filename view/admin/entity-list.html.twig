@@ -43,10 +43,10 @@
                     {% set href = generateLink(_uri, action.param) %}
                 {% endif %}
                 <a href="{{ href }}" class="nav__link--nonNavigable">
-                    {% if action.icon is defined %}
-                        <i class="{{ action.icon }}"></i>
-                    {% endif %}
-                    {{ action.display }}
+                {% if action.icon is defined %}
+                    <i class="{{ action.icon }}"></i>
+                {% endif %}
+                {{ action.display }}
                 </a>
             </li>
         {% endfor %}

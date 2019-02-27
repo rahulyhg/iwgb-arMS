@@ -60,8 +60,12 @@ return [
             'signature' => $keys['sso'],
         ],
         'spaces' => [
-            'key'   => 'KOWTSWXXMKRJFEXMSIGK',
-            'secret'=> $keys['spaces'],
+            'credentials' => [
+                'key'   => 'KOWTSWXXMKRJFEXMSIGK',
+                'secret'=> $keys['spaces'],
+            ],
+            'region' => 'ams3',
+            'bucket' => 'iwgb',
         ]
     ],
 ];
