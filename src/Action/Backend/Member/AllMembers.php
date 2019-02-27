@@ -28,7 +28,13 @@ class AllMembers extends GenericEntityListAction {
             'entityName'    => 'member',
             'entityPlural'  => 'applications',
             'entities'      => $members,
-            'columns'       => ['id', 'name', 'verified', 'confirmed', 'branch'],
+            'columns'       => [
+                'id' => 'id',
+                'name' => 'surname',
+                'verified' => 'verified',
+                'confirmed' => 'confirmed',
+                'branch' => 'branch'
+            ],
             'page'          => $args['page'],
             '_a'            => ['w' => 'This contains data on membership applications - data is immutable and so may be outdated'],
             'subnav'        => [

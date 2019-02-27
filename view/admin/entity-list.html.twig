@@ -55,16 +55,16 @@
     <table class="entityTable" width="100%">
         <thead>
         <tr class="entityTable__header">
-            {% for column in columns %}
+            {% for display, name in columns %}
                 <td class="entityTable__field
                     {% if loop.index > 2 %}
                         entityTable__field--hideMobile
                     {% endif %}">
-                    <a class="entityTable__header__link" href="{{ generateSortLink(_uri, column) }}">{{ column|title }}</a>
+                    <a class="entityTable__header__link" href="{{ generateSortLink(_uri, column.name) }}">{{ column.display|title }}</a>
                 </td>
                 {% if loop.index > 2 and loop.index < 5 %}
                     <td class="entityTable__field entityTable__field--hideDesktop">
-                        <a class="entityTable__header__link" href="{{ generateSortLink(_uri, column) }}">{{ column|title|slice(0, 3) }}</a>
+                        <a class="entityTable__header__link" href="{{ generateSortLink(_uri, column.name) }}">{{ column.display|title|slice(0, 3) }}</a>
                     </td>
                 {% endif %}
             {% endfor %}
