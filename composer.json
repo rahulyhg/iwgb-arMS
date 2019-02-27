@@ -21,6 +21,9 @@
         "google/recaptcha": "^1.2",
         "akrabat/ip-address-middleware": "^1.0",
         "ramsey/uuid": "^3.8",
-        "moontoast/math": "^1.1"
+        "moontoast/math": "^1.1",
+        "aws/aws-sdk-php": "^3.87",
+        "ext-pcre": "*",
+        "ext-simplexml": "*"
     }
 }

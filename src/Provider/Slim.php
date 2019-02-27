@@ -94,6 +94,19 @@ class Slim implements ServiceProviderInterface {
                     $app->get('/{member}/remind', \Action\Backend\Member\Remind::class);
                 });
 
+                $app->group('/media', function (App $app) {
+                    $app->get('/upload', \Action\Backend\Media\UploadForm::class);
+                    $app->post('/upload', \Action\Backend\Media\Upload::class);
+
+                    $app->get('[/all]', function(Request $request, Response $response) {
+                        return $response->withRedirect('/admin/media/all/0');
+                    });
+
+                    $app->get('/all/{page}', \Action\Backend\Media\AllMedia::class);
+
+                    $app->get('/{id}', \Action\Backend\Media\Media::class);
+                });
+
             })->add(new \UserAuthMiddleware($c->session));
 
             $app->get('/s/{shortlink}', \Action\Frontend\Shortlink::class);

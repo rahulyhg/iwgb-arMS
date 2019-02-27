@@ -58,6 +58,10 @@ return [
         ],
         'sso' => [
             'signature' => $keys['sso'],
+        ],
+        'spaces' => [
+            'key'   => 'KOWTSWXXMKRJFEXMSIGK',
+            'secret'=> $keys['spaces'],
         ]
     ],
 ];
