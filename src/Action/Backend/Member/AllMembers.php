@@ -2,12 +2,21 @@
 
 namespace Action\Backend\Member;
 
-use Action\Backend\GenericEntityListAction;
+use Action\Backend\EntityListTrait;
+use Action\Backend\GenericLoggedInAction;
 use Psr\Http\Message\ResponseInterface;
+use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-class AllMembers extends GenericEntityListAction {
+class AllMembers extends GenericLoggedInAction {
+
+    use EntityListTrait;
+
+    public function __construct(Container $c) {
+        parent::__construct($c);
+        self::addEntityListFunctions($this->view->getEnvironment());
+    }
 
     /**
      * {@inheritdoc}

@@ -7,13 +7,12 @@ use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Twig_Environment;
 use Twig_Function;
 
-abstract class GenericEntityListAction extends GenericLoggedInAction {
+trait EntityListTrait {
 
-    public function __construct(Container $c) {
-        parent::__construct($c);
-        $twigEnv = $this->view->getEnvironment();
+    public function addEntityListFunctions(Twig_Environment $twigEnv) {
 
         $twigEnv->addFunction(new Twig_Function('generateLink', function(string $uri, array $a = []) {
             $parts = explode('?', $uri);
