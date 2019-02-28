@@ -14,10 +14,12 @@
                 <a href="https://cdn.iwgb.org.uk/{{ object.key }}" class="entityTable__link" target="_blank">
                     <span>{{ object.name }}</span>
                 </a>
-                <a class="entityTable__field__action" href="#"><i class="fas fa-copy"></i></a>
+                <a class="entityTable__field__action entityTable__field__action--copy" href="#"><i class="fas fa-copy"></i></a>
             {% endif %}
-            <a class="entityTable__field__action"
-               href="/admin/media/{{ object.id }}/delete"><i class="fas fa-trash"></i></a>
+            {% if object.name != '..' %}
+                <a class="entityTable__field__action"
+                   href="/admin/media/{{ object.id }}/delete"><i class="fas fa-trash"></i></a>
+            {% endif %}
         </td>
         <td class="entityTable__field">{{ object.modified|timeago }}</td>
     </tr>

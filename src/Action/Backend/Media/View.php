@@ -93,9 +93,7 @@ class View extends GenericSpacesAction {
             'columns'       => [
                 'name' => 'key',
                 'modified' => 'modified',
-                'actions' => 'nosort',
             ],
-            'page'          => null,
             'subnav'        => [
                 [
                     'display'   => 'New folder',

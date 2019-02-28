@@ -92,3 +92,7 @@
         </div>
     {% endif %}
 {% endblock %}
+
+{% block scripts %}
+    {% include '/admin/tbody/' ~ entityName ~ '-js.html.twig' ignore missing %}
+{% endblock %}

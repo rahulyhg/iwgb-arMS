@@ -1,0 +1,30 @@
+<script>
+    $('.entityTable__field__action--copy').on('click', function (e) {
+        const el = document.createElement('textarea');
+        const parent = $(this).parent();
+        el.value = parent.find('.entityTable__link').attr('href');
+        console.log(el.value);
+        el.setAttribute('readonly', '');
+        el.style.position = 'absolute';
+        el.style.left = '-9999px';
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+
+        const icon = $(this).find('i');
+        icon.removeClass('fa-copy');
+        icon.addClass('fa-check');
+        setTimeout(reset, 3000);
+    });
+
+    function reset() {
+        $('.entityTable__field__action--copy').each(function (i, el) {
+            const icon = $(this).find('i');
+            icon.removeClass('fa-check');
+            if (!icon.hasClass('fa-copy')) {
+                icon.addClass('fa-copy');
+            }
+        })
+    }
+</script>
