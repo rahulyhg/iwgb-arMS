@@ -5,6 +5,7 @@ namespace Action\Backend\Media;
 use Action\Backend\GenericLoggedInAction;
 use Aws\S3\S3Client;
 use Slim\Container;
+use Twig_Function;
 
 abstract class GenericSpacesAction extends GenericLoggedInAction {
 
@@ -27,5 +28,17 @@ abstract class GenericSpacesAction extends GenericLoggedInAction {
 
         $this->bucket = $this->settings['spaces']['bucket'];
         $this->root = base64_encode(self::DEFAULT_PATH);
+
+        $this->view->getEnvironment()->addFunction(new Twig_Function('isImage', function($s) {
+            return self::isImage($s);
+        }));
+    }
+
+    protected static function getFileType($file) {
+        return strtolower(pathinfo($file, PATHINFO_EXTENSION));
+    }
+
+    protected static function isImage($file) {
+        return in_array(self::getFileType($file), ['jpg', 'png']);
     }
 }

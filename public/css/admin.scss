@@ -156,6 +156,20 @@
         @include hideMobile();
         @include hideDesktop();
 
+        &--multipart {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        &__part {
+            border: none;
+        }
+
+        &__image {
+            width: 4rem;
+        }
+
     }
 
     &__link {
