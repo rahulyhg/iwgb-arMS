@@ -15,8 +15,6 @@ class View extends GenericSpacesAction {
 
     use EntityListTrait;
 
-    const DEFAULT_PATH = 'bucket/';
-
     public function __construct(Container $c) {
         parent::__construct($c);
         self::addEntityListFunctions($this->view->getEnvironment());
@@ -29,10 +27,11 @@ class View extends GenericSpacesAction {
     public function __invoke(Request $request, Response $response, array $args): ResponseInterface {
 
         if ($args['path'] == 'root') {
-            return $response->withRedirect('/admin/media/' . base64_encode(self::DEFAULT_PATH) . '/view');
+            return $response->withRedirect('/admin/media/' . $this->root . '/view');
         }
 
         $prefix = base64_decode($args['path']);
+
 
         $params = [
             'Bucket' => $this->bucket,
@@ -97,7 +96,7 @@ class View extends GenericSpacesAction {
             'subnav'        => [
                 [
                     'display'   => 'New folder',
-                    'href'      => '/admin/media/new-folder',
+                    'href'      => '/admin/media/' . $args['path'] . '/new-folder',
                     'icon'      => 'fas fa-folder-plus',
                 ],
                 [

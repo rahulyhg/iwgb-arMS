@@ -12,6 +12,10 @@ abstract class GenericSpacesAction extends GenericLoggedInAction {
 
     protected $bucket;
 
+    protected $root;
+
+    const DEFAULT_PATH = 'bucket/';
+
     public function __construct(Container $c) {
         parent::__construct($c);
         $this->cdn = new S3Client([
@@ -22,5 +26,6 @@ abstract class GenericSpacesAction extends GenericLoggedInAction {
         ]);
 
         $this->bucket = $this->settings['spaces']['bucket'];
+        $this->root = base64_encode(self::DEFAULT_PATH);
     }
 }

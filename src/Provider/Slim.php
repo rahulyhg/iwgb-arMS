@@ -101,8 +101,10 @@ class Slim implements ServiceProviderInterface {
 
                     $app->group('/{path}', function (App $app) {
 
+                        $app->get('/new-folder', \Action\Backend\Media\NewFolderForm::class);
+                        $app->post('/new-folder', \Action\Backend\Media\NewFolder::class);
+
                         $app->get('/view', \Action\Backend\Media\View::class);
-                        $app->get('/create-directory', \Action\Backend\Media\CreateDirectory::class);
                         $app->get('/delete', \Action\Backend\Media\Delete::class);
                     });
                 });
