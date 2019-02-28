@@ -22,7 +22,7 @@
                        href="/admin/media/{{ object.id }}/delete"><i class="fas fa-trash"></i></a>
                 {% endif %}
             </span>
-            <span class="entityTable__field__part">
+            <span class="entityTable__field__part entityTable__field__part--hideMobile">
                 {% if isImage(object.key) %}
                     <img class="entityTable__field__image" src="https://cdn.iwgb.org.uk/{{ object.key }}" alt="{{ object.name }}">
                 {% endif %}

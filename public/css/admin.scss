@@ -164,6 +164,8 @@
 
         &__part {
             border: none;
+
+            @include hideMobile();
         }
 
         &__image {
