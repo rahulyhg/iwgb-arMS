@@ -1,0 +1,54 @@
+{% extends '/admin/admin.html.twig' %}
+
+{% block content %}
+    <div class="pageHeader">
+        <span>Upload</span>
+    </div>
+    <form action="/admin/media/new" method="post" class="form form--left">
+        <div class="form__group">
+            <p>Upload a file to the IWGB content delivery network.</p>
+            <input class="form__input" name="file" type="file" required>
+        </div>
+        <div class="form__group">
+            <p>Choose a folder and enter a file name.</p>
+            <p class="light">You may use letters, numbers and hyphens.</p>
+        </div>
+        <div class="form__group">
+            <select class="form__input" name="folder">
+                {% for folder in folders %}
+                    <option value="{{ folder }}">{{ folder }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form__group">
+            <input class="form__input form__input--disableOnChecked" type="text" name="name" placeholder="file-name" pattern="^[a-zA-Z0-9\-]+$" autofocus required>
+            <span>including file extension</span>
+        </div>
+        <div class="form__group">
+            <label>
+                <span>or name with a random ID</span>
+                <input class="form__input form__input--disableInputs" type="checkbox" name="generateId">
+            </label>
+        </div>
+        <div class="form__group">
+            <input class="form__input__submit" type="submit" value="Upload">
+        </div>
+    </form>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $('.form__input--disableInputs').change(function() {
+           if (this.checked) {
+               $('.form__input--disableOnChecked').attr('disabled', '1')
+                   .addClass('form__input--disabled');
+
+           } else {
+               $('.form__input--disableOnChecked').removeAttr('disabled')
+                   .removeClass('form__input--disabled');
+           }
+        });
+
+
+    </script>
+{% endblock %}
