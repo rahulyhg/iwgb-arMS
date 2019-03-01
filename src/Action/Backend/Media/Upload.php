@@ -44,6 +44,8 @@ class Upload extends GenericSpacesAction {
             'SourceFile' => APP_ROOT . '/var/upload/' . $id,
         ]);
 
+        unlink('/var/upload/' . $id);
+
         return $response->withRedirect('/admin/media/' . base64_encode($path) . '/view?m=File uploaded successfully');
 
     }
