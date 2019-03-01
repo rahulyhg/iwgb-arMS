@@ -4,7 +4,8 @@
     <div class="pageHeader">
         <span>Upload</span>
     </div>
-    <form action="/admin/media/new" method="post" class="form form--left">
+    <form action="/admin/media/new" method="post" class="form form--left" enctype="multipart/form-data">
+        {% include '/csrf.html.twig' %}
         <div class="form__group">
             <p>Upload a file to the IWGB content delivery network.</p>
             <input class="form__input" name="file" type="file" required>
@@ -21,13 +22,13 @@
             </select>
         </div>
         <div class="form__group">
-            <input class="form__input form__input--disableOnChecked" type="text" name="name" placeholder="file-name" pattern="^[a-zA-Z0-9\-]+$" autofocus required>
-            <span>including file extension</span>
+            <input class="form__input form__input--disableOnChecked" type="text" name="filename" placeholder="file-name" pattern="^[a-zA-Z0-9\-]+$" autofocus required>
+            <span>excluding file extension</span>
         </div>
         <div class="form__group">
             <label>
                 <span>or name with a random ID</span>
-                <input class="form__input form__input--disableInputs" type="checkbox" name="generateId">
+                <input class="form__input form__input--disableInputs" type="checkbox" name="generate" value="1">
             </label>
         </div>
         <div class="form__group">

@@ -99,11 +99,6 @@ class View extends GenericSpacesAction {
                     'href'      => '/admin/media/' . $args['path'] . '/new-folder',
                     'icon'      => 'fas fa-folder-plus',
                 ],
-                [
-                    'display'   => 'Set up on my device',
-                    'href'      => '/admin/media/setup',
-                    'icon'      => 'fas fa-download',
-                ],
             ],
         ]);
     }
