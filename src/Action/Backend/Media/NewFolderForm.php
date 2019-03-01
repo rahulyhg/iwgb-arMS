@@ -17,13 +17,15 @@ class NewFolderForm extends GenericSpacesAction {
         $path = base64_decode($args['path']);
 
         try {
-            $parentObject = $this->cdn->getObject([
+            $this->cdn->getObject([
                 'Bucket' => $this->bucket,
                 'Key' => $path,
             ])->toArray();
         } catch (Exception $e) {
             return $response->withRedirect('/admin/media/' . $this->root . '/view?e=Parent folder not found');
         }
+
+        $path = str_replace(substr(base64_decode($this->root), 0, -1), '', $path);
 
         return $this->render($request, $response, 'admin/entity/media/new-folder.html.twig', [
             'path'  => $path,

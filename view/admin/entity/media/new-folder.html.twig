@@ -6,10 +6,12 @@
     </div>
     <p>Enter a folder name.</p>
     <p class="light">You may use letters, numbers and hyphens.</p>
-    <form action="/admin/media/{{ pathId }}/new-folder" method="post" class="form">
+    <form action="/admin/media/new-folder" method="post" class="form">
+        {% include '/csrf.html.twig' %}
+        <input type="hidden" name="path" value="{{ path }}">
         <div class="form__group">
             <span>{{ path }}</span>
-            <input class="form__input" type="text" name="name" placeholder="new-folder" pattern="^[a-zA-Z0-9\-]+$" autofocus required>
+            <input class="form__input" type="text" name="folderName" placeholder="new-folder" pattern="^[a-zA-Z0-9\-]+$" autofocus required>
         </div>
         <div class="form__group">
             <input class="form__input__submit" type="submit" value="Create">

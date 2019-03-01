@@ -34,6 +34,10 @@ class Upload extends GenericSpacesAction {
             $name = $id :
             $form['filename'] . '.' . $extension;
 
+        if (!preg_match('/^[a-zA-Z0-9\-.$/', $name)) {
+            return $response->withRedirect('/admin/media/new?e=That filename is not allowed');
+        }
+
         $file->moveTo(APP_ROOT . '/var/upload/' . $id);
 
         $this->cdn->putObject([
