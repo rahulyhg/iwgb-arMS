@@ -38,11 +38,12 @@ class View extends GenericSpacesAction {
             'Prefix' => $prefix,
         ];
 
-        $objects = $this->cdn->listObjects($params)->toArray();
+        $objects = $this->cdn->listObjects($params)->toArray()['Contents'];
 
         $parsedObjects = [];
-        foreach ($objects['Contents'] as $object) {
-            if ($object['Key'] != $prefix) {
+        foreach ($objects as $object) {
+            if ($object['Key'] != $prefix &&
+                preg_match('/^' . str_replace('/', '\/', $prefix) . '[a-zA-Z0-9\-.]+\/?$/', $object['Key'])) {
 
                 /** @var DateTimeResult $modified */
                 $modified = $object['LastModified'];
