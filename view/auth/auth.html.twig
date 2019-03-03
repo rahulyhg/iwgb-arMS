@@ -10,15 +10,22 @@
 </head>
 <body>
 
-
-{% include '/alerts.html.twig' %}
-
-<div class="container" style="background: #fff url(https://iwgb.org.uk/img/header5.jpg) center/cover">
+<div class="container">
+    <div class="container__hero" style="background: #fff url(https://iwgb.org.uk/img/header5.jpg) center/cover">
+        <div class="container__hero__logo">
+            <div class="container__hero__logo__wash"></div>
+        </div>
+    </div>
     <div class="container__content">
-        <img class="logo" alt="logo" src="{{ _i('/assets/wordmark-red.png') }}">
-        {% block content %}
+        {% include '/alerts.html.twig' %}
+        <div class="container__content__center">
+            <div class="container__content__container">
+                <img class="logo" alt="logo" src="{{ 'https://iwgb.ams3.digitaloceanspaces.com/assets/wordmark-red.png' }}">
+                {% block content %}
 
-        {% endblock %}
+                {% endblock %}
+            </div>
+        </div>
     </div>
 </div>
 
