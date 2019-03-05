@@ -159,7 +159,14 @@ class Slim implements ServiceProviderInterface {
 
             $app->group('/member', function (App $app) {
 
+                $app->group('/tools', function (App $app) {
+
+                    $app->get('/roopal', \Action\Frontend\Tools\Roopal\Form::class);
+                    $app->post('/roopal', \Action\Frontend\Tools\Roopal\Upload::class);
+                });
+
             })->add(new \AuthMiddleware($c->session, 'member'));
+
             //legacy code
 
             $c['legacy'] = require APP_ROOT . '/legacyConfig.php';

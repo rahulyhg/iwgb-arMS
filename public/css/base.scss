@@ -137,6 +137,10 @@ a {
             display: flex;
             justify-content: center;
         }
+
+        a {
+            @include underlineAnchor($linkBlue);
+        }
     }
 
     &__input {
