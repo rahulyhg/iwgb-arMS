@@ -19,9 +19,11 @@ class View extends GenericLoggedInAction {
 
     public function __construct(Container $c) {
         parent::__construct($c);
+        $twigEnv = $this->view->getEnvironment();
+        self::addEntityListFunctions($twigEnv);
 
         /** @var $c \TypeHinter */
-        $c->view->getEnvironment()->addFunction(new Twig_Function('isImage', function($s) {
+        $twigEnv->addFunction(new Twig_Function('isImage', function($s) {
             return self::isImage($s);
         }));
     }
