@@ -108,7 +108,7 @@ class Slim implements ServiceProviderInterface {
                     });
                 });
 
-            })->add(new \UserAuthMiddleware($c->session));
+            })->add(new \AuthMiddleware($c->session, 'official'));
 
             $app->get('/s/{shortlink}', \Action\Frontend\Shortlink::class);
 
@@ -157,6 +157,9 @@ class Slim implements ServiceProviderInterface {
                 });
             });
 
+            $app->group('/member', function (App $app) {
+
+            })->add(new \AuthMiddleware($c->session, 'member'));
             //legacy code
 
             $c['legacy'] = require APP_ROOT . '/legacyConfig.php';

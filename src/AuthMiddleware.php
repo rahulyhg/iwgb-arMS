@@ -4,23 +4,24 @@ use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-class UserAuthMiddleware {
+class AuthMiddleware {
 
     const LOGIN_REDIRECT_MESSAGE = 'To view this page, you must log in.';
 
     private $session;
 
-    public function __construct(\SlimSession\Helper $session) {
+    private $realm;
 
-        /** @var $c \TypeHinter */
+    public function __construct(\SlimSession\Helper $session, string $realm) {
         $this->session = $session;
+        $this->realm = $realm;
     }
 
     public function __invoke(Request $request, Response $response, callable $next): ResponseInterface {
         $callback = $request->getUri()->getPath();
-        if (($callback != '/arms/login' &&
+        if (($callback != '/auth/login' &&
             !$this->session->get('loginStatus')) ||
-            $this->session->get('realm') != 'official') {
+            $this->session->get('realm') != $this->realm) {
             return $response->withRedirect('/auth/login?e=' . self::LOGIN_REDIRECT_MESSAGE . "&callback=$callback");
         }
 
