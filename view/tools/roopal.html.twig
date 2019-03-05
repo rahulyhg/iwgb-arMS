@@ -11,32 +11,12 @@
             <p>Convert Deliveroo invoice PDFs to an Excel-ready CSV.</p>
             <p>This tool uses <a href="//github.com/guym4c/roopal-php" target="_blank">Roopal</a>. If you have any issues, please leave feedback there.</p>
         </div>
-        <div class="form__group form__group--append">
-            <input class="form__input" name="file[0]" type="file" data-i="0" required>
-        </div>
-        <div class="form__group">
-            <a id="add" href="#"><i class="fas fa-plus"></i>Add another</a>
+        <div class="form__input">
+            <input class="form__input" name="file[]" type="file" data-i="0" required multiple>
         </div>
         <div class="form__group">
             <input class="form__input__submit" type="submit" value="Convert">
         </div>
     </form>
-
-{% endblock %}
-
-{% block scripts %}
-
-    <script>
-        $('#add').on('click', function(e) {
-            let append = $(this).parent().parent().find('.form__group--append');
-            let cloned = append.clone();
-            append.removeClass('form__group--append');
-            let input = cloned.find('.form__input');
-            const i = parseInt(input.attr('data-i'));
-            input.attr('name', 'file[' + (i + 1) + ']');
-            input.attr('data-i', i + 1);
-            append.after(cloned);
-        });
-    </script>
 
 {% endblock %}
