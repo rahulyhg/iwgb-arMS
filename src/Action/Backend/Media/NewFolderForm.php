@@ -2,12 +2,15 @@
 
 namespace Action\Backend\Media;
 
+use Action\Backend\GenericLoggedInAction;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-class NewFolderForm extends GenericSpacesAction {
+class NewFolderForm extends GenericLoggedInAction {
+
+    use SpacesActionTrait;
 
     /**
      * {@inheritdoc}
@@ -18,14 +21,14 @@ class NewFolderForm extends GenericSpacesAction {
 
         try {
             $this->cdn->getObject([
-                'Bucket' => $this->bucket,
+                'Bucket' => $this->settings['spaces']['bucket'],
                 'Key' => $path,
             ])->toArray();
         } catch (Exception $e) {
-            return $response->withRedirect('/admin/media/' . $this->root . '/view?e=Parent folder not found');
+            return $response->withRedirect('/admin/media/' . $this->getEncodedRoot() . '/view?e=Parent folder not found');
         }
 
-        $path = str_replace(substr(base64_decode($this->root), 0, -1), '', $path);
+        $path = str_replace(substr($this->getRoot(), 0, -1), '', $path);
 
         return $this->render($request, $response, 'admin/entity/media/new-folder.html.twig', [
             'path'  => $path,

@@ -2,12 +2,15 @@
 
 namespace Action\Backend\Media;
 
+use Action\Backend\GenericLoggedInAction;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UploadedFileInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-class Upload extends GenericSpacesAction {
+class Upload extends GenericLoggedInAction {
+
+    use SpacesActionTrait;
 
     /**
      * {@inheritdoc}
@@ -17,7 +20,7 @@ class Upload extends GenericSpacesAction {
         /** @var UploadedFileInterface $file */
         $file = $request->getUploadedFiles()['file'];
         $form = $request->getParsedBody();
-        $root = substr(base64_decode($this->root), 0, -1);
+        $root = substr($this->getRoot(), 0, -1);
         $generate = !empty($form['generate']);
 
         if (empty($file) ||
@@ -41,7 +44,7 @@ class Upload extends GenericSpacesAction {
         $file->moveTo(APP_ROOT . '/var/upload/' . $id);
 
         $this->cdn->putObject([
-            'Bucket' => $this->bucket,
+            'Bucket' => $this->settings['spaces']['bucket'],
             'Key' => $path . $name,
             'ACL' => 'public-read',
             'ContentType' => $file->getClientMediaType(),

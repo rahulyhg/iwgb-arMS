@@ -40,4 +40,7 @@ class TypeHinter {
 
     /** @var $recaptcha \Recaptcha\Recaptcha */
     public $recaptcha;
+
+    /** @var $cdn \Aws\S3\S3Client */
+    public $cdn;
 }

@@ -66,6 +66,7 @@ return [
             ],
             'region' => 'ams3',
             'bucket' => 'iwgb',
+            'publicRoot' => 'bucket/',
         ]
     ],
 ];

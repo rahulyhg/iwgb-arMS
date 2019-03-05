@@ -2,28 +2,29 @@
 
 namespace Action\Backend\Media;
 
+use Action\Backend\GenericLoggedInAction;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-class UploadForm extends GenericSpacesAction {
+class UploadForm extends GenericLoggedInAction {
+
+    use SpacesActionTrait;
 
     /**
      * {@inheritdoc}
      */
     public function __invoke(Request $request, Response $response, array $args): ResponseInterface {
 
-        $root = base64_decode($this->root);
-
         $objects = $this->cdn->listObjects([
-            'Bucket' => $this->bucket,
-            'Prefix' => $root,
+            'Bucket' => $this->settings['spaces']['bucket'],
+            'Prefix' => $this->getRoot(),
         ])->toArray()['Contents'];
 
         $folders = [];
         foreach ($objects as $object) {
             if (substr($object['Key'], -1) == '/') {
-                $folders[] = str_replace(substr($root, 0, -1), '', $object['Key']);
+                $folders[] = str_replace(substr($this->getRoot(), 0, -1), '', $object['Key']);
             }
         }
 

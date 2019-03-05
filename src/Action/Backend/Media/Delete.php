@@ -2,12 +2,15 @@
 
 namespace Action\Backend\Media;
 
+use Action\Backend\GenericLoggedInAction;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-class Delete extends GenericSpacesAction {
+class Delete extends GenericLoggedInAction {
+
+    use SpacesActionTrait;
 
     /**
      * {@inheritdoc}
@@ -18,11 +21,11 @@ class Delete extends GenericSpacesAction {
 
         try {
             $this->cdn->getObject([
-                'Bucket' => $this->bucket,
+                'Bucket' => $this->settings['spaces']['bucket'],
                 'Key' => $path,
             ])->toArray();
         } catch (Exception $e) {
-            return $response->withRedirect('/admin/media/' . $this->root . '/view?e=Object not found');
+            return $response->withRedirect('/admin/media/' . $this->getEncodedRoot() . '/view?e=Object not found');
         }
 
         $parent = $parent = substr($path, 0,
@@ -35,7 +38,7 @@ class Delete extends GenericSpacesAction {
         }
 
         $this->cdn->deleteObject([
-            'Bucket' => $this->bucket,
+            'Bucket' => $this->settings['spaces']['bucket'],
             'Key' => $path,
         ]);
 

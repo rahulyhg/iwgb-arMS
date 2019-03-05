@@ -29,6 +29,8 @@ abstract class GenericAction {
 
     protected $recaptcha;
 
+    protected $cdn;
+
     public function __construct(Container $c) {
         /* @var $c \TypeHinter */
         $this->view = $c->view;
@@ -40,6 +42,7 @@ abstract class GenericAction {
         $this->http = $c->http;
         $this->send = $c->send;
         $this->recaptcha = $c->recaptcha;
+        $this->cdn = $c->cdn;
     }
 
     /**

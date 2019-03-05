@@ -10,14 +10,20 @@ use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Twig_Function;
 
-class View extends GenericSpacesAction {
+class View extends GenericLoggedInAction {
 
     use EntityListTrait;
+    use SpacesActionTrait;
 
     public function __construct(Container $c) {
         parent::__construct($c);
-        self::addEntityListFunctions($this->view->getEnvironment());
+
+        /** @var $c \TypeHinter */
+        $c->view->getEnvironment()->addFunction(new Twig_Function('isImage', function($s) {
+            return self::isImage($s);
+        }));
     }
 
     /**
@@ -27,14 +33,14 @@ class View extends GenericSpacesAction {
     public function __invoke(Request $request, Response $response, array $args): ResponseInterface {
 
         if ($args['path'] == 'root') {
-            return $response->withRedirect('/admin/media/' . $this->root . '/view');
+            return $response->withRedirect('/admin/media/' . $this->getRoot() . '/view');
         }
 
         $prefix = base64_decode($args['path']);
 
 
         $params = [
-            'Bucket' => $this->bucket,
+            'Bucket' => $this->settings['spaces']['bucket'],
             'Prefix' => $prefix,
         ];
 
@@ -72,7 +78,7 @@ class View extends GenericSpacesAction {
             }
         });
 
-        if ($prefix != self::DEFAULT_PATH) {
+        if ($prefix != $this->getRoot()) {
 
             $parent = substr($prefix, 0,
                 strrpos($prefix, '/', -2) + 1);
@@ -88,7 +94,7 @@ class View extends GenericSpacesAction {
 
         return $this->render($request, $response, 'admin/entity-list.html.twig', [
             'entityName'    => 'media',
-            'entityPlural'  => str_replace(substr(self::DEFAULT_PATH, 0, -1), '', $prefix),
+            'entityPlural'  => str_replace(substr($this->getRoot(), 0, -1), '', $prefix),
             'entities'      => $parsedObjects,
             'columns'       => [
                 'name' => 'key',
