@@ -31,7 +31,7 @@ class AllMembers extends GenericLoggedInAction {
             $request->getQueryParam('sort') ?? 'timestamp',
             $request->getQueryParam('order') ?? 'desc',
             $request->getQueryParam('confirmed') ?? false,
-            $request->getQueryParam('verified') ?? false);
+            $request->getQueryParam('unverified') ?? false);
 
         return $this->render($request, $response, 'admin/entity-list.html.twig', [
             'entityName'    => 'member',
