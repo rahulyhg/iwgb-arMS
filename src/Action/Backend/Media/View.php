@@ -33,7 +33,7 @@ class View extends GenericLoggedInAction {
     public function __invoke(Request $request, Response $response, array $args): ResponseInterface {
 
         if ($args['path'] == 'root') {
-            return $response->withRedirect('/admin/media/' . $this->getRoot() . '/view');
+            return $response->withRedirect('/admin/media/' . $this->getEncodedRoot() . '/view');
         }
 
         $prefix = base64_decode($args['path']);
