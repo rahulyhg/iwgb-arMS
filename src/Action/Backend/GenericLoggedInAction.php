@@ -3,7 +3,9 @@
 namespace Action\Backend;
 
 use Action\GenericAction;
+use Domain\User;
 use Psr\Http\Message\ResponseInterface;
+use Sentry\State\Scope;
 use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -15,9 +17,18 @@ abstract class GenericLoggedInAction extends GenericAction {
 
     public function __construct(Container $c) {
         parent::__construct($c);
-        $this->user = $this->em
-            ->getRepository(\Domain\User::class)
+
+        /** @var User $user */
+        $user = $this->em
+            ->getRepository(User::class)
             ->find($this->session->get('user'));
+        $this->user = $user;
+
+        \Sentry\configureScope(function (Scope $scope) use ($user): void {
+            $scope->setUser([
+                'email' => $user->getEmail(),
+            ]);
+        });
     }
 
     /**

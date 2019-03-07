@@ -4,6 +4,7 @@ namespace Action\Frontend;
 
 use Action\GenericAction;
 use Domain\Member;
+use Sentry\State\Scope;
 use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -21,6 +22,13 @@ abstract class GenericMemberAction extends GenericAction {
             ->getRepository(Member::class)
             ->find($this->session->get('user'));
         $this->member = $member;
+
+        \Sentry\configureScope(function (Scope $scope) use ($member): void {
+            $scope->setUser([
+                'id' => $member->getId(),
+                'email' => $member->getEmail(),
+            ]);
+        });
     }
 
     /**
