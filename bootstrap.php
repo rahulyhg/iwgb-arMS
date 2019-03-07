@@ -21,10 +21,9 @@ $c = new Container(require __DIR__ . '/settings.php');
 \Sentry\init([
     'dsn' => $c['settings']['sentry']['dsn'],
     'before_send' => function (Event $event): Event {
-        $message = $event->getExceptions()[0]['value'];
 
-        // ignore warnings when http adapters are being searched
-        if (strpos($message, 'src\Http\Adapter')) {
+        // suppress warnings from sentry
+        if ($event->getLevel() == 'warning') {
             return null;
         }
         return $event;
