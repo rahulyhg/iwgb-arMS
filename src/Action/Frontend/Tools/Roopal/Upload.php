@@ -46,6 +46,7 @@ class Upload extends GenericMemberAction {
 
         $files = $request->getUploadedFiles()['file'];
 
+        /** @var Invoice[] $invoices */
         $invoices = [];
 
         foreach ($files as $file) {
@@ -56,7 +57,8 @@ class Upload extends GenericMemberAction {
         }
 
         $csv = Invoice::toCsv($invoices);
-        $key = self::SPACES_CACHE_DIRECTORY . uniqid() . '.csv';
+        $id = uniqid();
+        $key = self::SPACES_CACHE_DIRECTORY . 'dl/' . $id . '.csv';
 
         $this->cdn->putObject([
             'Bucket' => $this->settings['spaces']['bucket'],
@@ -66,14 +68,29 @@ class Upload extends GenericMemberAction {
             'Body' => $csv,
         ]);
 
-        foreach ($files as $file) {
-            unlink(APP_ROOT . '/var/upload' . $file->getClientFilename());
-        }
-
         $uri = $this->cdn->createPresignedRequest($this->cdn->getCommand('GetObject', [
             'Bucket' => $this->settings['spaces']['bucket'],
             'Key' => $key,
         ]), '+1 hour')->getUri();
+
+        foreach ($invoices as $invoice) {
+            $invoice->setAnonymised(true);
+        }
+
+        $csv = Invoice::toCsv($invoices);
+        $key = self::SPACES_CACHE_DIRECTORY . $id . '.csv';
+
+        $this->cdn->putObject([
+            'Bucket'        => $this->settings['spaces']['bucket'],
+            'Key'           => $key,
+            'ACL'           => 'private',
+            'ContentType'   => 'text/csv',
+            'Body'          => $csv,
+        ]);
+
+        foreach ($files as $file) {
+            unlink(APP_ROOT . '/var/upload' . $file->getClientFilename());
+        }
 
         $this->send->email->transactional($this->member->getEmail(),
             self::SUCCESS_EMAIL_SUBJECT,
