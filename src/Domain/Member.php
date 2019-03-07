@@ -3,9 +3,6 @@
 namespace Domain;
 
 use DateTime;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\EventManager;
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -13,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="MemberRepository")
  */
 class Member {
+
+    use EntityToArrayTrait;
+
     /**
      * @var string
      *
@@ -406,6 +406,28 @@ class Member {
      */
     public function setRecentSecret(string $recentSecret): void {
         $this->recentSecret = $recentSecret;
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray(): array {
+        return [
+            'id'        => $this->getId(),
+            'applied'   => $this->getTimestamp()->format($this->CSV_DATETIME_FORMAT),
+            'verified'  => $this->isVerified() ? 'TRUE' : 'FALSE',
+            'confirmed' => $this->isConfirmed() ? 'TRUE' : 'FALSE',
+            'branch'    => $this->getBranch(),
+            'membership'=> $this->getMembership(),
+            'first_name'=> $this->getFirstName(),
+            'surname'   => $this->getSurname(),
+            'dob'       => $this->getDob()->format($this->CSV_DATE_FORMAT),
+            'gender'    => $this->getGender(),
+            'mobile'    => $this->getMobile(),
+            'email'     => $this->getEmail(),
+            'address'   => $this->getAddress(),
+            'postcode'  => $this->getPostcode(),
+        ];
     }
 
 

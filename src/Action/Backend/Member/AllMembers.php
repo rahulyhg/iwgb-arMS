@@ -4,12 +4,15 @@ namespace Action\Backend\Member;
 
 use Action\Backend\EntityListTrait;
 use Action\Backend\GenericLoggedInAction;
+use Domain\MemberRepository;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
 class AllMembers extends GenericLoggedInAction {
+
+    const MEMBER_REPORT_DIRECTORY = 'reports/';
 
     use EntityListTrait;
 
@@ -20,6 +23,7 @@ class AllMembers extends GenericLoggedInAction {
 
     /**
      * {@inheritdoc}
+     * @throws \League\Csv\CannotInsertRecord
      */
     public function __invoke(Request $request, Response $response, array $args): ResponseInterface {
 
@@ -32,6 +36,26 @@ class AllMembers extends GenericLoggedInAction {
             $request->getQueryParam('order') ?? 'desc',
             $request->getQueryParam('confirmed') ?? false,
             $request->getQueryParam('unverified') ?? false);
+
+        if ($request->getQueryParam('csv')) {
+            $key = self::MEMBER_REPORT_DIRECTORY . uniqid() . '.csv';
+            $csv = MemberRepository::toCsv($members);
+
+            $this->cdn->putObject([
+                'Bucket' => $this->settings['spaces']['bucket'],
+                'Key' => $key,
+                'ACL' => 'private',
+                'ContentType' => 'text/csv',
+                'Body' => MemberRepository::toCsv($members),
+            ]);
+
+            return $response->withRedirect(
+                $this->cdn->createPresignedRequest(
+                    $this->cdn->getCommand('GetObject', [
+                        'Bucket' => $this->settings['spaces']['bucket'],
+                        'Key' => $key,
+                    ]), '+5 minutes')->getUri()->__toString());
+        }
 
         return $this->render($request, $response, 'admin/entity-list.html.twig', [
             'entityName'    => 'member',
@@ -60,6 +84,13 @@ class AllMembers extends GenericLoggedInAction {
                         'confirmed' => 1,
                     ],
                     'icon'      => 'fas fa-filter',
+                ],
+                [
+                    'display'   => 'Download report',
+                    'param'     => [
+                        'csv'       => 1,
+                    ],
+                    'icon'      => 'fas fa-file' //TODO
                 ],
             ],
         ]);

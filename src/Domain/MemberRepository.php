@@ -5,6 +5,7 @@ namespace Domain;
 use Doctrine\ORM\EntityRepository;
 use Exception;
 use JSONObject;
+use League\Csv\Writer;
 
 class MemberRepository extends EntityRepository {
 
@@ -105,6 +106,30 @@ class MemberRepository extends EntityRepository {
             ->setFirstResult($page * self::DEFAULT_LIMIT)
             ->setMaxResults($n)
         )->execute();
+    }
+
+    /**
+     * @param Member[] $members
+     * @return array
+     */
+    public static function toArray(array $members): array {
+        $a = [];
+        foreach ($members as $member) {
+            $a[] = $member->toArray();
+        }
+        return $a;
+    }
+
+    /**
+     * @param Member[] $members
+     * @return string
+     * @throws \League\Csv\CannotInsertRecord
+     */
+    public static function toCsv(array $members): string {
+        $csv = Writer::createFromFileObject(new \SplTempFileObject());
+        $csv->insertOne(array_keys($members[0]->toArray()));
+        $csv->insertAll(self::toArray($members));
+        return $csv->getContent();
     }
 
 
