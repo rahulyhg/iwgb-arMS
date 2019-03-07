@@ -2,6 +2,7 @@
 
 namespace Provider;
 
+use Exception;
 use McAskill\Slim\Polyglot\Polyglot;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
@@ -17,6 +18,13 @@ class Slim implements ServiceProviderInterface {
      * {@inheritdoc}
      */
     public function register(Container $c) {
+
+        $c['errorHandler'] = function (Container $c) {
+            return function (Request $request, Response $response, Exception $ex) use ($c) {
+                \Sentry\captureException($ex);
+                return new \Slim\Handlers\Error($c['settings']['displayErrorDetails']);
+            };
+        };
 
         $c['csrf'] = function (Container $c): \Slim\Csrf\Guard {
             return new \Slim\Csrf\Guard;

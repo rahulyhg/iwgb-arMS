@@ -25,6 +25,7 @@
         "aws/aws-sdk-php": "^3.87",
         "ext-pcre": "*",
         "ext-simplexml": "*",
-        "guym4c/roopal-php": "^0.1.0"
+        "guym4c/roopal-php": "^0.1.0",
+        "sentry/sdk": "^2.0"
     }
 }

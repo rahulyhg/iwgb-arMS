@@ -67,6 +67,9 @@ return [
             'region' => 'ams3',
             'bucket' => 'iwgb',
             'publicRoot' => 'bucket/',
+        ],
+        'sentry' => [
+            'dsn' => $keys['sentry'],
         ]
     ],
 ];
