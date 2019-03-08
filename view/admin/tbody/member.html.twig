@@ -26,7 +26,7 @@
         <td class="entityTable__field entityTable__field--hideMobile">
             <span>{{ member.getBranch() }}</span>
             <a class="entityTable__field__action"
-               href="/admin/member/all/0?branch={{ member.getBranch() }}"><i class="fas fa-filter"></i></a>
+               href="{{ generateLink(_uri, {'branch': member.getBranch() }) }}"><i class="fas fa-filter"></i></a>
         </td>
     </tr>
 {% endfor %}
