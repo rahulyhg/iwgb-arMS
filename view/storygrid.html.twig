@@ -1,7 +1,7 @@
 <div class="stories">
 	<a href="/post/{{ header.getId() }}/{{ header.getShortlink() }}"
 	   class="story pinned latest"
-	   style="background: url('/img/bucket/{{ header.getHeaderImage() }}.jpg') center/cover">
+	   style="background: url(https://cdn.iwgb.org.uk/{{ header.getHeaderImage() }}) center/cover">
 		<div>
 			<h2>{{ header.getTitle() }}</h2>
 			<div class="meta">
@@ -17,7 +17,7 @@
 				{% if story.getHeaderImage() != '' %}
 					<a href="/post/{{ story.getId() }}/{{ story.getShortlink() }}"
 					   class="story img"
-					   style="background: url(/img/bucket/{{ story.getHeaderImage() }}.jpg) center/cover;">
+					   style="background: url(https://cdn.iwgb.org.uk/{{ story.getHeaderImage() }}) center/cover;">
 				{% else %}
 					<a href="/post/{{ story.getId() }}/{{ story.getShortlink() }}" class="story">
 				{% endif %}

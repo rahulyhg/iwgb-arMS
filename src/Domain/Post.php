@@ -61,7 +61,7 @@ class Post {
     /**
      * @var string
      *
-     * @ORM\Column(name="header_img", type="string", length=13, nullable=true)
+     * @ORM\Column(name="header_img", type="string", length=200, nullable=true)
      */
     private $headerImage;
 
