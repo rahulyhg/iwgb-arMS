@@ -20,17 +20,18 @@ class Slim implements ServiceProviderInterface {
     public function register(Container $c) {
 
         $c['errorHandler'] = function (Container $c) {
-            return function (Request $request, Response $response, Exception $ex) use ($c) {
-                $details = $c['settings']['displayErrorDetails'];
-                if ($details) {
-                    return new \Slim\Handlers\Error($c['settings']['displayErrorDetails']);
-                }
-                \Sentry\captureException($ex);
-                return $c['view']->render($response, '500.html.twig', [
-                    'event' => \Sentry\State\Hub::getCurrent()->getLastEventId(),
-                    'dsn'   => $c['settings']['sentry']['dsn'],
-                ])->withStatus(500);
-            };
+            $details = $c['settings']['displayErrorDetails'];
+            if ($details) {
+                return new \Slim\Handlers\Error($details);
+            } else {
+                return function (Request $request, Response $response, Exception $ex) use ($c) {
+                    \Sentry\captureException($ex);
+                    return $c['view']->render($response, '500.html.twig', [
+                        'event' => \Sentry\State\Hub::getCurrent()->getLastEventId(),
+                        'dsn'   => $c['settings']['sentry']['dsn'],
+                    ])->withStatus(500);
+                };
+            }
         };
 
         $c['csrf'] = function (Container $c): \Slim\Csrf\Guard {
