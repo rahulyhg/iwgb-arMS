@@ -21,8 +21,15 @@ class Slim implements ServiceProviderInterface {
 
         $c['errorHandler'] = function (Container $c) {
             return function (Request $request, Response $response, Exception $ex) use ($c) {
+                $details = $c['settings']['displayErrorDetails'];
+                if ($details) {
+                    return new \Slim\Handlers\Error($c['settings']['displayErrorDetails']);
+                }
                 \Sentry\captureException($ex);
-                return new \Slim\Handlers\Error($c['settings']['displayErrorDetails']);
+                return $c['view']->render($response, '500.html.twig', [
+                    'event' => \Sentry\State\Hub::getCurrent()->getLastEventId(),
+                    'dsn'   => $c['settings']['sentry']['dsn'],
+                ])->withStatus(500);
             };
         };
 
