@@ -6,6 +6,10 @@
 	recaptchaSite: Google ReCaptcha site key
 #}
 
+{% block head %}
+	<title>Join {{ _(branch.display) }} &middot; IWGB</title>
+{% endblock %}
+
 {% block meta %}
 	<script src="/js/nodep-date-input-polyfill.dist.min.js"></script>
 {% endblock %}

@@ -1,16 +1,16 @@
 <div class="languages">
     <span class="languages__lang">
         {% if _lang != 'en' %}
-            <a class="languages__label" href="/en{{ _uri }}">en</a>
+            <a class="languages__label" href="/en{{ _uri }}"><img class="languages__label__image" src="https://cdn.iwgb.org.uk/assets/en.png" alt="en"></a>
         {% else %}
-            <span class="languages__label--current">en</span>
+            <span class="languages__label"><img class="languages__label__image" src="https://cdn.iwgb.org.uk/assets/en.png" alt="en"></span>
         {% endif %}
     </span>
     <span class="languages__lang">
         {% if _lang != 'es' %}
-            <a class="languages__label" href="/es{{ _uri }}">es</a>
+            <a class="languages__label" href="/es{{ _uri }}"><img class="languages__label__image" src="https://cdn.iwgb.org.uk/assets/es.png" alt="es"></a>
         {% else %}
-            <span class="languages__label--current">es</span>
+            <span class="languages__label"><img class="languages__label__image" src="https://cdn.iwgb.org.uk/assets/es.png" alt="es"></span>
         {% endif %}
     </span>
 </div>

@@ -5,6 +5,10 @@
 	branches: list of branch data conformant to branches.schema.json
 #}
 
+{% block head %}
+	<title>Join &middot; IWGB</title>
+{% endblock %}
+
 {% block page %}
 	{% include 'branches.html.twig' with {
 		'title': 		'Join a branch as a member',

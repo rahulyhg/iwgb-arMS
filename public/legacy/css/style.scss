@@ -1143,20 +1143,15 @@ p.social {
     padding: 0.5rem;
     background-color: #333;
     color: #fff;
-    text-transform: uppercase;
 
     &__lang {
         padding: 0 0.5rem;
-
-        & a:hover {
-            text-decoration: underline;
-        }
     }
 
     &__label {
 
-        &--current {
-            font-weight: bold;
+        &__image {
+            height: 1.5rem;
         }
     }
 }
