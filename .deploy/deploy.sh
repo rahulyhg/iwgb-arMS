@@ -10,6 +10,9 @@ rsync -a . /var/www/iwgb.org.uk --delete --exclude .git --exclude .db --exclude 
 cd /var/repo/iwgb.org.uk-static
 rsync -a . /var/www/iwgb.org.uk
 
+cd /var/repo/iwgb-config
+rsync -a . /var/www/iwgb.org.uk/public/config --exclude .git
+
 cd /var/www/iwgb.org.uk
 export COMPOSER_HOME=/usr/local/bin
 composer install
