@@ -58,11 +58,11 @@ class JSONObject {
      * @return array
      */
     public static function getSchema($name) {
-        return self::load(APP_ROOT . "/public/config/schema/$name.schema.json");
+        return self::load("/public/config/schema/$name.schema.json");
     }
 
     private static function loadJSON($config) {
-        return self::load(APP_ROOT . "/public/config/$config.json")[$config];
+        return self::load("/public/config/$config.json")[$config];
     }
 
     private static function load($file) {
