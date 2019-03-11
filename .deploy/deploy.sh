@@ -21,6 +21,8 @@ mkdir var
 mkdir var/doctrine
 mkdir var/upload
 chmod -R 777 var
+mkdir public/config/lang
+chmod -R 777 public/config/lang
 
 cd /var/www/iwgb.org.uk/public/css
 sass --update --no-cache --style compressed .:.
