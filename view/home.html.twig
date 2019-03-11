@@ -83,7 +83,61 @@
 {% endblock %}
 
 {% block scripts %}
-	<script src="/legacy/js/slideshow.js"></script>
+
+	{# from legacy slideshow.js #}
+
+	<script>
+		$(document).ready(function() {
+
+			var images = [
+				{% foreach image in slideshow %}
+					{
+						image: '{{ image.src }}',
+						caption: '{{ _(image.alt) }}',
+					}{% if not loop.last %},{% endif %}
+				{% endfor %}
+			];
+
+			var imageIndex = -1;
+			var cycle = window.setInterval(cycleImage, 10000);
+			images.forEach(function(image, index) {
+				var className = imageIndex == index ? 'current' : '';
+				var dot = $('<a>', {
+					id: 'image' + index,
+					class: className,
+				});
+				dot.click(function() {
+					imageIndex = dot.attr('id').substr(-1);
+					clearInterval(cycle);
+					cycle = window.setInterval(cycleImage, 10000);
+					replaceImage(imageIndex);
+				});
+				$('#gallery-dots').append(dot);
+			});
+
+			cycleImage();
+			function cycleImage() {
+				imageIndex++;
+				if (imageIndex == images.length) {
+					imageIndex = 0;
+				}
+				replaceImage(imageIndex);
+			}
+
+			function replaceImage(index) {
+				if ($('.hero').css('display') != 'none') {
+					$('.hero').fadeTo(400, 0.2, function() {
+						$('.hero').css({
+							background: 'url(/img/' + images[index].image + ') center/cover',
+						});
+						$('.caption').text(images[index].caption);
+						$('#gallery-dots').find('a').removeClass('current');
+						$('#image' + index).addClass('current');
+					}).fadeTo(400, 1);
+				}
+			}
+		});
+	</script>
 	<script>
 		$(document).ready(function() {
 			var coords = [51.532710, -0.109039];
