@@ -202,6 +202,31 @@
                 }
             }
         },
+        "images": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "kind": {
+                    "description": "The type of element this is",
+                    "type": "string",
+                    "enum": [
+                        "images"
+                    ]
+                },
+                "fields": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "images": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/image"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "tri-promoColumn": {
             "type": "object",
             "additionalProperties": false,
@@ -237,7 +262,7 @@
                     "pattern": "^\/\\S*$"
                 },
                 "alt": {
-                    "description": "Text describing the image for accessibility purposes",
+                    "description": "Text describing the image for accessibility purposes or a caption",
                     "type": "object",
                     "$ref": "/config/schema/content.schema.json#/definitions/content"
                 }

@@ -20,6 +20,7 @@ $c = new Container(require __DIR__ . '/settings.php');
 
 \Sentry\init([
     'dsn' => $c['settings']['sentry']['dsn'],
+    'release' => JSONObject::get(Config::App, 'app')[0]['version'],
     'before_send' => function (Event $event): Event {
 
         // suppress warnings from sentry

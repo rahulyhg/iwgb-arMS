@@ -2,6 +2,8 @@
 
 namespace Action\Frontend;
 
+use Config;
+use JSONObject;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -21,8 +23,9 @@ class Home extends GenericPublicAction {
         return $this->render($request, $response, 'home.html.twig', [
             'pinned'    => $pinned,
             'stories'   => $stories,
-            'branches'  => \JSONObject::getAll(\Config::Branches),
-            'elements'  => \JSONObject::get(\Config::Pages, 'home')['elements'],
+            'branches'  => JSONObject::getAll(Config::Branches),
+            'elements'  => JSONObject::get(Config::Pages, 'home')['elements'],
+            'slideshow' => JSONObject::get(Config::Pages, 'home-slideshow')['elements']['fields']['images'],
         ]);
     }
 }
