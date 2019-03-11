@@ -24,7 +24,7 @@
                         "videoId": {
                             "description": "The video ID from the YouTube URL",
                             "type": "string",
-                            "pattern": ""
+                            "pattern": "^[a-zA-Z0-9]{11}$"
                         }
                     },
                     "required": [
@@ -107,7 +107,6 @@
                     "properties": {
                         "background": {
                             "type": "object",
-                            "additionalProperties": false,
                             "oneOf": [
                                 {
                                     "properties": {
@@ -257,9 +256,8 @@
             "additionalProperties": false,
             "properties": {
                 "src": {
-                    "description": "the address of the image, beginning with the first slash",
-                    "type": "string",
-                    "pattern": "^\/\\S*$"
+                    "description": "The address of the image",
+                    "type": "string"
                 },
                 "alt": {
                     "description": "Text describing the image for accessibility purposes or a caption",
