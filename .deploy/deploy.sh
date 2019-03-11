@@ -18,5 +18,8 @@ mkdir var/doctrine
 mkdir var/upload
 chmod -R 777 var
 
-cd public/css
+cd /var/www/iwgb.org.uk/public/css
+sass --update --no-cache --style compressed .:.
+
+cd /var/www/iwgb.org.uk/public/legacy/css
 sass --update --no-cache --style compressed .:.
