@@ -90,7 +90,7 @@
 		$(document).ready(function() {
 
 			var images = [
-				{% foreach image in slideshow %}
+				{% for image in slideshow %}
 					{
 						image: '{{ image.src }}',
 						caption: '{{ _(image.alt) }}',
