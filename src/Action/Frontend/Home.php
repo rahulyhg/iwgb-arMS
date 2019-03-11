@@ -25,7 +25,7 @@ class Home extends GenericPublicAction {
             'stories'   => $stories,
             'branches'  => JSONObject::getAll(Config::Branches),
             'elements'  => JSONObject::get(Config::Pages, 'home')['elements'],
-            'slideshow' => JSONObject::get(Config::Pages, 'home-slideshow')['elements']['fields']['images'],
+            'slideshow' => JSONObject::get(Config::Pages, 'home-slideshow')['elements'][0]['fields']['images'],
         ]);
     }
 }
