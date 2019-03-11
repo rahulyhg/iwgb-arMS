@@ -128,7 +128,7 @@
 				if ($('.hero').css('display') != 'none') {
 					$('.hero').fadeTo(400, 0.2, function() {
 						$('.hero').css({
-							background: 'url(/img/' + images[index].image + ') center/cover',
+							background: 'url(' + images[index].image + ') center/cover',
 						});
 						$('.caption').text(images[index].caption);
 						$('#gallery-dots').find('a').removeClass('current');
