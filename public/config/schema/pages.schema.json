@@ -26,7 +26,6 @@
                     "items": {
                         "oneOf": [
                             {
-                                "type": "object",
                                 "$ref": "/config/schema/elements.schema.json#/definitions/yt-embed"
                             },
                             {
@@ -37,6 +36,9 @@
                             },
                             {
                                 "$ref": "/config/schema/elements.schema.json#/definitions/markdown"
+                            },
+                            {
+                                "$ref": "/config/schema/elements.schema.json#/definitions/images"
                             }
                         ]
                     }
