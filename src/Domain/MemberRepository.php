@@ -60,7 +60,7 @@ class MemberRepository extends EntityRepository {
                                int $page = 0,
                                string $sort = 'timestamp',
                                string $order = 'asc',
-                               bool $confirmed = false,
+                               bool $confirmed = true,
                                bool $unverified = false,
                                int $n = self::DEFAULT_LIMIT) {
 
@@ -68,10 +68,15 @@ class MemberRepository extends EntityRepository {
 
         $where = $qb->expr()
             ->eq('m.verified', ':verified');
+        $params = ['verified' => !$unverified];
 
-        $params = [
-            'verified' => !$unverified,
-        ];
+        $where = $qb->expr()->andX(
+            $qb->expr()
+                ->eq('m.confirmed', ':confirmed'),
+            $where);
+        $params = array_merge([
+            'confirmed' => $confirmed,
+        ], $params);
 
         if ($branch &&
             JSONObject::get('branches', $branch) !== false) {
@@ -82,16 +87,6 @@ class MemberRepository extends EntityRepository {
                 $where);
             $params = array_merge([
                 'branch' => $branch,
-            ], $params);
-        }
-
-        if ($confirmed) {
-            $where = $qb->expr()->andX(
-                $qb->expr()
-                    ->eq('m.confirmed', ':confirmed'),
-                $where);
-            $params = array_merge([
-                'confirmed' => true,
             ], $params);
         }
 
