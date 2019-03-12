@@ -1,7 +1,7 @@
 {% from 'nav.html.twig' import generateNodeLink %}
 
 {% macro generateNodeLink(node) %}
-	<a href="{{ _a(node.href) }}"
+	<a href="{{ node.href }}"
 		{% if node.type == 'external' %} target="_blank" {% endif %}>
 		<li>{{ _(node.display) }}</li>
 	</a>
@@ -18,7 +18,7 @@
 					{# node is a leaf node #}
 					{{ generateNodeLink(parentNode) }}
 				{% else %}
-					<div class="dropdown" href="{{ _a(parentNode.topNode.href) }}">
+					<div class="dropdown" href="{{ parentNode.topNode.href }}">
 						<li>{{ _(parentNode.topNode.display) }} <i class="fas fa-angle-down"></i></li>
 						<ul class="dropdown-content">
 							{% for leafNode in parentNode.listNodes %}
@@ -37,12 +37,12 @@
 	</div>
 	<div class="nav-border"></div>
 	<ul class="menu mobile-menu">
-		{% for parentNode in nav %}
+		{% for parentNode in nav.nodes %}
 			{% if parentNode.display is defined %}
 				{# node is a leaf node #}
-				{{ _self.generateNodeLink(parentNode) }}
+				{{ generateNodeLink(parentNode) }}
 			{% else %}
-				{{ _self.generateNodeLink(parentNode.node) }}
+				{{ generateNodeLink(parentNode.topNode) }}
 			{% endif %}
 		{% endfor %}
 	</ul>
