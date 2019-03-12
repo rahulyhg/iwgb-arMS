@@ -51,6 +51,7 @@ composer.lock
 
 # config files
 /public/config/*.json
+!/public/config/app.json
 /public/config/lang/
 /public/config/edit/
 /public/legacy/config/
