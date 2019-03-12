@@ -11,7 +11,7 @@ cd /var/repo/iwgb.org.uk-static
 rsync -a . /var/www/iwgb.org.uk
 
 cd /var/repo/iwgb-config
-rsync -a . /var/www/iwgb.org.uk/public/config --exclude .git
+rsync -a config /var/www/iwgb.org.uk/public
 
 cd /var/www/iwgb.org.uk
 export COMPOSER_HOME=/usr/local/bin
