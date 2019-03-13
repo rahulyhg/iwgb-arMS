@@ -111,6 +111,7 @@ class Slim implements ServiceProviderInterface {
                     $app->get('/{member}/confirm', \Action\Backend\Member\Confirm::class);
                     $app->get('/{member}/delete', \Action\Backend\Member\Delete::class);
                     $app->get('/{member}/remind', \Action\Backend\Member\Remind::class);
+                    $app->get('/{member}/reverify', \Action\Backend\Member\Reverify::class);
                 });
 
                 $app->group('/media', function (App $app) {

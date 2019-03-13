@@ -75,7 +75,11 @@
                     {% if member.isVerified() %}
                         <i class="fas fa-check"></i>
                     {% else %}
-                        <i class="fas fa-times"></i>
+                        <span><i class="fas fa-times"></i></span>
+                        <span class="memberDatum__value__action">
+                            <i class="fas fa-undo"></i>
+                            <a href="/admin/member/{{ member.getId() }}/reverify">Resend verification</a>
+                        </span>
                     {% endif %}
                 </div>
             </div>
