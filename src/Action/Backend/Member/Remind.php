@@ -21,7 +21,6 @@ class Remind extends GenericLoggedInAction {
                 'If you had difficulties completing your payment on your phone, try using a laptop or desktop. Sorry about that.',
             ],
             'after' => [
-                '**Why join the IWGB?**',
                 '%copy%',
                 "If you've got any further questions, please don't hesitate to give us a call.",
                 '— Your friends at the IWGB',
@@ -36,7 +35,7 @@ class Remind extends GenericLoggedInAction {
         ],
     ];
 
-    const VERIFIED_EMAIL_TEXT = "Application number: %application%\r\n\r\nHey %name,\r\nWe've verified and received your application. Once you've completed the your payment, we'll be in touch confirming your membership to the IWGB! If you had difficulties completing your payment on your phone, try using a laptop or desktop. Sorry about that.\r\n\r\nClick here to complete your payment: https://iwgb.org.uk/join/%application%/verified\r\n\r\nWhy join the IWGB?\r\n\r\n%copy%\r\n\r\nIf you've got any further questions, please don't hesitate to give us a call.\r\n\r\n— Your friends at the IWGB\r\n\r\nThis email was sent because you completed an application on iwgb.org.uk.\r\nIndependent Workers Union of Great Britain, 12-20 Baron St, London, N1 9LL";
+    const VERIFIED_EMAIL_TEXT = "Application number: %application%\r\n\r\nHey %name,\r\nWe've verified and received your application. Once you've completed the your payment, we'll be in touch confirming your membership to the IWGB! If you had difficulties completing your payment on your phone, try using a laptop or desktop. Sorry about that.\r\n\r\nClick here to complete your payment: https://iwgb.org.uk/join/%application%/verified\r\n\r\n%copy%\r\n\r\nIf you've got any further questions, please don't hesitate to give us a call.\r\n\r\n— Your friends at the IWGB\r\n\r\nThis email was sent because you completed an application on iwgb.org.uk.\r\nIndependent Workers Union of Great Britain, 12-20 Baron St, London, N1 9LL";
 
     const VERIFIED_EMAIL_SUBJECT = 'Your IWGB Membership Application';
 
@@ -53,7 +52,7 @@ class Remind extends GenericLoggedInAction {
         $member = $memberRepo->find($args['member'], null, null, true);
 
         if (empty($member)) {
-            return $response->withRedirect('/admin/member/all/0?e=Member does exist');
+            return $response->withRedirect('/admin/member/all/0?e=Member does exist or is not verified');
         }
 
         $this->send->email->transactional($member->getEmail(),
