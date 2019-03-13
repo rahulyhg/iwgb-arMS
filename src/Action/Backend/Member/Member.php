@@ -17,7 +17,7 @@ class Member extends GenericLoggedInAction {
         /** @var MemberRepository $memberRepo */
         $memberRepo = $this->em->getRepository(\Domain\Member::class);
         /** @var \Domain\Member $member */
-        $member = $memberRepo->find($args['member'], null, null, true);
+        $member = $memberRepo->find($args['member'], null, null, true, true);
 
         if (empty($member)) {
             return $response->withRedirect('/admin/member/all/0?e=Member does not exist');
