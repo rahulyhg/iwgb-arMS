@@ -53,7 +53,7 @@ class Verified extends GenericPublicAction {
         /** @var MemberRepository $memberRepo */
         $memberRepo = $this->em->getRepository(Member::class);
         /** @var Member $member */
-        $member = $memberRepo->find($args['application'], null, null, true);
+        $member = $memberRepo->find($args['application'], null, null, true, true);
         if (empty($member)) {
             return $this->notFoundHandler;
         }

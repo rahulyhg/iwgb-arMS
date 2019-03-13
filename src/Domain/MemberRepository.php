@@ -14,15 +14,15 @@ class MemberRepository extends EntityRepository {
     /**
      * {@inheritdoc}
      */
-    public function find($id, $lockMode = null, $lockVersion = null, $unconfirmed = false) {
+    public function find($id, $lockMode = null, $lockVersion = null, $unconfirmed = false, $unverified = false) {
         try {
             /** @var Member $member */
             $member = parent::find($id, $lockMode, $lockVersion);
         } catch (Exception $e) {
             return null;
         }
-        if (!$unconfirmed &&
-            !$member->isConfirmed()) {
+        if ((!$unconfirmed && !$member->isConfirmed()) ||
+            (!$unverified && !$member->isVerified())) {
             return null;
         }
         return $member;
