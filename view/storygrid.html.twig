@@ -8,7 +8,7 @@
 				<p class="category">{{ header.getBlog().getFriendlySingular() }}</p>
 				<p>{{ header.getStringTimestamp()|timeago }}</p>
 				<p class="disqus-comment-count"
-				   data-disqus-identifier="{{ header.getId() }}-{{ header.getShortlink() }}">0 comments</p>
+				   data-disqus-identifier="{{ header.getId() }}-{{ header.getShortlink() }}">0 {{ _("comments") }}</p>
 			</div>
 		</div>
 	</a>
@@ -27,7 +27,7 @@
 								<p class="category">{{ story.getBlog().getFriendlySingular() }}</p>
 								<p>{{ story.getStringTimestamp()|timeago }}</p>
 								<p class="disqus-comment-count"
-								   data-disqus-identifier="{{ story.getId() }}-{{ story.getShortlink() }}">0 comments</p>
+								   data-disqus-identifier="{{ story.getId() }}-{{ story.getShortlink() }}">0 {{ _("comments") }}</p>
 							</div>
 						</div>
 					</a>
@@ -36,13 +36,13 @@
 	{% if page is defined and blog is defined %}
 		<p class="view-more">
 			{% if page > 0 %}
-				<a href="/feed/{{ blog }}/{{ page - 1 }}">Newer stories</a>
+				<a href="/feed/{{ blog }}/{{ page - 1 }}">{{ _("Newer stories") }}</a>
 			{% endif %}
-			<a href="/feed/{{ blog }}/{{ page + 1 }}">More stories</a>
+			<a href="/feed/{{ blog }}/{{ page + 1 }}">{{ _("More stories") }}</a>
 		</p>
 	{% elseif page is defined %}
-		<p class="view-more"><a href="/feed/{{ page }}/0">More stories</a></p>
+		<p class="view-more"><a href="/feed/{{ page }}/0">{{ _("More stories") }}</a></p>
 	{% else %}
-		<p class="view-more"><a href="/feed/all/0">More stories</a></p>
+		<p class="view-more"><a href="/feed/all/0">{{ _("More stories") }}</a></p>
 	{% endif %}
 </div>
