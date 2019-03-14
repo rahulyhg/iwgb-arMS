@@ -38,8 +38,8 @@ class PostRepository extends EntityRepository {
             $this->getEntityManager()
                 ->createQueryBuilder()
                 ->expr()
-                ->neq('p.headerImage', ':noHeader'),
-            ['noHeader' => '""'],
+                ->isNotNull('p.headerImage'),
+            [],
             1);
     }
 
