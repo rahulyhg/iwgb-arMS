@@ -12,7 +12,7 @@
                     <span>{{ object.name }}</span>
                 </a>
                 {% else %}
-                    <a href="https://cdn.iwgb.org.uk/{{ object.key }}" class="entityTable__link" target="_blank">
+                    <a href="{{ _i("/" ~ object.key) }}" class="entityTable__link" target="_blank">
                         <span>{{ object.name }}</span>
                     </a>
                     <a class="entityTable__field__action entityTable__field__action--copy" href="#"><i class="fas fa-copy"></i></a>
@@ -24,7 +24,7 @@
             </span>
             <span class="entityTable__field__part entityTable__field__part--hideMobile">
                 {% if isImage(object.key) %}
-                    <img class="entityTable__field__image" src="https://cdn.iwgb.org.uk/{{ object.key }}" alt="{{ object.name }}">
+                    <img class="entityTable__field__image" src="{{ _i("/" ~ object.key) }}" alt="{{ object.name }}">
                 {% endif %}
             </span>
         </td>

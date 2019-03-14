@@ -17,7 +17,7 @@
 		<div class="headline">
 			<h1>{{ post.title|htmlentities }}</h1>
 			{% if post.header_img != '' %}
-				<img class="header_img" src="https://cdn.iwgb.org.uk/{{ post.header_img }}">
+				<img class="header_img" src="{{ _i("/" ~ post.header_img) }}">
 			{% endif %}
 		</div>
 		<div class="content-columns">
