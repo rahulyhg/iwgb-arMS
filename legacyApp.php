@@ -1218,21 +1218,10 @@ function generateShortlink($title) {
 }
 
 function saveFileToBucket($file, $image = true) {
-    if ($image) {
-        if (pathinfo($file->getClientFilename(), PATHINFO_EXTENSION) != 'jpg') {
-            return false;
-        }
-        $ext = 'jpg';
-    } else {
-        $ext = pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
-    }
-    $id = uniqid();
-    $file->moveTo(__DIR__ . "/img/bucket/$id.$ext");
-    if ($image) {
-        return $id;
-    } else {
-        return "$id.$ext";
-    }
+    $name = uniqid() . '.' . pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
+    $file->moveTo(__DIR__ . '/var/upload/' . $name);
+    requestJSON('http://localhost/uploadheader/' . $name . '/' . $file->getClientMediaType(), [], 'GET');
+    return 'post/' . $name;
 }
 
 function sendTwilio($client, $to, $body, $from = 'IWGB') {
@@ -1278,11 +1267,11 @@ function verifyCaptcha($recaptcha, $s) {
     }
 }
 
-function requestJSON($url, $data) {
+function requestJSON($url, $data, $method = 'POST') {
     $stream = stream_context_create(array(
         'http' => array(
             'header'    => "Content-type: application/x-www-form-urlencoded\r\n",
-            'method'    => "POST",
+            'method'    => $method,
             'content'   => http_build_query($data),
         ),
     ));
