@@ -23,7 +23,7 @@ mkdir var/upload
 chmod -R 777 var
 chmod -R 777 public/config/lang
 
-cd /var/www/iwgb.org.uk/public/css
+cd /var/www/iwgb.org.uk/css
 sass --update --no-cache --style compressed .:.
 
 cd /var/www/iwgb.org.uk/public/legacy/css
