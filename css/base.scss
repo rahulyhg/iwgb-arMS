@@ -52,7 +52,11 @@ a {
     @media #{$mobile} {
 
         &--hideMobile {
-            display: none !important;
+            display: none;
+
+            &--force {
+                display: none !important;
+            }
         }
     }
 }
@@ -63,6 +67,10 @@ a {
 
         &--hideDesktop {
             display: none !important;
+
+            &--force {
+                display: none !important;
+            }
         }
     }
 }
