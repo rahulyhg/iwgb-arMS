@@ -125,7 +125,7 @@
             </div>
 
             <div class="memberDatum memberDatum__section memberDatum--fullWidth">
-                <span>Contact</span>
+                <span class="memberDatum__section__label">Contact</span>
             </div>
 
             <div class="memberDatum memberDatum--fullWidth">
@@ -177,7 +177,7 @@
             </div>
 
             <div class="memberDatum memberDatum__section memberDatum--fullWidth">
-                <span>Branch data</span>
+                <span class="memberDatum__section__label">Branch data <span class="memberDatum__section__label__datum">{{ member.getBranch() }}</span></span>
             </div>
 
             {% for key, value in member.getBranchDataAssoc() %}
@@ -190,7 +190,7 @@
             {% endfor %}
 
             <div class="memberDatum memberDatum__section memberDatum--fullWidth">
-                <span>Recent events</span>
+                <span class="memberDatum__section__label">Recent events</span>
             </div>
 
 

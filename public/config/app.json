@@ -5,9 +5,9 @@
 			"display": {
 				"en": "app"
 			},
-			"version": "2.0.3",
-			"beta": true,
-			"build": "12-03-2019"
+			"version": "2.0.5",
+			"beta": false,
+			"build": "15-03-2019"
 		}
 	],
 	"config": [
