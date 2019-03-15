@@ -1,9 +1,7 @@
 @charset "utf-8";
 
-//noinspection CssUnknownTarget
-@import 'lib:system-ui-font.css';
-//noinspection CssUnknownTarget
-@import 'lib:normalize.css';
+@import 'lib/system-ui-font.css';
+@import 'lib/normalize.css';
 
 $linkBlue: #007bff;
 $darkGrey: #555;
