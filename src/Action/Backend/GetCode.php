@@ -41,7 +41,7 @@ class GetCode extends GenericAction {
                 break;
         }
 
-        $response = $response->withHeader('Content-Type', $mime);
-        return $response->withBody(new Stream($file));
+        return $response->withHeader('Content-Type', $mime)
+            ->withBody(new Stream($file));
     }
 }
