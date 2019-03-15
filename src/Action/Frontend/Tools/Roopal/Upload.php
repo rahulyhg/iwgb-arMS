@@ -11,7 +11,7 @@ use Slim\Http\Response;
 
 class Upload extends GenericMemberAction {
 
-    const SPACES_CACHE_DIRECTORY = 'roopal/';
+    use ParseTrait;
 
     const SUCCESS_EMAIL_SUBJECT = 'Download your roopal data';
 
@@ -45,53 +45,8 @@ class Upload extends GenericMemberAction {
     public function __invoke(Request $request, Response $response, array $args): ResponseInterface {
 
         $files = $request->getUploadedFiles()['file'];
-
+        $uri = $this->parseInvoices($files);
         /** @var Invoice[] $invoices */
-        $invoices = [];
-
-        foreach ($files as $file) {
-            /** @var $file UploadedFileInterface */
-            $path = APP_ROOT . '/var/upload/' . $file->getClientFilename();
-            $file->moveTo($path);
-            $invoices[] = new Invoice($path);
-        }
-
-        $csv = Invoice::toCsv($invoices);
-        $id = uniqid();
-        $key = self::SPACES_CACHE_DIRECTORY . 'dl/' . $id . '.csv';
-
-        $this->cdn->putObject([
-            'Bucket' => $this->settings['spaces']['bucket'],
-            'Key' => $key,
-            'ACL' => 'private',
-            'ContentType' => 'text/csv',
-            'Body' => $csv,
-        ]);
-
-        $uri = $this->cdn->createPresignedRequest($this->cdn->getCommand('GetObject', [
-            'Bucket' => $this->settings['spaces']['bucket'],
-            'Key' => $key,
-        ]), '+1 hour')->getUri();
-
-        foreach ($invoices as $invoice) {
-            $invoice->setAnonymised(true);
-        }
-
-        $csv = Invoice::toCsv($invoices);
-        $key = self::SPACES_CACHE_DIRECTORY . $id . '.csv';
-
-        $this->cdn->putObject([
-            'Bucket'        => $this->settings['spaces']['bucket'],
-            'Key'           => $key,
-            'ACL'           => 'private',
-            'ContentType'   => 'text/csv',
-            'Body'          => $csv,
-        ]);
-
-        foreach ($files as $file) {
-            unlink(APP_ROOT . '/var/upload' . $file->getClientFilename());
-        }
-
         $this->send->email->transactional($this->member->getEmail(),
             self::SUCCESS_EMAIL_SUBJECT,
             self::SUCCESS_EMAIL_TEXT,
