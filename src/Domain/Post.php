@@ -59,7 +59,7 @@ class Post {
     private $title;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="header_img", type="string", length=200, nullable=true)
      */
@@ -108,7 +108,7 @@ class Post {
      * @param string $language
      * @param string $shortlink
      * @param string $title
-     * @param string $headerImage
+     * @param string|null $headerImage
      * @param User $author
      * @param Blog $blog
      * @param User $postedBy
@@ -217,14 +217,14 @@ class Post {
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getHeaderImage(): string {
+    public function getHeaderImage() {
         return $this->headerImage;
     }
 
     /**
-     * @param string $headerImage
+     * @param string|null $headerImage
      */
     public function setHeaderImage(string $headerImage): void {
         $this->headerImage = $headerImage;

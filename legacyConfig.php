@@ -3,7 +3,7 @@
 $keys = require APP_ROOT . '/legacyKeys.php';
 
 return [
-    'displayErrorDetails'       => true,
+    'displayErrorDetails'       => false,
     'addContentLengthHeader'    => false,
     'db'        => [
         'host'  => $c['settings']['doctrine']['connection']['host'],

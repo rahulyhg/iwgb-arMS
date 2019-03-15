@@ -37,7 +37,7 @@ class Twig implements ServiceProviderInterface {
             }));
 
             $env->addFunction(new \Twig_Function('_i', function (string $s) use ($c): string {
-               return 'http://' . $c['settings']['cdn']['baseUrl'] . $s;
+               return 'https://' . $c['settings']['cdn']['baseUrl'] . $s;
             }));
 
 

@@ -1,5 +1,5 @@
 <div class="stories">
-    <a href="/post/{{ header.id }}/{{ header.shortlink }}" class="story pinned latest" style="background: url(https://cdn.iwgb.org.uk/{{ header.header_img }}) center/cover">
+    <a href="/post/{{ header.id }}/{{ header.shortlink }}" class="story pinned latest" style="background: url({{ _i("/" ~ header.header_img) }}) center/cover">
         <div>
             <h2>{{ header.title|htmlentities }}</h2>
             <div class="meta">
@@ -12,7 +12,7 @@
     <div class="stories half-height">
         {% for story in stories %}
         {% if story.header_img != '' %}
-        <a href="/post/{{ story.id }}/{{ story.shortlink}}" class="story img" style="background: url(https://cdn.iwgb.org.uk/{{ story.header_img }}) center/cover;">
+        <a href="/post/{{ story.id }}/{{ story.shortlink}}" class="story img" style="background: url({{ _i("/" ~ story.header_img) }}) center/cover;">
             {% else %}
             <a href="/post/{{ story.id }}/{{ story.shortlink}}" class="story">
                 {% endif %}

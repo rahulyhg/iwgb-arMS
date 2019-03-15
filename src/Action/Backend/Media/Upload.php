@@ -37,7 +37,7 @@ class Upload extends GenericLoggedInAction {
             $name = $id :
             $form['filename'] . '.' . $extension;
 
-        if (!preg_match('/^[a-zA-Z0-9\-.$/', $name)) {
+        if (!preg_match('/^[a-zA-Z0-9\-]+\.[a-zA-Z0-9]+$/', $name)) {
             return $response->withRedirect('/admin/media/new?e=That filename is not allowed');
         }
 
