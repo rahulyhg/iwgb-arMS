@@ -31,6 +31,17 @@ class GetCode extends GenericAction {
             return $response->withStatus(404);
         }
 
+        $mime = '';
+        switch ($args['folder']) {
+            case 'css':
+                $mime = 'text/css';
+                break;
+            case 'js':
+                $mime = 'application/javascript';
+                break;
+        }
+
+        $response = $response->withHeader('Content-Type', $mime);
         return $response->withBody(new Stream($file));
     }
 }
