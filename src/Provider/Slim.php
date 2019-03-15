@@ -75,7 +75,11 @@ class Slim implements ServiceProviderInterface {
             // legacy bodge
             $app->get('/uploadheader/{name}/{type}/{ext}', \Action\Backend\Post\Upload::class);
 
-            $app->get('/x/{folder:(?:css|js)}/{file}', \Action\Backend\GetCode::class);
+            $app->group('/x', function (App $app) {
+
+                $app->get('/{folder:(?:css|js)}/{file}', \Action\Backend\GetCode::class);
+                $app->get('/folder:(?:css|js)}/{subfolder}/{file}', \Action\Backend\GetCode::class);
+            });
 
             $app->group('/join', function(App $app) {
 
