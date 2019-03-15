@@ -25,10 +25,13 @@ class GetCode extends GenericAction {
             return $response->withStatus(403);
         }
 
-        $file = str_replace(':', '/', $args['file']);
+        $subfolder = '';
+        if (!empty($args['subfolder'])) {
+            $subfolder = $args['subfolder'] . '/';
+        }
 
         try {
-            $file = fopen(APP_ROOT . '/' . $args['folder'] . '/' . $file, 'r');
+            $file = fopen(APP_ROOT . '/' . $args['folder'] . '/' . $subfolder . $args['file'], 'r');
         } catch (Exception $e) {
             return $response->withStatus(404);
         }
