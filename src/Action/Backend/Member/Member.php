@@ -3,6 +3,7 @@
 namespace Action\Backend\Member;
 
 use Action\Backend\GenericLoggedInAction;
+use Domain\Event;
 use Domain\MemberRepository;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
@@ -23,9 +24,16 @@ class Member extends GenericLoggedInAction {
             return $response->withRedirect('/admin/member/all/0?e=Member does not exist');
         }
 
+        $events = $this->em->getRepository(Event::class)->findBy(['who' => $member->getId()], ['timestamp' => 'DESC'], 10);
+        $notes = $this->em->getRepository(Event::class)->findBy([
+            'who' => $member->getId(),
+            'type' => 'note.added',
+        ], ['timestamp' => 'DESC']);
+
         return $this->render($request, $response, 'admin/entity/member/view.html.twig', [
             'member' => $member,
-            'events' => $this->em->getRepository(\Domain\Event::class)->findBy(['who' => $member->getId()], null, 10),
+            'events' => $events,
+            'notes'  => $notes,
             '_a'     => ['w' => 'Member information on árMS is currently immutable and so may be outdated'],
         ]);
     }

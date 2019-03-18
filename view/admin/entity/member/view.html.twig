@@ -190,6 +190,18 @@
             {% endfor %}
 
             <div class="memberDatum memberDatum__section memberDatum--fullWidth">
+                <span class="memberDatum__section__label">Notes</span>
+            </div>
+
+            {% for note in notes %}
+                <div class="memberDatum memberDatum--fullWidth">
+                    {% set data = note.getData()|split(":") %}
+                    <div class="memberDatum__label" title="{{ note.getId() }}">{{ data[0] }} @ {{ note.getStringTimestamp() }}:</div>
+                    <div class="memberDatum__value memberDatum__value--small">{{ data[1] }}</div>
+                </div>
+            {% endfor %}
+
+            <div class="memberDatum memberDatum__section memberDatum--fullWidth">
                 <span class="memberDatum__section__label">Recent events</span>
             </div>
 
