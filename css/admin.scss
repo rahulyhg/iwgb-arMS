@@ -369,6 +369,10 @@
             @include colorAnchor($linkBlue);
             font-size: 1rem;
         }
+
+        &--small {
+            font-size: 1rem;
+        }
     }
 
     &__section {
@@ -378,6 +382,10 @@
         padding-top: 0.5rem;
         font-size: 1.5em;
         width: calc(100% - 2rem);
+
+        &__label__datum {
+            color: $midGrey;
+        }
     }
 }
 
