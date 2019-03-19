@@ -4,6 +4,7 @@ namespace Action\Backend\Member;
 
 use Action\Backend\GenericLoggedInAction;
 use Doctrine\ORM\ORMException;
+use Domain\Event;
 use Domain\MemberRepository;
 use JSONObject;
 use Psr\Http\Message\ResponseInterface;
@@ -44,6 +45,7 @@ class Remind extends GenericLoggedInAction {
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     * @throws \Exception
      */
     public function __invoke(Request $request, Response $response, array $args): ResponseInterface {
         /** @var MemberRepository $memberRepo */
@@ -54,6 +56,10 @@ class Remind extends GenericLoggedInAction {
         if (empty($member)) {
             return $response->withRedirect('/admin/member/all/0?e=Member does exist or is not verified');
         }
+
+        $event = new Event('member.reminded', $member->getId(), $this->user->getEmail());
+        $this->em->persist($event);
+        $this->em->flush();
 
         $this->send->email->transactional($member->getEmail(),
             self::VERIFIED_EMAIL_SUBJECT,
