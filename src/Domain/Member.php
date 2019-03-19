@@ -158,13 +158,16 @@ class Member {
      * @param string $surname
      * @param string $dob
      * @param string $gender
+     * @param string $nationality
+     * @param string $ethnicity
+     * @param string $preferredLanguage
      * @param string $mobile
      * @param string $email
      * @param string $address
      * @param string $postcode
      * @throws \Exception
      */
-    public function __construct(string $branchData, string $branch, string $membership, string $firstName, string $surname, string $dob, string $gender, string $mobile, string $email, string $address = 'did-not-supply', string $postcode = 'did-not-supply') {
+    public function __construct(string $branchData, string $branch, string $membership, string $firstName, string $surname, string $dob, string $gender, string $nationality, string $ethnicity, string $preferredLanguage, string $mobile, string $email, string $address = 'did-not-supply', string $postcode = 'did-not-supply') {
         $this->branchData = $branchData;
         $this->timestamp = new DateTime();
         $this->branch = $branch;
@@ -173,6 +176,9 @@ class Member {
         $this->surname = $surname;
         $this->dob = new DateTime($dob);
         $this->gender = $gender;
+        $this->nationality = $nationality;
+        $this->ethnicity = $ethnicity;
+        $this->preferredLanguage = $preferredLanguage;
         $this->mobile = $mobile;
         $this->email = $email;
         $this->address = $address;
@@ -200,6 +206,9 @@ class Member {
             $a['surname'],
             $a['dob'],
             $a['gender'],
+            $a['nationality'],
+            $a['ethnicity'],
+            $a['language'],
             $a['mobile'],
             $a['email'],
             $a['address'],
@@ -430,9 +439,9 @@ class Member {
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getEthnicity(): string {
+    public function getEthnicity() {
         return $this->ethnicity;
     }
 
@@ -458,9 +467,9 @@ class Member {
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getNationality(): string {
+    public function getNationality() {
         return $this->nationality;
     }
 
