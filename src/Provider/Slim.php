@@ -28,14 +28,14 @@ class Slim implements ServiceProviderInterface {
                     \Sentry\captureException($ex);
                     return $c['view']->render($response, '500.html.twig', [
                         'event' => \Sentry\State\Hub::getCurrent()->getLastEventId(),
-                        'dsn'   => $c['settings']['sentry']['dsn'],
+                        'dsn' => $c['settings']['sentry']['dsn'],
                     ])->withStatus(500);
                 };
             }
         };
 
         $c['csrf'] = function (Container $c): \Slim\Csrf\Guard {
-            return new \Slim\Csrf\Guard;
+            return new \FilterableCsrfMiddleware();
         };
 
         $c['notFoundHandler'] = function (Container $c) {
@@ -53,30 +53,28 @@ class Slim implements ServiceProviderInterface {
             /** @var $c \TypeHinter */
             $app = new App($c);
 
+            $app->add($c['csrf']);
+
             $app->add(function (Request $request, Response $response, callable $next) {
                 $uri = $request->getUri();
                 $path = $uri->getPath();
                 if ($path != '/' && substr($path, -1) == '/') {
                     $uri = $uri->withPath(substr($path, 0, -1));
 
-                    if($request->getMethod() == 'GET') {
-                        return $response->withRedirect((string)$uri, 301);
+                    if ($request->getMethod() == 'GET') {
+                        return $response->withRedirect((string) $uri, 301);
                     } else {
                         return $next($request->withUri($uri), $response);
                     }
                 }
-                
+
                 return $next($request, $response);
             });
 
-            $app->add($c['csrf']);
-
             $app->add(new Polyglot([
-                'languages'         => $c['settings']['languages']['available'],
-                'fallbackLanguage'  => $c['settings']['languages']['fallback'],
+                'languages' => $c['settings']['languages']['available'],
+                'fallbackLanguage' => $c['settings']['languages']['fallback'],
             ]));
-
-
 
             $app->add(new \Slim\Middleware\Session([
                 'name' => 'IwgbSession',
@@ -99,7 +97,7 @@ class Slim implements ServiceProviderInterface {
                 $app->get('/{folder:(?:css|js)}/{subfolder}/{file}', \Action\Backend\GetCode::class);
             });
 
-            $app->group('/join', function(App $app) {
+            $app->group('/join', function (App $app) {
 
                 $app->get('', \Action\Frontend\Join\Join::class);
                 $app->post('', \Action\Frontend\Join\Submit::class);
@@ -124,7 +122,7 @@ class Slim implements ServiceProviderInterface {
 
                 $app->group('/member', function (App $app) {
 
-                    $app->get('[/all]', function(Request $request, Response $response) {
+                    $app->get('[/all]', function (Request $request, Response $response) {
                         return $response->withRedirect('/admin/member/all/0');
                     });
 
@@ -182,7 +180,7 @@ class Slim implements ServiceProviderInterface {
                     $app->get('', \Action\Auth\Member\LoginForm::class);
                     $app->post('/member', \Action\Auth\Member\Login::class);
                     $app->get('/member/{event}', \Action\Auth\Member\LoginVerified::class);
-                    
+
                     $app->group('/official', function (App $app) {
 
                         $app->get('', \Action\Auth\User\LoginForm::class);
@@ -210,6 +208,12 @@ class Slim implements ServiceProviderInterface {
                 });
 
             })->add(new \AuthMiddleware($c->session, 'member'));
+
+
+            $app->group('/no-csrf', function (App $app) {
+
+                $app->post('/roopal/callback', \Action\Frontend\Tools\Roopal\Email::class);
+            });
 
             //legacy code
 
