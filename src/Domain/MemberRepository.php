@@ -9,7 +9,7 @@ use League\Csv\Writer;
 
 class MemberRepository extends EntityRepository {
 
-    const DEFAULT_LIMIT = 20;
+    const DEFAULT_LIMIT = 50;
 
     /**
      * {@inheritdoc}

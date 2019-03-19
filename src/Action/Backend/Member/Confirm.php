@@ -62,7 +62,9 @@ class Confirm extends GenericLoggedInAction {
 
         $member->setConfirmed($confirming);
 
+        $event = new Event('member.confirmed', $member->getId(), $this->user->getEmail());
 
+        $this->em->persist($event);
         $this->em->flush();
 
         if ($confirming) {
