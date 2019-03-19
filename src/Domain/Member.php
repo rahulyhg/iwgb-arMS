@@ -96,6 +96,27 @@ class Member {
     /**
      * @var string
      *
+     * @ORM\Column(name="ethnicity", type="string", length=100, nullable=true)
+     */
+    private $ethnicity;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lang", type="string", length=2, nullable=false)
+     */
+    private $preferredLanguage = 'en';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nationality", type="string", length=100, nullable=true)
+     */
+    private $nationality;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="mobile", type="string", length=14, nullable=false)
      */
     private $mobile;
@@ -406,6 +427,48 @@ class Member {
      */
     public function setRecentSecret(string $recentSecret): void {
         $this->recentSecret = $recentSecret;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEthnicity(): string {
+        return $this->ethnicity;
+    }
+
+    /**
+     * @param string $ethnicity
+     */
+    public function setEthnicity(string $ethnicity): void {
+        $this->ethnicity = $ethnicity;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPreferredLanguage(): string {
+        return $this->preferredLanguage;
+    }
+
+    /**
+     * @param string $preferredLanguage
+     */
+    public function setPreferredLanguage(string $preferredLanguage): void {
+        $this->preferredLanguage = $preferredLanguage;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNationality(): string {
+        return $this->nationality;
+    }
+
+    /**
+     * @param string $nationality
+     */
+    public function setNationality(string $nationality): void {
+        $this->nationality = $nationality;
     }
 
     /**
