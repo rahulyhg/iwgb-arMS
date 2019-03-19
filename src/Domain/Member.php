@@ -96,6 +96,27 @@ class Member {
     /**
      * @var string
      *
+     * @ORM\Column(name="ethnicity", type="string", length=100, nullable=true)
+     */
+    private $ethnicity;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lang", type="string", length=2, nullable=false)
+     */
+    private $preferredLanguage = 'en';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nationality", type="string", length=100, nullable=true)
+     */
+    private $nationality;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="mobile", type="string", length=14, nullable=false)
      */
     private $mobile;
@@ -137,13 +158,16 @@ class Member {
      * @param string $surname
      * @param string $dob
      * @param string $gender
+     * @param string $nationality
+     * @param string $ethnicity
+     * @param string $preferredLanguage
      * @param string $mobile
      * @param string $email
      * @param string $address
      * @param string $postcode
      * @throws \Exception
      */
-    public function __construct(string $branchData, string $branch, string $membership, string $firstName, string $surname, string $dob, string $gender, string $mobile, string $email, string $address = 'did-not-supply', string $postcode = 'did-not-supply') {
+    public function __construct(string $branchData, string $branch, string $membership, string $firstName, string $surname, string $dob, string $gender, string $nationality, string $ethnicity, string $preferredLanguage, string $mobile, string $email, string $address = 'did-not-supply', string $postcode = 'did-not-supply') {
         $this->branchData = $branchData;
         $this->timestamp = new DateTime();
         $this->branch = $branch;
@@ -152,6 +176,9 @@ class Member {
         $this->surname = $surname;
         $this->dob = new DateTime($dob);
         $this->gender = $gender;
+        $this->nationality = $nationality;
+        $this->ethnicity = $ethnicity;
+        $this->preferredLanguage = $preferredLanguage;
         $this->mobile = $mobile;
         $this->email = $email;
         $this->address = $address;
@@ -179,6 +206,9 @@ class Member {
             $a['surname'],
             $a['dob'],
             $a['gender'],
+            $a['nationality'],
+            $a['ethnicity'],
+            $a['language'],
             $a['mobile'],
             $a['email'],
             $a['address'],
@@ -406,6 +436,48 @@ class Member {
      */
     public function setRecentSecret(string $recentSecret): void {
         $this->recentSecret = $recentSecret;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getEthnicity() {
+        return $this->ethnicity;
+    }
+
+    /**
+     * @param string $ethnicity
+     */
+    public function setEthnicity(string $ethnicity): void {
+        $this->ethnicity = $ethnicity;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPreferredLanguage(): string {
+        return $this->preferredLanguage;
+    }
+
+    /**
+     * @param string $preferredLanguage
+     */
+    public function setPreferredLanguage(string $preferredLanguage): void {
+        $this->preferredLanguage = $preferredLanguage;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getNationality() {
+        return $this->nationality;
+    }
+
+    /**
+     * @param string $nationality
+     */
+    public function setNationality(string $nationality): void {
+        $this->nationality = $nationality;
     }
 
     /**

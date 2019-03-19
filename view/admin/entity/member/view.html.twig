@@ -124,6 +124,32 @@
                 </div>
             </div>
 
+            <div class="memberDatum">
+                <div class="memberDatum__label">Ethnicity</div>
+                <div class="memberDatum__value">
+                    <span>{{ member.getEthnicity() }}</span>
+                </div>
+            </div>
+
+            <div class="memberDatum">
+                <div class="memberDatum__label">Nationality</div>
+                <div class="memberDatum__value">
+                    <span>{{ member.getNationality() }}</span>
+                </div>
+            </div>
+
+            <div class="memberDatum">
+                <div class="memberDatum__label">Preferred language</div>
+                <div class="memberDatum__value">
+                    <span>{{ member.getPreferredLanguage() }}
+                        <img class="memberDatum__value__icon"
+                             src="{{ _i("/assets/" ~ member.getPreferredLanguage() ~ ".png") }}"
+                             alt="{{ member.getPreferredLanguage() }}">
+                    </span>
+
+                </div>
+            </div>
+
             <div class="memberDatum memberDatum__section memberDatum--fullWidth">
                 <span class="memberDatum__section__label">Contact</span>
             </div>
