@@ -3,7 +3,9 @@
 namespace Action\Frontend\Join;
 
 use Action\Frontend\GenericPublicAction;
+use Config;
 use Domain\Member;
+use JSONObject;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -25,6 +27,23 @@ class Submit extends GenericPublicAction {
         $application = self::validateApplication($data);
         if ($application === false) {
             return $response->withRedirect($callback);
+        }
+
+        if ($application['gender'] == 'other' &&
+            !empty($application['gender-other'])) {
+            $application['gender'] = $application['gender-other'];
+        }
+
+        if ($application['language'] == 'other' &&
+            !empty($application['language-other'])) {
+            $application['language'] = $application['language-other'];
+        } else if ($application['language'] == 'did-not-supply') {
+            $application['language'] = $response->getHeader('Content-Language')[0];
+        }
+
+        if ($application['ethnicity'] == 'other' &&
+            !empty($application['ethnicity-other'])) {
+            $application['ethnicity'] = $application['ethnicity-other'];
         }
 
         // verify captcha
@@ -66,7 +85,7 @@ class Submit extends GenericPublicAction {
      * @return array|bool
      */
     private static function validateApplication($data) {
-        $formSections = \JSONObject::get(\Config::Forms, 'join')['sections'];
+        $formSections = JSONObject::get(Config::Forms, 'join')['sections'];
 
         // mandatory
         $formSections[]['fields'] = [
@@ -85,7 +104,7 @@ class Submit extends GenericPublicAction {
         if (empty($data['branch'])) {
             return false;
         }
-        $branchFields = \JSONObject::get(\Config::Branches, $data['branch'])['fields'];
+        $branchFields = JSONObject::get(Config::Branches, $data['branch'])['fields'];
 
         foreach ($formSections as $section) {
             foreach ($section['fields'] as $line) {
