@@ -37,6 +37,8 @@ class Submit extends GenericPublicAction {
         if ($application['language'] == 'other' &&
             !empty($application['language-other'])) {
             $application['language'] = $application['language-other'];
+        } else if ($application['language'] == 'did-not-supply') {
+            $application['language'] = $response->getHeader('Content-Language')[0];
         }
 
         if ($application['ethnicity'] == 'other' &&
