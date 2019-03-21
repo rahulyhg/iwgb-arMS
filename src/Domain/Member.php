@@ -198,6 +198,10 @@ class Member {
             $a['postcode'] = '';
         }
 
+        if (empty($a['nationality'])) {
+            $a['nationality'] = null;
+        }
+
         return new self(
             json_encode($a['branchData']),
             $a['branch'],
