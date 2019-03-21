@@ -8,6 +8,7 @@ use Sentry\State\Scope;
 use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Twig\TwigFunction;
 
 abstract class GenericAction {
 
@@ -75,11 +76,11 @@ abstract class GenericAction {
         $twigEnv->addGlobal('_uri', $request->getUri()->getPath() . '?' . $request->getUri()->getQuery());
         $twigEnv->addGlobal('_mode', 'v2');
 
-        $twigEnv->addFunction(new \Twig_Function('_', function ($content) use ($dictionary) {
+        $twigEnv->addFunction(new TwigFunction('_', function ($content) use ($dictionary) {
             return $dictionary->get($content);
         }));
 
-        $twigEnv->addFunction(new \Twig_Function('_a', function ($s) use ($dictionary) {
+        $twigEnv->addFunction(new TwigFunction('_a', function ($s) use ($dictionary) {
             return $dictionary->processLink($s);
         }));
 
@@ -87,7 +88,7 @@ abstract class GenericAction {
             $scope->setUser(
                 ['ip' => $request->getAttribute('ip_address')]);
         });
-        
+
         $nameKey = $this->csrf->getTokenNameKey();
         $valueKey = $this->csrf->getTokenValueKey();
         $twigEnv->addGlobal('_csrf', [

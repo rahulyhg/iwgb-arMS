@@ -2,29 +2,24 @@
 
 namespace Action\Backend;
 
-use Action\GenericAction;
-use Psr\Http\Message\ResponseInterface;
-use Slim\Container;
-use Slim\Http\Request;
-use Slim\Http\Response;
-use Twig_Environment;
-use Twig_Function;
+use Twig;
+use Twig\TwigFunction;
 
 trait EntityListTrait {
 
-    public function addEntityListFunctions(Twig_Environment $twigEnv) {
+    public function addEntityListFunctions(Twig\Environment $twigEnv) {
 
-        $twigEnv->addFunction(new Twig_Function('generateLink', function(string $uri, array $a = []) {
+        $twigEnv->addFunction(new TwigFunction('generateLink', function(string $uri, array $a = []) {
             $parts = explode('?', $uri);
             return $parts[0] . '?' .
                 http_build_query(array_merge(self::getAssocQuery($parts[1] ?? ''), $a));
         }));
 
-        $twigEnv->addFunction(new Twig_Function('appendQuery', function (string $uri, string $newUri) {
+        $twigEnv->addFunction(new TwigFunction('appendQuery', function (string $uri, string $newUri) {
             return $newUri . '?' . (explode('?', $uri)[1] ?? '');
         }));
 
-        $twigEnv->addFunction(new Twig_Function('generateSortLink', function (string $uri, string $column) {
+        $twigEnv->addFunction(new TwigFunction('generateSortLink', function (string $uri, string $column) {
             $parts = explode('?', $uri);
             $q = self::getAssocQuery($parts[1] ?? '');
             if (!empty($q['sort']) &&
@@ -37,7 +32,7 @@ trait EntityListTrait {
             return self::buildQuery($parts[0], $q);
         }));
 
-        $twigEnv->addFunction(new Twig_Function('resetSort', function (string $uri) {
+        $twigEnv->addFunction(new TwigFunction('resetSort', function (string $uri) {
             $parts = explode('?', $uri);
             $q = self::getAssocQuery($parts[1] ?? '');
             unset($q['sort']);
@@ -45,7 +40,7 @@ trait EntityListTrait {
             return self::buildQuery($parts[0], $q);
         }));
 
-        $twigEnv->addFunction(new Twig_Function('resetFilters', function (string $uri) {
+        $twigEnv->addFunction(new TwigFunction('resetFilters', function (string $uri) {
             $parts = explode('?', $uri);
             $q = self::getAssocQuery($parts[1] ?? '');
             $q = array_intersect_key($q, ['sort' => null, 'order' => null]);

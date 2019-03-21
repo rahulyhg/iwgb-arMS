@@ -10,7 +10,7 @@ use Psr\Http\Message\ResponseInterface;
 use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Twig_Function;
+use Twig\TwigFunction;
 
 class View extends GenericLoggedInAction {
 
@@ -23,7 +23,7 @@ class View extends GenericLoggedInAction {
         self::addEntityListFunctions($twigEnv);
 
         /** @var $c \TypeHinter */
-        $twigEnv->addFunction(new Twig_Function('isImage', function($s) {
+        $twigEnv->addFunction(new TwigFunction('isImage', function($s) {
             return self::isImage($s);
         }));
     }

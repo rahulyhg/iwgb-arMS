@@ -70,9 +70,9 @@ class Emailer {
      * @param array $htmlVars HTML email variables.
      * @param array $params
      * @return SendResponse
-     * @throws Twig_Error_Loader
-     * @throws Twig_Error_Runtime
-     * @throws Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function transactional(string $to, string $subject, string $text, array $htmlVars, array $params): SendResponse {
         $email = $this->view->getEnvironment()->load('email/transaction.html.twig');
