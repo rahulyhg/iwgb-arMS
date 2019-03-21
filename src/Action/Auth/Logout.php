@@ -2,7 +2,6 @@
 
 namespace Action\Auth;
 
-use Action\Backend\GenericLoggedInAction;
 use Action\GenericAction;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;

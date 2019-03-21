@@ -39,7 +39,6 @@ class AllMembers extends GenericLoggedInAction {
 
         if ($request->getQueryParam('csv')) {
             $key = self::MEMBER_REPORT_DIRECTORY . uniqid() . '.csv';
-            $csv = MemberRepository::toCsv($members);
 
             $this->cdn->putObject([
                 'Bucket' => $this->settings['spaces']['bucket'],

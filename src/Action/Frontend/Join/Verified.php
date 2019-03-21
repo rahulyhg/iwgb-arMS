@@ -2,13 +2,11 @@
 
 namespace Action\Frontend\Join;
 
-use Action\Frontend\GenericMemberAction;
 use Action\Frontend\GenericPublicAction;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Domain\Member;
 use Domain\MemberRepository;
-use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Request;
 use Slim\Http\Response;
 

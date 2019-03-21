@@ -24,6 +24,7 @@ class Redirect extends GenericMemberAction {
             return $response->withRedirect('/auth/invalid');
         }
 
+        /** @noinspection PhpUnusedLocalVariableInspection */
         $link = '';
         switch ($event->getWho()) {
             case Clients::Discourse:

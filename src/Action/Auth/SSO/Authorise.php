@@ -16,8 +16,9 @@ class Authorise extends GenericAction {
     public function __invoke(Request $request, Response $response, array $args) {
 
         $params = $request->getQueryParams();
-        $data = '';
 
+        /** @noinspection PhpUnusedLocalVariableInspection */
+        $data = '';
         switch (strtolower($args['client'])) {
             case Clients::Discourse:
                 if (empty($params['sso']) ||
