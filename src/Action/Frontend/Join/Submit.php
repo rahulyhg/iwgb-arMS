@@ -7,6 +7,8 @@ use Config;
 use Domain\Member;
 use JSONObject;
 use Psr\Http\Message\ResponseInterface;
+use Sentry;
+use Sentry\State\Scope;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -22,6 +24,13 @@ class Submit extends GenericPublicAction {
         $callback = empty($callback) ? '/join' : $callback;
 
         $data = $request->getParsedBody();
+
+        if (!empty($data['email'])) {
+            Sentry\configureScope(function (Scope $scope) use ($data): void {
+                $scope->setUser(
+                    ['email' => $data['email']]);
+            });
+        }
 
         // verify application
         $application = self::validateApplication($data);

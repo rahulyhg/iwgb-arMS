@@ -3,6 +3,8 @@
 namespace Action;
 
 use Psr\Http\Message\ResponseInterface;
+use Sentry;
+use Sentry\State\Scope;
 use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -81,8 +83,11 @@ abstract class GenericAction {
             return $dictionary->processLink($s);
         }));
 
-
-
+        Sentry\configureScope(function (Scope $scope) use ($request): void {
+            $scope->setUser(
+                ['ip' => $request->getAttribute('ip_address')]);
+        });
+        
         $nameKey = $this->csrf->getTokenNameKey();
         $valueKey = $this->csrf->getTokenValueKey();
         $twigEnv->addGlobal('_csrf', [
