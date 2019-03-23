@@ -34,14 +34,14 @@
 		{% endfor %}
 		{% if branch.fields is defined %}
 			<div>
-				<h2>Information for your branch</h2>
+				<h2>{{ _("Information for your branch") }}</h2>
 				{% include 'formsection.html.twig' with {
 					'fields': branch.fields
 				} only %}
 			</div>
 		{% endif %}
 		<div>
-			<h2>Membership type</h2>
+			<h2>{{ _("Membership type") }}</h2>
 			<select name="membership">
 				{% for cost in branch.costs %}
 					<option value="{{ cost.name }}">{{ _(cost.display) }}: £{{ cost.amount }}</option>
@@ -49,7 +49,7 @@
 			</select>
 		</div>
 		<div class="g-recaptcha" data-sitekey="{{ recaptchaSite }}"></div>
-		<input type="submit" value="Next">
+		<input type="submit" value="{{ _("Next") }}">
 	</form>
 {% endblock %}
 	

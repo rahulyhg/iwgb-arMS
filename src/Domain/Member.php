@@ -210,7 +210,7 @@ class Member {
             $a['surname'],
             $a['dob'],
             $a['gender'],
-            $a['nationality'],
+            $a['nationality'] ?? '',
             $a['ethnicity'],
             $a['language'],
             $a['mobile'],
