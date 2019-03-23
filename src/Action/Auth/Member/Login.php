@@ -50,11 +50,9 @@ class Login extends GenericAction {
         }
 
         // we must take every number to verification to prevent members and non-members phone numbers being identified
-        if (empty($member)) {
-            $key = new \Domain\VerificationKey('invalid', \KeyType::SMS, '');
-            $this->em->persist($key);
-            $this->em->flush();
-            return $response->withRedirect($key->getLink());
-        }
+        $key = new \Domain\VerificationKey('invalid', \KeyType::SMS, '');
+        $this->em->persist($key);
+        $this->em->flush();
+        return $response->withRedirect($key->getLink());
     }
 }

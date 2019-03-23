@@ -3,7 +3,6 @@
 namespace Action\Backend\Member;
 
 use Action\Backend\GenericLoggedInAction;
-use Doctrine\ORM\ORMException;
 use Domain\Event;
 use Domain\MemberRepository;
 use JSONObject;

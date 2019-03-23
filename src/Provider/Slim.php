@@ -214,6 +214,7 @@ class Slim implements ServiceProviderInterface {
             //legacy code
 
             $c['legacy'] = require APP_ROOT . '/legacyConfig.php';
+            /** @noinspection PhpUnusedLocalVariableInspection */
             $container = $c;
             require APP_ROOT . '/legacyConfig.php';
             require_once APP_ROOT . '/legacyApp.php';
