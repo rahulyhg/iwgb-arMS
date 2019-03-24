@@ -1,0 +1,14 @@
+<div class="footer content-pad">
+	<div>
+		<p>&copy; {{ "Independent Workers Union of Great Britain" }} {{ "now"|date("Y") }}</p>
+		<p class="credit">{{ "Website & design by" }} <a href="http://guymac.eu">Guy Mac Creative</a></p>
+		{% if map %}
+			<p class="credit">{{ "Map data" }} &copy; <a href="http://openstreetmap.org">{{ "OpenStreetMap contributors" }}</a>, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, {{ "Imagery" }} &copy; <a href="http://mapbox.com">Mapbox</a></p>
+		{% endif %}
+		<p class="credit"><a href="/page/about/privacy">Privacy Policy</a> &middot; <a href="/page/about/data-protection">Data Protection Policy</a></p>
+		<p class="credit"><a href="/auth/login">Log In</a> &middot; v{{ app.version }} &middot; {{ ""|uniqid }}/{{ _mode }}</p>
+	</div>
+	<div>
+		<a id="to-the-top"><i class="fa fa-arrow-circle-up fa-2x"></i></a>
+	</div>
+</div>
